@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agora_login", "agora_login\agora_login.vcxproj", "{CFED7AB5-4F7D-4830-9FC3-36A1BC4829C9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agora_invite", "agora_invite\agora_invite.vcxproj", "{136D31E4-2D49-4B22-B068-1DF607470F0D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agora_signalling_channel", "agora_signalling_channel\agora_signalling_channel.vcxproj", "{47D5938C-0B85-4D11-8CE5-0F836D0A41A1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agora_engine_sdk", "agora_engine_sdk\agora_engine_sdk.vcxproj", "{C181124C-585A-456F-91CA-1AAE8D225EDB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agora_signalling_sdk", "agora_signalling_sdk\agora_signalling_sdk.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agora_device", "agora_device\agora_device.vcxproj", "{A8F76A70-21AA-489E-A833-F59D600E23B3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agora_vchat", "agora_vchat\agora_vchat.vcxproj", "{2187596C-107C-4F32-99D7-C2B3E778E308}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CFED7AB5-4F7D-4830-9FC3-36A1BC4829C9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CFED7AB5-4F7D-4830-9FC3-36A1BC4829C9}.Debug|Win32.Build.0 = Debug|Win32
+		{CFED7AB5-4F7D-4830-9FC3-36A1BC4829C9}.Release|Win32.ActiveCfg = Release|Win32
+		{CFED7AB5-4F7D-4830-9FC3-36A1BC4829C9}.Release|Win32.Build.0 = Release|Win32
+		{136D31E4-2D49-4B22-B068-1DF607470F0D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{136D31E4-2D49-4B22-B068-1DF607470F0D}.Debug|Win32.Build.0 = Debug|Win32
+		{136D31E4-2D49-4B22-B068-1DF607470F0D}.Release|Win32.ActiveCfg = Release|Win32
+		{136D31E4-2D49-4B22-B068-1DF607470F0D}.Release|Win32.Build.0 = Release|Win32
+		{47D5938C-0B85-4D11-8CE5-0F836D0A41A1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{47D5938C-0B85-4D11-8CE5-0F836D0A41A1}.Debug|Win32.Build.0 = Debug|Win32
+		{47D5938C-0B85-4D11-8CE5-0F836D0A41A1}.Release|Win32.ActiveCfg = Release|Win32
+		{47D5938C-0B85-4D11-8CE5-0F836D0A41A1}.Release|Win32.Build.0 = Release|Win32
+		{C181124C-585A-456F-91CA-1AAE8D225EDB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C181124C-585A-456F-91CA-1AAE8D225EDB}.Debug|Win32.Build.0 = Debug|Win32
+		{C181124C-585A-456F-91CA-1AAE8D225EDB}.Release|Win32.ActiveCfg = Release|Win32
+		{C181124C-585A-456F-91CA-1AAE8D225EDB}.Release|Win32.Build.0 = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|Win32.Build.0 = Debug|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|Win32.ActiveCfg = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|Win32.Build.0 = Release|Win32
+		{A8F76A70-21AA-489E-A833-F59D600E23B3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A8F76A70-21AA-489E-A833-F59D600E23B3}.Debug|Win32.Build.0 = Debug|Win32
+		{A8F76A70-21AA-489E-A833-F59D600E23B3}.Release|Win32.ActiveCfg = Release|Win32
+		{A8F76A70-21AA-489E-A833-F59D600E23B3}.Release|Win32.Build.0 = Release|Win32
+		{2187596C-107C-4F32-99D7-C2B3E778E308}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2187596C-107C-4F32-99D7-C2B3E778E308}.Debug|Win32.Build.0 = Debug|Win32
+		{2187596C-107C-4F32-99D7-C2B3E778E308}.Release|Win32.ActiveCfg = Release|Win32
+		{2187596C-107C-4F32-99D7-C2B3E778E308}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

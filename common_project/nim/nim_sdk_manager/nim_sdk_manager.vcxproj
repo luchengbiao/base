@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B12702AD-ABFB-343A-A199-8E24837244A3}</ProjectGuid>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;NIM_SDK_MANAGER_LIB;BUILD_STATIC;_DEBUG;_LIB;NIM_SDK_DLL_IMPORT;NIMAPI_UNDER_WIN_DESKTOP_ONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;..\;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;..\..\..\libs\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;..\..\libs\;..\libs\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;jsoncpp_d.lib;qthread_manager_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>jsoncpp_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>..\..\..\libs\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)*.h" "$(SolutionDir)..\..\libs\include\$(ProjectName)\" /S /E /Y
+xcopy "$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName)_d.lib" "$(SolutionDir)..\..\libs\" /S /E /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;NIM_SDK_MANAGER_LIB;BUILD_STATIC;NIM_SDK_DLL_IMPORT;NIMAPI_UNDER_WIN_DESKTOP_ONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;..\..\..\libs\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>jsoncpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\libs\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)*.h" "$(SolutionDir)..\..\libs\include\$(ProjectName)\" /S /E /Y
+xcopy "$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName).lib" "$(SolutionDir)..\..\libs\" /S /E /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="api\nim_audio_cpp.cpp" />
+    <ClCompile Include="api\nim_chatroom_cpp.cpp" />
+    <ClCompile Include="api\nim_cpp_client.cpp" />
+    <ClCompile Include="api\nim_cpp_data_sync.cpp" />
+    <ClCompile Include="api\nim_cpp_doc_trans.cpp" />
+    <ClCompile Include="api\nim_cpp_friend.cpp" />
+    <ClCompile Include="api\nim_cpp_global.cpp" />
+    <ClCompile Include="api\nim_cpp_msglog.cpp" />
+    <ClCompile Include="api\nim_cpp_nos.cpp" />
+    <ClCompile Include="api\nim_cpp_plugin_in.cpp" />
+    <ClCompile Include="api\nim_cpp_rts.cpp" />
+    <ClCompile Include="api\nim_cpp_session.cpp" />
+    <ClCompile Include="api\nim_cpp_sysmsg.cpp" />
+    <ClCompile Include="api\nim_cpp_talk.cpp" />
+    <ClCompile Include="api\nim_cpp_team.cpp" />
+    <ClCompile Include="api\nim_cpp_tool.cpp" />
+    <ClCompile Include="api\nim_cpp_user.cpp" />
+    <ClCompile Include="api\nim_cpp_vchat.cpp" />
+    <ClCompile Include="api\nim_tools_http_cpp.cpp" />
+    <ClCompile Include="helper\nim_chatroom_helper.cpp" />
+    <ClCompile Include="helper\nim_client_helper.cpp" />
+    <ClCompile Include="helper\nim_doc_trans_helper.cpp" />
+    <ClCompile Include="helper\nim_file_helper.cpp" />
+    <ClCompile Include="helper\nim_friend_helper.cpp" />
+    <ClCompile Include="helper\nim_msglog_helper.cpp" />
+    <ClCompile Include="helper\nim_msg_helper.cpp" />
+    <ClCompile Include="helper\nim_nos_helper.cpp" />
+    <ClCompile Include="helper\nim_session_helper.cpp" />
+    <ClCompile Include="helper\nim_sysmsg_helper.cpp" />
+    <ClCompile Include="helper\nim_talk_helper.cpp" />
+    <ClCompile Include="helper\nim_team_helper.cpp" />
+    <ClCompile Include="helper\nim_tool_helper.cpp" />
+    <ClCompile Include="helper\nim_user_helper.cpp" />
+    <ClCompile Include="third_party\convert_utf\convert_utf.c" />
+    <ClCompile Include="util\nim_json_util.cpp" />
+    <ClCompile Include="util\nim_sdk_util.cpp" />
+    <ClCompile Include="util\nim_string_util.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="api\nim_audio_cpp.h" />
+    <ClInclude Include="api\nim_chatroom_cpp.h" />
+    <ClInclude Include="api\nim_cpp_client.h" />
+    <ClInclude Include="api\nim_cpp_data_sync.h" />
+    <ClInclude Include="api\nim_cpp_doc_trans.h" />
+    <ClInclude Include="api\nim_cpp_friend.h" />
+    <ClInclude Include="api\nim_cpp_global.h" />
+    <ClInclude Include="api\nim_cpp_msglog.h" />
+    <ClInclude Include="api\nim_cpp_nos.h" />
+    <ClInclude Include="api\nim_cpp_plugin_in.h" />
+    <ClInclude Include="api\nim_cpp_rts.h" />
+    <ClInclude Include="api\nim_cpp_session.h" />
+    <ClInclude Include="api\nim_cpp_sysmsg.h" />
+    <ClInclude Include="api\nim_cpp_talk.h" />
+    <ClInclude Include="api\nim_cpp_team.h" />
+    <ClInclude Include="api\nim_cpp_tool.h" />
+    <ClInclude Include="api\nim_cpp_user.h" />
+    <ClInclude Include="api\nim_cpp_vchat.h" />
+    <ClInclude Include="api\nim_tools_http_cpp.h" />
+    <ClInclude Include="helper\nim_chatroom_helper.h" />
+    <ClInclude Include="helper\nim_client_helper.h" />
+    <ClInclude Include="helper\nim_doc_trans_helper.h" />
+    <ClInclude Include="helper\nim_file_helper.h" />
+    <ClInclude Include="helper\nim_friend_helper.h" />
+    <ClInclude Include="helper\nim_msglog_helper.h" />
+    <ClInclude Include="helper\nim_msg_helper.h" />
+    <ClInclude Include="helper\nim_nos_helper.h" />
+    <ClInclude Include="helper\nim_session_helper.h" />
+    <ClInclude Include="helper\nim_sysmsg_helper.h" />
+    <ClInclude Include="helper\nim_talk_helper.h" />
+    <ClInclude Include="helper\nim_team_helper.h" />
+    <ClInclude Include="helper\nim_tool_helper.h" />
+    <ClInclude Include="helper\nim_user_helper.h" />
+    <ClInclude Include="third_party\convert_utf\convert_utf.h" />
+    <ClInclude Include="util\nim_json_util.h" />
+    <ClInclude Include="util\nim_sdk_util.h" />
+    <ClInclude Include="util\nim_string_util.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" Qt5Version_x0020_Win32="msvc2013" MocOptions="" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
