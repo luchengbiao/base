@@ -16,9 +16,9 @@
 #include "qthread_manager\closure.h"
 #include "log_manager\log.h"
 
-#define API_UPLOAD_LOGEX std::string("/log/client-logs")
-#define API_UPLOAD_TOKENEX std::string("/getUploadToken")
-
+#define API_UPLOAD_LOGEX std::string("/xqs-member/external/log/upload")
+#define API_UPLOAD_TOKENEX std::string("/xqs-third/external/qiniu/get-uploadToken")
+#define TEST
 LogManager::LogManager()
 {
 
@@ -81,10 +81,12 @@ void LogManager::OnUploadNormalLog(int64_t uid, std::string content)
 			});
 
 			SS_MAP param;
-			param["biz_id"] = nbase::Uint64ToString(uid);
+			param["bizId"] = nbase::Uint64ToString(uid);
 			param["content"] = content;
 			param["type"] = "PC_EVENT";
-			param["log_urls"] = url;
+			param["logUrls"] = url;
+			param["source"] = "pc";
+			param["courseId"] = "-1";
 			ApiCaller().AsyncCallPost(API_UPLOAD_LOGEX, param, cb);
 		}
 	});
@@ -131,10 +133,21 @@ void LogManager::OnUploadCrashLog(int64_t uid)
 			});
 
 			SS_MAP param;
-			param["biz_id"] = nbase::Uint64ToString(uid);
+			param["bizId"] = nbase::Uint64ToString(uid);
 			param["content"] = "pc_crash_log";
 			param["type"] = "PC_EVENT";
-			param["log_urls"] = url;
+#ifdef TEST
+			param["logUrls"] = url;
+			param["courseId"] = "-1";
+#endif // TEST
+
+#ifndef TEST
+			param["logUrls"] = url;
+			param["courseId"] = "-1";
+#endif // !TEST
+
+			
+			param["source"] = "pc";
 			ApiCaller().AsyncCallPost(API_UPLOAD_LOGEX, param, cb);
 		}
 	});
@@ -168,10 +181,19 @@ void LogManager::OnUploadAgoraLog()
 			});
 
 			SS_MAP param;
-			param["biz_id"] = "201";
+			param["bizId"] = "201";
 			param["content"] = "pc_signalling_log";
 			param["type"] = "PC_EVENT";
-			param["log_urls"] = url;
+#ifdef TEST
+			param["logUrls"] = url;
+			param["courseId"] = "-1";
+#endif // TEST
+
+#ifndef TEST
+			param["logUrls"] = url;
+			param["courseId"] = "-1";
+#endif // !TEST
+			param["source"] = "pc";
 			ApiCaller().AsyncCallPost(API_UPLOAD_LOGEX, param, cb);
 		}
 	});
@@ -414,10 +436,19 @@ void LogManager::OnUploadOnlineLog()
 				});
 
 				SS_MAP param;
-				param["biz_id"] = im_id;
+				param["bizId"] = im_id;
 				param["content"] = (service_type == "Nim") ? "PC_Nim_log" : "PC_Agora_log";
 				param["type"] = "PC_EVENT";
-				param["log_urls"] = url;
+#ifdef TEST
+				param["logUrls"] = url;
+				param["courseId"] = "-1";
+#endif // TEST
+
+#ifndef TEST
+				param["logUrls"] = url;
+				param["courseId"] = "-1";
+#endif // !TEST
+				param["source"] = "pc";
 				ApiCaller().AsyncCallPost(API_UPLOAD_LOGEX, param, cb);
 			}
 		});
@@ -568,7 +599,7 @@ bool LogManager::UploadFile(std::string file, const upload_finished_cb& finished
 	SS_MAP param;
 	param["fileName"] = upload_name;
 	//param["type"] = "course-note";
-	ApiCaller().AsyncCallPost(API_UPLOAD_TOKENEX, param, cb, true);
+	ApiCaller().AsyncCallGet(API_UPLOAD_TOKENEX, param, cb, true);
 	return true;
 }
 

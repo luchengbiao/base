@@ -48,7 +48,6 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QHBoxLayout *horizontalLayout_6;
     QLabel *lb_top_title1;
-    QSpacerItem *horizontalSpacer_3;
     QHBoxLayout *horizontalLayout_3;
     QLabel *lab_msg;
     QSpacerItem *verticalSpacer_4;
@@ -65,7 +64,7 @@ public:
     {
         if (MsgBox->objectName().isEmpty())
             MsgBox->setObjectName(QStringLiteral("MsgBox"));
-        MsgBox->resize(782, 536);
+        MsgBox->resize(530, 288);
         verticalLayout_2 = new QVBoxLayout(MsgBox);
         verticalLayout_2->setSpacing(0);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
@@ -104,7 +103,7 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(-1, 10, -1, -1);
+        verticalLayout->setContentsMargins(-1, 0, -1, -1);
         frame_3 = new QFrame(frame);
         frame_3->setObjectName(QStringLiteral("frame_3"));
         frame_3->setFrameShape(QFrame::StyledPanel);
@@ -148,15 +147,12 @@ public:
         horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        horizontalLayout_6->setContentsMargins(23, 10, 23, 10);
+        horizontalLayout_6->setContentsMargins(23, 0, 23, 0);
         lb_top_title1 = new QLabel(frame_2);
         lb_top_title1->setObjectName(QStringLiteral("lb_top_title1"));
+        lb_top_title1->setWordWrap(false);
 
         horizontalLayout_6->addWidget(lb_top_title1);
-
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_6->addItem(horizontalSpacer_3);
 
 
         horizontalLayout_5->addLayout(horizontalLayout_6);

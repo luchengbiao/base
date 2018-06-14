@@ -31,6 +31,15 @@ public:
 	void SetInfo(int width, int height, QString title_info, QString msg_info, QString ok_text, QString cancel_text, QString HighLignt_title, bool b_titlecenter=true);
 	void SetDelayClose(int delay_time);
 	void SetCallback(MsgboxCallback cb);
+
+	void SetOkButtonVisible(bool);
+	void SetOkButtonText(const QString&);
+
+	void SetCancelButtonVisible(bool);
+	void SetCancelButtonText(const QString&);
+
+	void SetTempButtonVisible(bool);
+	void SetTempButtonText(const QString&);
 	
 
 protected:

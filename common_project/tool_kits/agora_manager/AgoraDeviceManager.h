@@ -33,6 +33,7 @@ public:
 	AgoraDeviceManager();
 	~AgoraDeviceManager();
 	void OnInit(std::string s_vendorKey = "");
+	void OnUninit();
 	void OnCreate(DeviceManagerParam &param);
 	AGEngineManager* GetEngineManager();
 	IRtcEngine* GetRtcEngine();

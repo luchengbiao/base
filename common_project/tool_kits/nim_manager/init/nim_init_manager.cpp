@@ -101,11 +101,10 @@ void NimInitManager::Init(std::string app_key, std::string app_local_address)
 {
 	nim::SDKConfig config;
 	//sdk能力参数（必填）
-	config.database_encrypt_key_ = "Jiayouxueba_db_key_20160314_"; //string（db key必填，目前只支持最多32个字符的加密密钥！建议使用32个字符）
+	config.sync_session_ack_ = true;
+	config.database_encrypt_key_ = "XiaoQiShen_db_key_20180608_"; //string（db key必填，目前只支持最多32个字符的加密密钥！建议使用32个字符）
 	bool ret = nim::Client::Init(app_key, app_local_address, "", config); // 载入云信sdk，初始化安装目录和用户目录
-
 	ret = nim_chatroom::ChatRoom::Init("");
-
 	RegCallback();
 }
 

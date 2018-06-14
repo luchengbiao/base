@@ -8,7 +8,7 @@
 #include "common\tool\common_tool.h"
 #include "..\common\system\system_tool.h"
 #include "base\util\base64.h"
-
+#define TEST
 void ClientLog::InitLog(std::string code_version, std::string api_path)
 {
 	code_version_ = code_version;
@@ -17,12 +17,17 @@ void ClientLog::InitLog(std::string code_version, std::string api_path)
 
 void ClientLog::ApiSubmitClientLog(ClientLogParam param)
 {
-	//biz_id    错误码
-	//log_type  类型
+#ifdef TEST
+	ApiSubmitLog(param);
+	return;
+#endif // TEST
+
+	//bizId    错误码
+	//type  类型
 	//content   内容
-	//file	    .dump
+	//logUrls    .dump
 	//source    来源
-	//course_id 课程id
+	//courseId 课程id
 
 	const static std::string BOUNDARY = "BOUNDARYfareoigj9032490aggsrths";
 
@@ -39,7 +44,7 @@ void ClientLog::ApiSubmitClientLog(ClientLogParam param)
 
 	//biz-id
 	multipart_form_body.append("--").append(BOUNDARY).append("\r\n")
-		.append("Content-Disposition: form-data; name=\"biz_id\"\r\n\r\n")
+		.append("Content-Disposition: form-data; name=\"bizId\"\r\n\r\n")
 		.append(nbase::IntToString(param.biz_id)).append("\r\n");
 
 	//course_id
@@ -101,4 +106,17 @@ void ClientLog::ApiSubmitClientLog(ClientLogParam param)
 	request.SetTimeout(20000);
 
 	PostRequest(request);
+}
+
+void ClientLog::ApiSubmitLog(ClientLogParam param)
+{
+	ApiCaller api_caller;
+	SS_MAP ss_param;
+	ss_param["bizId"] = param.biz_id;
+	ss_param["content"] = param.content;
+	ss_param["couseId"] = param.course_id;
+	ss_param["type"] = param.log_type;
+	ss_param["source"] = param.source;
+	ss_param["logUrls"] = param.log_urls;
+	api_caller.AsyncCallPost(api_path_, ss_param, nullptr);
 }

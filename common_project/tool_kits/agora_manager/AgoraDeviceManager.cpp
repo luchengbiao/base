@@ -20,6 +20,11 @@ void AgoraDeviceManager::OnInit(std::string s_vendorKey /*= ""*/)
 	}
 }
 
+void AgoraDeviceManager::OnUninit()
+{
+	AGEngineManager::CloseAGEngine();
+}
+
 void AgoraDeviceManager::OnCreate(DeviceManagerParam &param)
 {
 	FreeDeviceManager(param.platsource_);

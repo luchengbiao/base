@@ -18,7 +18,7 @@ MsgBox::MsgBox(QWidget *parent) :
 	ret_ = MB_NO;
 	SetWidthAndHeight(400, 150);
 	//设置标题栏隐藏
-	setWindowTitle(QString::fromLocal8Bit("家有学霸"));
+	setWindowTitle(QString::fromLocal8Bit("小棋神"));
 	setWindowIcon(QIcon(":/icon/images/icon/jyxb-logo.ico"));
 	this->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
 	this->setAttribute(Qt::WA_DeleteOnClose);
@@ -123,6 +123,36 @@ void MsgBox::SetCallback(MsgboxCallback cb)
 	msgbox_callback_ = cb;
 }
 
+void MsgBox::SetOkButtonVisible(bool visible)
+{
+	ui->btn_ok->setVisible(visible);
+}
+
+void MsgBox::SetOkButtonText(const QString& text)
+{
+	ui->btn_ok->setText(text);
+}
+
+void MsgBox::SetCancelButtonVisible(bool visible)
+{
+	ui->btn_cancel->setVisible(visible);
+}
+
+void MsgBox::SetCancelButtonText(const QString& text)
+{
+	ui->btn_cancel->setText(text);
+}
+
+void MsgBox::SetTempButtonVisible(bool visible)
+{
+	ui->btn_tmp->setVisible(visible);
+}
+
+void MsgBox::SetTempButtonText(const QString& text)
+{
+	ui->btn_tmp->setText(text);
+}
+
 void MsgBox::timeOver()
 {
 	m_durationTimer_.stop();
@@ -196,6 +226,9 @@ void MsgBox::SetInfo(int width,int height,QString title_info, QString msg_info, 
 	ui->lb_exclamation->setFixedSize(QSize(20,20));
 	ui->lab_msg->setText(msg_info);
 
+	ui->frame_2->deleteLater();
+	ui->frame_2 = nullptr;
+
 	if (!ok_text.isEmpty())
 	{
 		ui->btn_ok->setText(ok_text);
@@ -224,12 +257,15 @@ void MsgBox::SetInfo(int width, int height, QString title_info, QString msg_info
 	{
 		ui->frame_3->setVisible(false);
 		ui->frame_2->setVisible(true);
+		ui->horizontalLayout_6->setContentsMargins(23, 10, 23, 10);
+		ui->lb_top_title1->setVisible(true);
 		ui->lb_top_title1->setFont(font);
 		ui->lb_top_title1->setText(HighLignt_title);
 	}
 	else
 	{
 		ui->frame_2->setVisible(false);
+		ui->lb_top_title1->setVisible(false);
 		ui->lb_top_title->setFont(font);
 		ui->lb_top_title->setText(HighLignt_title);
 	}

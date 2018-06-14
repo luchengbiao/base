@@ -66,6 +66,9 @@
     <ClCompile Include="synchronization\count_down_latch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="uiutils\ui_utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system_tool.h">
@@ -99,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="weak_callback\weak_callback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="uiutils\ui_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

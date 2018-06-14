@@ -182,7 +182,7 @@ namespace wcb
 
 
 	// global function 
-	template<class F, class... Args, class = typename std::enable_if<!std::is_member_function_pointer<F>::value>::type>
+	template<class F, class... Args, class = std::enable_if_t<!std::is_member_function_pointer<F>::value>>
 	auto Bind(F && f, Args && ... args)
 		->decltype(std::bind(f, args...))
 	{

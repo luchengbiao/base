@@ -55,7 +55,15 @@ bool MsgFilterManager::StartFilter(nim::IMMessage msg)
 			{
 				(*(it.second))(msg);
 			}
-			return true;
+			if (msg.feature_ == nim::kNIMMessageFeatureSyncMsg)
+			{
+				//放行同步数据
+				return false;
+			}
+			else
+			{
+				return true;
+			}
 		}
 	}
 	return false;

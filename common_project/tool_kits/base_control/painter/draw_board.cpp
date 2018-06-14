@@ -43,6 +43,11 @@ QImage DrawBoard::GetImage()
 	return image;
 }
 
+QImage DrawBoard::GetImage(bool withBackgroudImage)
+{
+	return withBackgroudImage ? GetImage() : draw_board_->GetImage();
+}
+
 void DrawBoard::SetTeaPenColor(QColor color)
 {
 	if (draw_board_)

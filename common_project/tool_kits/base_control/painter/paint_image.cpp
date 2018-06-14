@@ -302,6 +302,11 @@ void PaintImage::SetShowBkImage(bool b_show)
 	b_show_bk_ = b_show;
 }
 
+bool PaintImage::IsBkImageVisible() const
+{
+	return b_show_bk_;
+}
+
 void PaintImage::SetVedioUrl(std::string url)
 {
 	vedio_url_ = url;

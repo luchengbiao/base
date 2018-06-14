@@ -182,7 +182,7 @@ std::string Talk::CreateTextMessage(const std::string& receiver_id
 	values[kNIMMsgKeyBody] = content;
 	values[kNIMMsgKeyType] = kNIMMessageTypeText;
 	values[kNIMMsgKeyLocalTalkId] = receiver_id;
-
+	values[kNIMMsgKeyMsgRoaming] = 1;
 	msg_setting.ToJsonValue(values);
 
 	//选填

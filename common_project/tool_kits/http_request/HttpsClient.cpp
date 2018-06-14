@@ -457,8 +457,7 @@ void CHttpClient::CurlWorkThreadFunc()
 		int running_handles = 0;
 		while (CURLM_CALL_MULTI_PERFORM == curl_multi_perform(handleMultiCurl, &running_handles));
 
-		int selected = CURL_SELECT_ERR;
-		if ((running_handles == 0) || (CURL_SELECT_ERR != (selected == curl_multi_select(handleMultiCurl))))
+		if ((running_handles == 0) || (CURL_SELECT_ERR !=  curl_multi_select(handleMultiCurl)))
 		{
 			int msgs_left = 0;
 			CURLMsg* msg = NULL;
@@ -480,6 +479,7 @@ void CHttpClient::CurlWorkThreadFunc()
 						}
 
 						doingRequestCollect.erase(itd);
+
 						curl_multi_remove_handle(handleMultiCurl, msg->easy_handle);
 						curl_easy_cleanup(msg->easy_handle);
 					}
@@ -496,11 +496,7 @@ void CHttpClient::CurlWorkThreadFunc()
 		{
 			std::unique_lock<std::mutex> lock(m_NewRequestMutex);
 
-			if (CURL_SELECT_ERR != selected)
-			{
-				std::this_thread::yield();
-			}
-			else if (running_handles > 0)
+			if (running_handles > 0 || !doingRequestCollect.empty())
 			{
 				m_NewRequestCV.wait_for(lock, std::chrono::milliseconds(MILLISECONDS_TO_WAIT_CURL));
 			}

@@ -9,6 +9,7 @@ public:
 	~DrawBoard();
 
 	virtual QImage GetImage() override;
+	virtual QImage GetImage(bool withBackgroudImage);
 	virtual void SetVisibleEx(bool bvisible) override;
 	virtual void SetTeaPenColor(QColor color) override;
 	virtual void SetStuPenColor(QColor color) override;

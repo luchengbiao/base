@@ -771,7 +771,7 @@ void PaintWidget::OnStuDrawInfos(std::list<DrawOpInfo> info_list, bool b_paint)
 		}
 	}
 
-	if (draw && b_paint)
+	if (draw && b_paint && !image_.isNull())
 	{
 		PaintContent(image_, redraw);
 	}
@@ -885,7 +885,7 @@ void PaintWidget::OnTeaDrawInfos(std::list<DrawOpInfo> info_list, bool b_paint)
 		}
 	}
 
-	if (draw && b_paint)
+	if (draw && b_paint&& !image_.isNull())
 	{
 		PaintContent(image_, redraw);
 	}

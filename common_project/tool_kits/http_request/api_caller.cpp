@@ -86,7 +86,8 @@ int ApiCaller::AsyncCallGet(const std::string &path, SS_MAP &param_map_, const A
 
 		if (response_cb)
 		{
-			qtbase::Post2Task(kThreadUIHelper, nbase::Bind(response_cb, api_result));
+			response_cb(api_result);  // res_cb And response_cb are definitely called in HttpsClient::CallbackThreadPool
+			//qtbase::Post2Task(kThreadUIHelper, nbase::Bind(response_cb, api_result));
 		}
 	};
 
@@ -150,7 +151,8 @@ int ApiCaller::AsyncCallPut(const std::string &path, SS_MAP &param_map_, const A
 
 		if (response_cb)
 		{
-			qtbase::Post2Task(kThreadUIHelper, nbase::Bind(response_cb, api_result));
+			response_cb(api_result);  // res_cb And response_cb are definitely called in HttpsClient::CallbackThreadPool
+			//qtbase::Post2Task(kThreadUIHelper, nbase::Bind(response_cb, api_result));
 		}
 	};
 
@@ -214,7 +216,8 @@ int ApiCaller::AsyncCallDelete(const std::string &path, SS_MAP &param_map_, cons
 
 		if (response_cb)
 		{
-			qtbase::Post2Task(kThreadUIHelper, nbase::Bind(response_cb, api_result));
+			response_cb(api_result);  // res_cb And response_cb are definitely called in HttpsClient::CallbackThreadPool
+			//qtbase::Post2Task(kThreadUIHelper, nbase::Bind(response_cb, api_result));
 		}
 	};
 
@@ -287,7 +290,8 @@ int ApiCaller::AsyncCallPost(const std::string &path, SS_MAP &param_map_, const 
 		}
 		if (response_cb)
 		{
-			qtbase::Post2Task(kThreadUIHelper, nbase::Bind(response_cb, api_result));
+			response_cb(api_result);  // res_cb And response_cb are definitely called in HttpsClient::CallbackThreadPool
+			//qtbase::Post2Task(kThreadUIHelper, nbase::Bind(response_cb, api_result));
 		}
 	};
 

@@ -56,6 +56,8 @@
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)messagebox\msghint.h" "$(SolutionDir)..\..\libs\include\$(ProjectName)\" /S /E /Y
 
+xcopy "$(ProjectDir)messagebox\msgbox.h" "$(SolutionDir)..\..\libs\include\$(ProjectName)\" /S /E /Y
+
 xcopy "$(ProjectDir)image_clip\*.h" "$(SolutionDir)..\..\libs\include\$(ProjectName)\" /S /E /Y
 
 xcopy "$(ProjectDir)image_view\*.h" "$(SolutionDir)..\..\libs\include\$(ProjectName)\" /S /E /Y

@@ -10,6 +10,7 @@ struct ClientLogParam
 	int biz_id;
 	int64_t course_id;
 	std::string file;
+	std::string log_urls;
 
 	ClientLogParam()
 	{
@@ -19,6 +20,7 @@ struct ClientLogParam
 		biz_id = 0;
 		course_id = 0;
 		file = "";
+		log_urls = "";
 	}
 };
 
@@ -31,6 +33,7 @@ public:
 	~ClientLog(){};
 	void InitLog(std::string code_version, std::string api_path);
 	void ApiSubmitClientLog(ClientLogParam param);
+	void ApiSubmitLog(ClientLogParam param);
 
 private:
 	std::string code_version_;

@@ -31,6 +31,7 @@ public:
 	void SetDownloadImageCb(DownloadBoardImageCb cb);
 	void SetMarkText(std::wstring text);
 	void SetShowBkImage(bool b_show);
+	bool IsBkImageVisible() const;
 	void GetImageRect(QRect &rect);
 
 signals:
