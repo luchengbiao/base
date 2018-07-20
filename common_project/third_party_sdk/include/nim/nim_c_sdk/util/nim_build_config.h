@@ -1,5 +1,5 @@
 ﻿/** @file nim_build_config.h
-  * @brief 编译和平台设置定义
+  * @brief This file defines build and platform configuration
   * @copyright (c) 2015-2017, NetEase Inc. All rights reserved
   * @author Harrison
   * @date 2015/2/1

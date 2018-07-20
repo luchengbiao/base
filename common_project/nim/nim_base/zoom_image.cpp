@@ -1,7 +1,7 @@
 #include "zoom_image.h"
 #include "base\file\file_util.h"
 #include <assert.h>
-#include "log_manager\log.h"
+#include "log\log.h"
 
 using namespace Gdiplus;
 
@@ -89,7 +89,7 @@ bool ZoomImage::Zoom(const std::wstring &filepath,std::wstring mime_type)
 	if (Ok != graphics.DrawImage(&image_src,rf))
     {
 		int err = graphics.GetLastStatus();
-		QLOG_APP(L"ZoomImage Error: {0}")<<err;
+		LOG_MSG(L"ZoomImage Error: {0}")<<err;
     }
 	return SaveImage(canvas, image_path_, mime_type);
 }
@@ -272,7 +272,7 @@ bool ZoomImage::SaveImage(Gdiplus::Image& image, const std::wstring& file_path,s
     if (status != Ok)
     {
 		int err = status;
-		QLOG_APP(L"SaveImage Error: {0}")<<err;
+		LOG_MSG(L"SaveImage Error: {0}")<<err;
     }
 	return status == Ok;
 }
@@ -375,13 +375,13 @@ std::wstring ZoomImage::GetMimeType(const std::wstring& filepath)
 	Gdiplus::Status status = image_src.GetLastStatus();
 	if(status != Ok)
 	{
-		QLOG_ERR(L"Image {0} error {1}") <<filepath <<status ;
+		LOG_ERR(L"Image {0} error {1}") <<filepath <<status ;
 		return L"";
 	}
 	GUID guid;
 	if (image_src.GetRawFormat(&guid) != Ok)
 	{
-		QLOG_ERR(L"Image {0} error {1}") <<filepath <<status ;
+		LOG_ERR(L"Image {0} error {1}") <<filepath <<status ;
 		return L"";
 	}
 	return GetMimeType(guid);	

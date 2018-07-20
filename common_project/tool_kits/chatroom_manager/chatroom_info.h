@@ -39,10 +39,20 @@ enum CustomMsgType
 
 struct ChannelJoinParam
 {
+	NetworkServiceType data_service_;
+	NetworkServiceType chat_service_;
+	DataChannelConnectStateCb connect_state_cb_;
+	DataChannelMessageCb rev_msg_cb_;
 	bool b_tea_;				//创建时候根据角色设置给麦方式
 	std::string channel_id_;	
 	uint32_t agora_uid_;
 	std::string channel_key_;
+
+	ChannelJoinParam()
+	{
+		data_service_ = SWITCH_NETWORK_OWN;
+		chat_service_ = SWITCH_NETWORK_AGORA;
+	}
 };
 
 enum ClassroomChannelType

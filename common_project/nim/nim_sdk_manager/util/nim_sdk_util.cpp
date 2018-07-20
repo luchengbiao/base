@@ -39,7 +39,7 @@ bool SDKInstance::LoadSdkDll(const char *cur_module_dir, const char *sdk_dll_fil
 
 	if (instance_nim_ == NULL)
 	{
-		//QLOG_ERR(L"sdk nim load fail {0} {1}") << dir << GetLastError();
+		//LOG_ERR(L"sdk nim load fail {0} {1}") << dir << GetLastError();
 		return false;
 	}
 
@@ -51,7 +51,7 @@ void SDKInstance::UnLoadSdkDll()
 	assert(instance_nim_);
 	if (instance_nim_)
 	{
-		//QLOG_APP(L"client cleanup");
+		//LOG_MSG(L"client cleanup");
 #if defined (WIN32)
 		::FreeLibrary(instance_nim_);
 #else
@@ -59,7 +59,7 @@ void SDKInstance::UnLoadSdkDll()
 #endif
 
 		instance_nim_ = NULL;
-		//QLOG_APP(L"free nim library");
+		//LOG_MSG(L"free nim library");
 	}
 }
 

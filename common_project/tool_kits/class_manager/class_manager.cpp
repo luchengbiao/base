@@ -6,7 +6,7 @@
 #include "base\util\string_number_conversions.h"
 #include "common\system\system_tool.h"
 #include "QtGui\QColor"
-#include "log_manager\class_online_log.h"
+#include "log\log.h"
 
 ClassManager::ClassManager()
 {
@@ -240,20 +240,20 @@ void ClassManager::SendCommand(One2OneCommandType command_type_, void* param1_ /
 	{
 		std::string url = std::string((char*)param1_);
 		temp_s = nbase::StringPrintf("%d:%s;", command_type_, (char*)url.c_str());
-		//QONLINELOG_O2O(L"TEA_UPLOAD_IMG: {0}") << temp_s;
+		//LOG_O2O(L"TEA_UPLOAD_IMG: {0}") << temp_s;
 		break;
 	}
 	case TEA_START_COURSE:
 		temp_s = nbase::StringPrintf("%d:%I64d,%I64d;", command_type_, *((uint64_t*)param1_), *((uint64_t*)param2_));
-		//QONLINELOG_O2O(L"TEA_START_COURSE: {0}") << temp_s;
+		//LOG_O2O(L"TEA_START_COURSE: {0}") << temp_s;
 		break;
 	case END_COURSE:
 		temp_s = nbase::StringPrintf("%d:%I64d;", command_type_, *((uint64_t*)param1_));
-		//QONLINELOG_O2O(L"TEA_END_COURSE: {0}") << temp_s;
+		//LOG_O2O(L"TEA_END_COURSE: {0}") << temp_s;
 		break;
 	case TEA_CHANGE_PRICE:
 		temp_s = nbase::StringPrintf("%d:%.1f;", command_type_, *((double*)param1_));
-		//QONLINELOG_O2O(L"TEA_CHANGE_PRICE: {0}") << temp_s;
+		//LOG_O2O(L"TEA_CHANGE_PRICE: {0}") << temp_s;
 		break;
 	case STU_CHARGE_BALANCE:
 		temp_s = nbase::StringPrintf("%d:;", command_type_);
@@ -266,7 +266,7 @@ void ClassManager::SendCommand(One2OneCommandType command_type_, void* param1_ /
 		break;
 	case EXCHANGE_DATA:
 		temp_s = nbase::StringPrintf("%d:%s;", command_type_, (char*)param1_);
-		//QONLINELOG_O2O(L"STU_EXCHANGE_DATA: {0}") << temp_s;
+		//LOG_O2O(L"STU_EXCHANGE_DATA: {0}") << temp_s;
 		break;
 	case TEA_PPT_CHG_PAGE:
 		temp_s = nbase::StringPrintf("%d:%d;", command_type_, *((int*)param1_));
@@ -286,7 +286,7 @@ void ClassManager::SendCommand(One2OneCommandType command_type_, void* param1_ /
 		break;
 	case TEA_UPLOAD_PPT_FILES:
 		temp_s = nbase::StringPrintf("%d:%s;", command_type_, (char*)param1_);
-		//QONLINELOG_O2O(L"TEA_UPLOAD_PPT_FILES: {0}") << temp_s;
+		//LOG_O2O(L"TEA_UPLOAD_PPT_FILES: {0}") << temp_s;
 		break;
 	case STU_CHANGE_BOARD_PAGER:
 	case STU_CHANGE_PHOTO_PAGER:
@@ -317,19 +317,19 @@ void ClassManager::SendCommand(One2OneCommandType command_type_, void* param1_ /
 	{
 		std::string data_str = std::string((char*)param1_);
 		temp_s = nbase::StringPrintf("%d:%s;", command_type_, data_str.c_str());
-		//QONLINELOG_O2O(L"COMMAND_EXCHANGE_USER_INFO: {0} ") << temp_s;
+		//LOG_O2O(L"COMMAND_EXCHANGE_USER_INFO: {0} ") << temp_s;
 		break;
 	}
 	case TEA_ROTATE_IMAGE:
 	{
 		temp_s = nbase::StringPrintf("%d:%d;", command_type_, *((int*)param1_));
-		//QONLINELOG_O2O(L"TEA_ROTATE_IMAGE: {0} ") << temp_s;
+		//LOG_O2O(L"TEA_ROTATE_IMAGE: {0} ") << temp_s;
 		break;
 	}
 	case TEA_UPLOAD_IMAGE_FILES:
 	{
 		temp_s = nbase::StringPrintf("%d:%s;", command_type_, (char*)param1_);
-		//QONLINELOG_O2O(L"TEA_UPLOAD_IMAGE_FILES: {0}") << temp_s;
+		//LOG_O2O(L"TEA_UPLOAD_IMAGE_FILES: {0}") << temp_s;
 		break;
 	}
 	case TEA_CLASS_UPLOAD_PPT_FILES:
@@ -362,37 +362,37 @@ void ClassManager::SendCommand(One2OneCommandType command_type_, void* param1_ /
 		std::string url = std::string((char*)param1_);
 		std::string file_name = std::string((char*)param2_);
 		temp_s = nbase::StringPrintf("%d:%s,%s;", command_type_, url.c_str(), file_name.c_str());
-		QONLINELOG_O2O(L"TEA_ADD_VIDEO_BOARD: {0}") << temp_s;
+		LOG_O2O(L"TEA_ADD_VIDEO_BOARD: {0}") << temp_s;
 		break;
 	}
 	case TEA_VIDEO_PLAY:
 	{
 		temp_s = nbase::StringPrintf("%d:%I64d,%d;", command_type_, *((int64_t*)param1_), *((int*)param2_));
-		QONLINELOG_O2O(L"TEA_VIDEO_PLAY: {0}") << temp_s;
+		LOG_O2O(L"TEA_VIDEO_PLAY: {0}") << temp_s;
 		break;
 	}
 	case TEA_VIDEO_PAUSE:
 	{
 		temp_s = nbase::StringPrintf("%d:%I64d;", command_type_, *((int64_t*)param1_));
-		QONLINELOG_O2O(L"TEA_VIDEO_PAUSE: {0}") << temp_s;
+		LOG_O2O(L"TEA_VIDEO_PAUSE: {0}") << temp_s;
 		break;
 	}case TEA_UPLOAD_H5PPT_FILE:
 	{
 		std::string url = std::string((char*)param1_);
 		temp_s = nbase::StringPrintf("%d:%s;", command_type_, url.c_str());
-		QONLINELOG_O2O(L"TEA_UPLOAD_H5PPT_FILE: {0}") << temp_s;
+		LOG_O2O(L"TEA_UPLOAD_H5PPT_FILE: {0}") << temp_s;
 		break;
 	}
 	case REPLAY_H5DOC:
 	{
 		temp_s = nbase::StringPrintf("%d:%d;", command_type_, *((int*)param1_));
-		QONLINELOG_O2O(L"REPLAY_H5DOC: {0}") << temp_s;
+		LOG_O2O(L"REPLAY_H5DOC: {0}") << temp_s;
 		break;
 	}
 	case TEA_CHANGE_H5PPT_PAGE_STEP:
 	{
 		temp_s = nbase::StringPrintf("%d:%d,%d;", command_type_, *((int*)param1_), *((int*)param2_));
-		QONLINELOG_O2O(L"TEA_CHANGE_H5PPT_PAGE_STEP: {0}") << temp_s;
+		LOG_O2O(L"TEA_CHANGE_H5PPT_PAGE_STEP: {0}") << temp_s;
 		break;
 	}
 
@@ -1061,5 +1061,5 @@ DrawOpType ClassManager::CommandTypeToDrawOpType(int type)
 
 void ClassManager::OnAgoraDataMsgSendError(std::string message_id, int ecode)
 {
-	QONLINELOG_O2O(L"ClassManager::OnAgoraDataMsgSendError: message_id: {0}, ecode: {1}") << message_id << ecode;
+	LOG_O2O(L"ClassManager::OnAgoraDataMsgSendError: message_id: {0}, ecode: {1}") << message_id << ecode;
 }

@@ -422,6 +422,21 @@ QImage PaintWidget::GetImage()
 	return image_;
 }
 
+QImage PaintWidget::GetImageByForce()
+{
+	if (!image_.isNull())
+	{
+		return image_;
+	}
+
+	auto target_image = QImage(image_size_, QImage::Format_ARGB32);
+	target_image.fill(qRgba(255, 255, 255, 0));
+
+	PaintContent(target_image, true);
+
+	return target_image;
+}
+
 void PaintWidget::SetPenStyle(Qt::PenStyle style)
 {
 	penStyle_ = style;
@@ -667,7 +682,7 @@ bool PaintWidget::ClearTeaDraw()
 	return redraw;
 }
 
-void PaintWidget::OnStuDrawInfos(std::list<DrawOpInfo> info_list, bool b_paint)
+void PaintWidget::OnStuDrawInfos(const std::list<DrawOpInfo>& info_list, bool b_paint)
 {
 	bool redraw = false;
 	bool draw = false;
@@ -777,7 +792,7 @@ void PaintWidget::OnStuDrawInfos(std::list<DrawOpInfo> info_list, bool b_paint)
 	}
 }
 
-void PaintWidget::OnTeaDrawInfos(std::list<DrawOpInfo> info_list, bool b_paint)
+void PaintWidget::OnTeaDrawInfos(const std::list<DrawOpInfo>& info_list, bool b_paint)
 {
 	bool redraw = false;
 	bool draw = false;

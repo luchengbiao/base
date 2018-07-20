@@ -34,6 +34,7 @@ public:
 	
 	bool IsModified();
 	QImage GetImage();
+	QImage GetImageByForce();
 	void SetPenStyle(Qt::PenStyle);
 	void SetPenWidth(int w);
 	void SetTeaPenColor(QColor color);
@@ -43,8 +44,8 @@ public:
 	void SetPenIcon(std::string color);
 	void ResizeDrawBoard(int width, int height);
 	void SetVisibleEx(bool bvisible);
-	void OnStuDrawInfos(std::list<DrawOpInfo> info_list, bool b_paint = true);
-	void OnTeaDrawInfos(std::list<DrawOpInfo> info_list, bool b_paint = true);
+	void OnStuDrawInfos(const std::list<DrawOpInfo>& info_list, bool b_paint = true);
+	void OnTeaDrawInfos(const std::list<DrawOpInfo>& info_list, bool b_paint = true);
 	void SetDrawCb(DrawOpCallback cb);
 	void SetAcceptEvent(bool bAccept);
 	QRect GetDrawRect();

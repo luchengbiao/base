@@ -76,6 +76,15 @@ NIM_SDK_DLL_API void nim_chatroom_reg_send_msg_ack_cb(const char *json_extension
   */
 NIM_SDK_DLL_API void nim_chatroom_reg_receive_msg_cb(const char *json_extension, nim_chatroom_receive_msg_cb_func cb, const void *user_data);
 
+/** @fn void nim_chatroom_reg_receive_msgs_cb(const char *json_extension, nim_chatroom_receive_msg_cb_func cb, const void *user_data)
+  * 注册全局接收批量消息回调
+  * @param[in] json_extension json扩展参数（备用，目前不需要）
+  * @param[in] cb			  回调函数, 定义见nim_chatroom_def.h
+  * @param[in] user_data APP的自定义用户数据，SDK只负责传回给回调函数cb，不做任何处理！
+  * @return void 无返回值
+  */
+NIM_SDK_DLL_API void nim_chatroom_reg_receive_msgs_cb(const char *json_extension, nim_chatroom_receive_msg_cb_func cb, const void *user_data);
+
 /** @fn void nim_chatroom_reg_receive_notification_cb(const char *json_extension, nim_chatroom_receive_notification_cb_func cb, const void *user_data)
   * 注册全局接收通知回调
   * @param[in] json_extension json扩展参数（备用，目前不需要）
@@ -126,6 +135,14 @@ NIM_SDK_DLL_API bool nim_chatroom_enter(const int64_t room_id, const char *reque
   * @return void 无返回值
   */
 NIM_SDK_DLL_API void nim_chatroom_exit(const int64_t room_id, const char *json_extension);
+
+/** @fn void nim_chatroom_set_msgs_batch_report(bool set_batch, const char *json_extension)
+  * 设置消息接收批量上报开关
+  * @param[in] set_batch 批量开关
+  * @param[in] json_extension json扩展参数（备用，目前不需要）
+  * @return void 无返回值
+  */
+NIM_SDK_DLL_API void nim_chatroom_set_msgs_batch_report(bool set_batch, const char *json_extension);
 
 /** @fn int nim_chatroom_get_login_state(const int64_t room_id, const char *json_extension)
   * 获取登录状态
@@ -316,7 +333,8 @@ NIM_SDK_DLL_API void nim_chatroom_queue_poll_async(const int64_t room_id, const 
   * @return void 无返回值
   */
 NIM_SDK_DLL_API void nim_chatroom_queue_list_async(const int64_t room_id, const char *json_extension, nim_chatroom_queue_list_cb_func cb, const void *user_data);
-
+    
+#ifdef NIMAPI_UNDER_WIN_DESKTOP_ONLY
 /** @fn void nim_chatroom_queue_header_async(const int64_t room_id, const char *json_extension, nim_chatroom_queue_header_cb_func cb, const void *user_data)
   * 查看麦序头元素 
   * @param[in] room_id				聊天室ID
@@ -336,8 +354,6 @@ NIM_SDK_DLL_API void nim_chatroom_queue_header_async(const int64_t room_id, cons
   * @return void 无返回值
   */
 NIM_SDK_DLL_API void nim_chatroom_queue_drop_async(const int64_t room_id, const char *json_extension, nim_chatroom_queue_drop_cb_func cb, const void *user_data);
-
-#if NIMAPI_UNDER_WIN_DESKTOP_ONLY
 
 /** @fn void nim_chatroom_get_robots_async(const int64_t room_id, int64_t timetag, const char *json_extension, nim_chatroom_query_robots_cb_func cb, const void *user_data)
   * 获取全部机器人信息

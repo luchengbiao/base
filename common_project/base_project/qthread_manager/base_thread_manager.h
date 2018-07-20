@@ -1,10 +1,12 @@
 #pragma once
 #include "base_task_thread.h"
 #include <memory>
+#include "base\memory\singleton.h"
 
 class BaseThreadManager
 {
 public:
+	SINGLETON_DEFINE(BaseThreadManager);
 	BaseThreadManager(){}
 	virtual ~BaseThreadManager() {}
 

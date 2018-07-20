@@ -16,6 +16,10 @@ std::string ApiSetting::app_inner_version_ = "";
 
 std::string ApiSetting::api_cookie_ = "";
 
+std::string ApiSetting::api_auth_ = "";
+
+std::string ApiSetting::api_token_ = "";
+
 std::map<std::string, std::string> ApiSetting::map_other_host_;
 
 std::map<std::string, std::string> ApiSetting::map_app_key_;

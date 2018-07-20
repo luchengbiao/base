@@ -139,11 +139,11 @@ void AGSignallingManager::ChannelInviteDTMF(std::string s_channelID, std::string
 	}
 }
 
-void AGSignallingManager::ChannelInviteAccept(std::string s_channelID, std::string s_account, uint32_t uid)
+void AGSignallingManager::ChannelInviteAccept(std::string s_channelID, std::string s_account, uint32_t uid, std::string s_extra)
 {
 	if (m_lpAgoraInst)
 	{
-		m_lpAgoraInst->channelInviteAccept(s_channelID.c_str(), s_channelID.size(), s_account.c_str(), s_account.size(), uid);
+		m_lpAgoraInst->channelInviteAccept(s_channelID.c_str(), s_channelID.size(), s_account.c_str(), s_account.size(), uid, s_extra.c_str(), s_extra.size());
 	}
 }
 

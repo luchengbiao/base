@@ -5,7 +5,7 @@
 #include "nim_sdk_manager/api/nim_cpp_doc_trans.h"
 #include "base/callback/callback.h"
 #include "nim_sdk_manager/helper/nim_doc_trans_helper.h"
-#include "log_manager/log.h"
+#include "log/log.h"
 #include <assert.h>
 #include "qthread_manager/closure.h"
 #include "base/util/string_util.h"
@@ -54,7 +54,7 @@ void DocManager::OnDeleteDocInfoCallback(const std::string& doc_id, const std::s
 {
 	if (doc_id.empty())
 	{
-		QLOG_PRO(L"DocManager::OnDeleteDocInfoCallback operate={0}, code={1}, doc_id={2}") << extern_info << code << doc_info.id_;
+		LOG_INFO(L"DocManager::OnDeleteDocInfoCallback operate={0}, code={1}, doc_id={2}") << extern_info << code << doc_info.id_;
 	}
 }
 

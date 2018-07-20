@@ -9,7 +9,9 @@
 #define MAX_IMAGE_HEIGHT 1080
 #define THUMBNAIL_SIZE 100
 
-PaintImage::PaintImage(PaintBaseInfo info, QWidget *parent /*= 0*/) :QWidget(parent)
+PaintImage::PaintImage(PaintBaseInfo info, QWidget *parent /*= 0*/) 
+: QWidget(parent)
+, proxy_(std::make_shared<PaintImageProxy>())
 {
 	setWindowFlags(Qt::FramelessWindowHint);
 	setAttribute(Qt::WA_TranslucentBackground);
@@ -26,7 +28,8 @@ PaintImage::PaintImage(PaintBaseInfo info, QWidget *parent /*= 0*/) :QWidget(par
 	bVisible_ = false;
 	b_show_bk_ = true;
 	vedio_url_ = "";
-	connect(this, SIGNAL(SignalDownloadFileEnd(std::wstring)), this, SLOT(SlotSetBackImage(std::wstring)));
+
+	connect(proxy_.get(), SIGNAL(SignalImageDownloaded(std::string, std::string)), this, SLOT(SlotImageDownloaded(std::string, std::string)));
 }
 
 PaintImage::~PaintImage()
@@ -74,20 +77,12 @@ void PaintImage::SetVisibleEx(bool bvisible)
 		&& nbase::FilePathIsExist(image_dir_, true)
 		&& !image_url_.empty() && bVisible_)
 	{
-		auto comp_cb = ToWeakCallback([this](std::string& path)
+		if (set_image_url_fetching_.find(image_url_) == set_image_url_fetching_.end())
 		{
-			std::wstring wpath = nbase::UTF8ToUTF16(path);
-			if (nbase::FilePathIsExist(wpath, false))
-			{
-				emit SignalDownloadFileEnd(wpath);
-			}
-			if (download_image_cb_)
-			{
-				download_image_cb_(nbase::FilePathIsExist(wpath, false));
-			}
-		});
-		std::string file_name = nbase::StringPrintf("pic_%lld", systembase::get_time_ms());
-		FileFetcher().AsyncFetchImage(image_url_, nbase::UTF16ToUTF8(image_dir_), comp_cb, true, nullptr, file_name);
+			set_image_url_fetching_.emplace(image_url_);
+
+			proxy_->DownloadImage(image_url_, std::move(nbase::UTF16ToUTF8(image_dir_)));
+		}
 	}
 	else
 	{
@@ -100,18 +95,24 @@ void PaintImage::SetVisibleEx(bool bvisible)
 			b_loaded_image_ = false;
 			image_ = QImage();
 		}
-
-		if (download_image_cb_)
-		{
-			download_image_cb_(true);
-		}
 	}
 }
 
-void PaintImage::SlotSetBackImage(std::wstring wpath)
+void PaintImage::SlotImageDownloaded(std::string url, std::string path)
 {
-	origin_image_path_ = wpath;
-	SetBackgroundImage(wpath);
+	auto wpath = nbase::UTF8ToUTF16(path);
+	auto fileExisting = nbase::FilePathIsExist(wpath, false);
+
+	if (fileExisting)
+	{
+		origin_image_path_ = wpath;
+		SetBackgroundImage(wpath);
+	}
+
+	if (download_image_cb_)
+	{
+		download_image_cb_(fileExisting);
+	}
 }
 
 void PaintImage::paintEvent(QPaintEvent * event)
@@ -129,6 +130,11 @@ void PaintImage::paintEvent(QPaintEvent * event)
 void PaintImage::SetUrl(std::string url)
 {
 	image_url_ = url;
+}
+
+std::string PaintImage::GetImageUrl() const
+{
+	return image_url_;
 }
 
 void PaintImage::SetImageDir(std::wstring image_dir)
@@ -156,6 +162,30 @@ QImage PaintImage::GetBackgroundImage()
 	return background;
 }
 
+QImage PaintImage::GetBackgroundImageByForce()
+{
+	if (!image_.isNull())
+	{
+		return GetBackgroundImage();
+	}
+
+	QImage target_image = QImage(image_size_, QImage::Format_ARGB32);
+	target_image.fill(qRgba(255, 255, 255, 255));
+
+	if (nbase::FilePathIsExist(origin_image_path_, false))
+	{
+		QImage load_image;
+		CheckImageQuality(std::wstring(origin_image_path_), load_image);
+		if (!load_image.isNull()
+			&& load_image.width() > 0 && load_image.height() > 0)
+		{
+			this->PaintOnImage(load_image, target_image);
+		}
+	}
+
+	return target_image;
+}
+
 void PaintImage::SetImageAngle(int angle)
 {
 	angle = ((angle % 360) + 360) % 360;
@@ -174,6 +204,16 @@ void PaintImage::ResizeImage(int width, int height)
 
 void PaintImage::ShowImage(QImage& load_image)
 {
+	this->PaintOnImage(load_image, image_);
+
+	b_loaded_image_ = true;
+	b_modify_ = true;
+
+	update();
+}
+
+void PaintImage::PaintOnImage(QImage& load_image, QImage& target_image)
+{
 	if (!load_image.isNull())
 	{
 		if (angle_ != 0) {
@@ -181,24 +221,24 @@ void PaintImage::ShowImage(QImage& load_image)
 			matrix.rotate(angle_);
 			load_image = load_image.transformed(matrix);
 		}
-		load_image = load_image.scaled(image_.size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+		load_image = load_image.scaled(target_image.size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		int x = 0, y = 0;
 		if (bCenter_)
 		{
-			x = (image_.width() - load_image.width()) / 2;
-			y = (image_.height() - load_image.height()) / 2;
+			x = (target_image.width() - load_image.width()) / 2;
+			y = (target_image.height() - load_image.height()) / 2;
 		}
 		img_rect_.setX(x);
 		img_rect_.setY(y);
 		img_rect_.setWidth(load_image.width());
 		img_rect_.setHeight(load_image.height());
-		QPainter painter(&image_);
+		QPainter painter(&target_image);
 		painter.drawImage(x, y, load_image);
 	}
 
 	if (!tooltip_.empty())
 	{
-		QPainter painter(&image_);
+		QPainter painter(&target_image);
 		painter.setPen(QColor(80, 80, 80));
 		QFont font;
 		font.setFamily("Microsoft YaHei");
@@ -206,12 +246,12 @@ void PaintImage::ShowImage(QImage& load_image)
 		painter.setFont(font);
 
 		// 绘制文本
-		painter.drawText(QRect(0, 0, image_.width(), image_.height()), Qt::AlignCenter, QString::fromStdWString(tooltip_));
+		painter.drawText(QRect(0, 0, target_image.width(), target_image.height()), Qt::AlignCenter, QString::fromStdWString(tooltip_));
 	}
 
 	if (!mark_text_.empty())
 	{
-		QPainter painter(&image_);
+		QPainter painter(&target_image);
 		painter.setPen(QColor(5, 0xb5, 0xeb));
 		QFont font;
 		font.setFamily("Microsoft YaHei");
@@ -219,13 +259,10 @@ void PaintImage::ShowImage(QImage& load_image)
 		painter.setFont(font);
 
 		// 绘制文本
-		painter.drawText(QRect(0, 5, image_.width() - 5, 50), Qt::AlignRight , QString::fromStdWString(mark_text_));
+		painter.drawText(QRect(0, 5, target_image.width() - 5, 50), Qt::AlignRight, QString::fromStdWString(mark_text_));
 	}
 
-	load_image = image_;
-	b_loaded_image_ = true;
-	b_modify_ = true;
-	update();
+	load_image = target_image;
 }
 
 void PaintImage::RotateImage()
@@ -323,5 +360,16 @@ void PaintImage::GetImageRect(QRect &rect)
 	rect.setY(img_rect_.y());
 	rect.setWidth(img_rect_.width());
 	rect.setHeight(img_rect_.height());
+}
+
+void  PaintImageProxy::DownloadImage(const std::string& url, const std::string& localDir)
+{
+	auto comp_cb = this->ToWeakCallback([=](std::string& path)
+	{
+		emit SignalImageDownloaded(url, path);
+	});
+
+	std::string file_name = nbase::StringPrintf("pic_%lld", systembase::get_time_ms());
+	FileFetcher().AsyncFetchImage(std::string(url), localDir, comp_cb, true, nullptr, file_name);
 }
 

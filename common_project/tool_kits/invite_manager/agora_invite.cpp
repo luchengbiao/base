@@ -35,7 +35,7 @@ void AgoraInvite::StartInvite()
 {
 	// 说明老师已经加入信令通道与通信通道，然后开始呼叫对方
 	std::string s_invite_extern = InviteManager::GetInstance()->GetCallExternInfo();
-	//QONLINELOG_CALL(L"CallingForm::OnJoinMediaChannelSuccess {0}") << L"主动加入频道成功后，发起邀请";
+	//LOG_CALL(L"CallingForm::OnJoinMediaChannelSuccess {0}") << L"主动加入频道成功后，发起邀请";
 	// 呼叫app
 	AGInviteManager::GetInstance()->ChannelInviteUser(info_.s_channel_id_, info_.peer_agora_account_, s_invite_extern);
 	// 呼叫pc
@@ -137,7 +137,7 @@ void AgoraInvite::StartInviteByAccount(std::string account)
 {
 	// 说明老师已经加入信令通道与通信通道，然后开始呼叫对方
 	std::string s_invite_extern = InviteManager::GetInstance()->GetCallExternInfo();
-	//QONLINELOG_CALL(L"CallingForm::OnJoinMediaChannelSuccess {0}") << L"主动加入频道成功后，发起邀请";
+	//LOG_CALL(L"CallingForm::OnJoinMediaChannelSuccess {0}") << L"主动加入频道成功后，发起邀请";
 	AGInviteManager::GetInstance()->ChannelInviteUser(info_.s_channel_id_, account, s_invite_extern);
 }
 

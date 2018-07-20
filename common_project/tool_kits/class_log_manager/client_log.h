@@ -11,7 +11,7 @@ struct ClientLogParam
 	int64_t course_id;
 	std::string file;
 	std::string log_urls;
-
+	std::string dmp_urls;
 	ClientLogParam()
 	{
 		log_type = "";
@@ -21,6 +21,7 @@ struct ClientLogParam
 		course_id = 0;
 		file = "";
 		log_urls = "";
+		dmp_urls = "";
 	}
 };
 

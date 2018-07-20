@@ -13,6 +13,8 @@ public:
 	static std::string app_version_;
 	static std::string app_inner_version_;
 	static std::string api_cookie_;
+	static std::string api_token_;
+	static std::string api_auth_;
 
 	static std::string GetOtherApiHost(std::string key);
 	static void SetOtherApiHost(std::string key, std::string val);

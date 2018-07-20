@@ -48,6 +48,22 @@ QImage DrawBoard::GetImage(bool withBackgroudImage)
 	return withBackgroudImage ? GetImage() : draw_board_->GetImage();
 }
 
+QImage DrawBoard::GetImageByForce()
+{
+	QImage image = GetBackgroundImageByForce();
+	QImage draw_image;
+	if (draw_board_)
+	{
+		draw_image = draw_board_->GetImageByForce();
+	}
+	if (!draw_image.isNull() && !image.isNull())
+	{
+		QPainter painter(&image);
+		painter.drawImage(0, 0, draw_image);
+	}
+	return image;
+}
+
 void DrawBoard::SetTeaPenColor(QColor color)
 {
 	if (draw_board_)
@@ -101,19 +117,19 @@ void DrawBoard::ResizeBoard(int width, int height)
 	}
 }
 
-void DrawBoard::OnStuDrawInfos(std::list<DrawOpInfo> info_list, bool b_paint)
+void DrawBoard::OnStuDrawInfos(const std::list<DrawOpInfo>& info_list, bool b_paint)
 {
 	if (draw_board_)
 	{
-		draw_board_->OnStuDrawInfos(std::move(info_list), b_paint);
+		draw_board_->OnStuDrawInfos(info_list, b_paint);
 	}
 }
 
-void DrawBoard::OnTeaDrawInfos(std::list<DrawOpInfo> info_list, bool b_paint)
+void DrawBoard::OnTeaDrawInfos(const std::list<DrawOpInfo>& info_list, bool b_paint)
 {
 	if (draw_board_)
 	{
-		draw_board_->OnTeaDrawInfos(std::move(info_list), b_paint);
+		draw_board_->OnTeaDrawInfos(info_list, b_paint);
 	}
 }
 

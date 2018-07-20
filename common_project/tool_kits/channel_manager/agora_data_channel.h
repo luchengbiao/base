@@ -4,6 +4,7 @@
 
 class AgoraDataChannel : public BaseDataChannel
 {
+	Q_OBJECT
 public:
 	AgoraDataChannel(bool master);
 	AgoraDataChannel(){};
@@ -20,6 +21,8 @@ public:
 	virtual NetworkServiceType GetChannelType();
 	virtual std::string GetSessionOrChannelID();
 	virtual void SetSessionOrChannelID(std::string session_id){ s_channel_id_ = session_id; };
+	virtual void SetConnectStateCb(DataChannelConnectStateCb connect_cb){}
+	virtual void SetChannelMessageCb(DataChannelMessageCb msg_cb){}
 
 private:
 	void Login();

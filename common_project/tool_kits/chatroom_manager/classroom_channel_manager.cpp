@@ -18,9 +18,14 @@ void ClassroomChannelManager::JoinDataChannel(ClassroomChatJoinChannelSuccessCb 
 	join_success_cb_ = join_success_cb;
 	join_fail_cb_ = join_fail_cb;
 	join_param_ = join_param;
-	BaseDataChannel* data_channel = ChannelManager::GetInstance()->CreateDataChannel(SWITCH_NETWORK_AGORA, false);
-	BaseChatChannel* chat_channel = ChannelManager::GetInstance()->CreateChatChannel(SWITCH_NETWORK_AGORA, false);
+	BaseDataChannel* data_channel = ChannelManager::GetInstance()->CreateDataChannel(join_param.data_service_, false);
+	BaseChatChannel* chat_channel = ChannelManager::GetInstance()->CreateChatChannel(join_param.chat_service_, false);
 
+	if (join_param.data_service_ == SWITCH_NETWORK_OWN)
+	{
+		data_channel->SetConnectStateCb(join_param.connect_state_cb_);
+		data_channel->SetChannelMessageCb(join_param.rev_msg_cb_);
+	}
 	data_channel->JoinChannel(join_param_.channel_id_, data_cb_);
 }
 

@@ -4,6 +4,7 @@
 #include "agora_data_channel.h"
 #include "nim_data_channel.h"
 #include "nim_chat_channel.h"
+#include "own_data_channel.h"
 
 ChannelManager::ChannelManager()
 {
@@ -30,6 +31,8 @@ BaseDataChannel* ChannelManager::CreateDataChannel(NetworkServiceType type, bool
 	case SWITCH_NETWORK_AGORA:
 		data_channel_ = new AgoraDataChannel(b_creator);
 		break;
+	case SWITCH_NETWORK_OWN:
+		data_channel_ = new OwnDataChannel(b_creator);
 	default:
 		break;
 	}

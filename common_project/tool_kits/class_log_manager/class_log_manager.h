@@ -27,6 +27,7 @@ public:
 	void OnPushClassOnlineLogFile();
 	void OnHalfToNimLog();   //保留一半的记录
 	void OnHalfToAgoraLog();
+	void SetUpLoadLogApi(std::string qiniu_token_api,std::string server_log_api);
 
 private:
 	void OnGetLocalLog(std::string& content);
@@ -54,4 +55,6 @@ private:
 
 	std::wstring  log_dir_;					//GetJYXBDataDir().append("NIM\\");
 	std::wstring  online_log_dir_;			//呼叫 一对一 班课 日志 class_online_log
+	std::string qiniu_token_api_;
+	std::string server_log_api_;
 };

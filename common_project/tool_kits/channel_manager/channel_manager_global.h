@@ -7,11 +7,14 @@
 typedef std::function<void(std::string, int)> JoinChannelCallback;
 typedef std::function<void(std::string, int)> LeaveChannelCallback;
 typedef std::function<void(int, std::string, uint32_t, std::string)> JoinChatCb;
+typedef std::function<void(int)> DataChannelConnectStateCb;  //数据通道连接状态回调
+typedef std::function<void(std::string)> DataChannelMessageCb;  //数据通道连接状态回调
 
 enum NetworkServiceType
 {
 	SWITCH_NETWORK_NETEASE = 0,		/** 网易云信 **/
-	SWITCH_NETWORK_AGORA = 1		/** 声网    **/
+	SWITCH_NETWORK_AGORA = 1,		/** 声网    **/
+	SWITCH_NETWORK_OWN = 2		/** 声网    **/
 };
 
 struct ChannelInfo

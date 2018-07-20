@@ -10,7 +10,7 @@
 #include "HttpsClient.h"
 #include "curl\curl.h"
 #include "api_result.h"
-#include "log_manager\log.h"
+#include "log\log.h"
 #include "qthread_manager\closure.h"
 #include "base\system\api_setting.h"
 #include "..\common\system\system_tool.h"
@@ -18,7 +18,7 @@
 #include "nim_sdk_manager\api\nim_tools_http_cpp.h"
 
 using namespace std;
-
+#define SERVER_SUPPORT
 bool ApiCaller::b_global_init = false;
 
 ApiCaller::ApiCaller()
@@ -74,13 +74,13 @@ int ApiCaller::AsyncCallGet(const std::string &path, SS_MAP &param_map_, const A
 			{
 				if (url.find("/demand/list") == string::npos)
 				{
-					QLOG_APP(L"aysnc get api {0} result ok") << url.c_str();
+					LOG_MSG(L"aysnc get api {0} result ok") << url.c_str();
 				}
 
 			}
 			else
 			{
-				QLOG_APP(L"aysnc get api {0} result {1}") << url.c_str() << http_request->m_response.c_str();
+				LOG_MSG(L"aysnc get api {0} result {1}") << url.c_str() << http_request->m_response.c_str();
 			}
 		}
 
@@ -93,8 +93,15 @@ int ApiCaller::AsyncCallGet(const std::string &path, SS_MAP &param_map_, const A
 
 	curl_slist* sl_headers = NULL;
 	sl_headers = curl_slist_append(sl_headers, "Accept: */*");
+#ifdef SERVER_SUPPORT
+	sl_headers = curl_slist_append(sl_headers, builde_auth_().c_str());
+	sl_headers = curl_slist_append(sl_headers, build_token_().c_str());
+#endif // SERVER_SUPPORT
+
+#ifndef SERVER_SUPPORT
 	sl_headers = curl_slist_append(sl_headers, builde_cookie_().c_str());
 	sl_headers = curl_slist_append(sl_headers, builde_auth_().c_str());
+#endif // SERVER_SUPPORT
 	std::string ts_str = "xy-nonce: " + param_map_["ts"];
 	sl_headers = curl_slist_append(sl_headers, ts_str.c_str());
 	std::string sign_str = "xy-sign: " + param_map_["sign"];
@@ -139,13 +146,13 @@ int ApiCaller::AsyncCallPut(const std::string &path, SS_MAP &param_map_, const A
 			{
 				if (url.find("/demand/list") == string::npos)
 				{
-					QLOG_APP(L"aysnc get api {0} result ok") << url.c_str();
+					LOG_MSG(L"aysnc get api {0} result ok") << url.c_str();
 				}
 
 			}
 			else
 			{
-				QLOG_APP(L"aysnc get api {0} result {1}") << url.c_str() << http_request->m_response.c_str();
+				LOG_MSG(L"aysnc get api {0} result {1}") << url.c_str() << http_request->m_response.c_str();
 			}
 		}
 
@@ -158,8 +165,15 @@ int ApiCaller::AsyncCallPut(const std::string &path, SS_MAP &param_map_, const A
 
 	curl_slist* sl_headers = NULL;
 	sl_headers = curl_slist_append(sl_headers, "Accept: */*");
+#ifdef SERVER_SUPPORT
+	sl_headers = curl_slist_append(sl_headers, builde_auth_().c_str());
+	sl_headers = curl_slist_append(sl_headers, build_token_().c_str());
+#endif // SERVER_SUPPORT
+
+#ifndef SERVER_SUPPORT
 	sl_headers = curl_slist_append(sl_headers, builde_cookie_().c_str());
 	sl_headers = curl_slist_append(sl_headers, builde_auth_().c_str());
+#endif // SERVER_SUPPORT
 	std::string ts_str = "xy-nonce: " + param_map_["ts"];
 	sl_headers = curl_slist_append(sl_headers, ts_str.c_str());
 	std::string sign_str = "xy-sign: " + param_map_["sign"];
@@ -204,13 +218,13 @@ int ApiCaller::AsyncCallDelete(const std::string &path, SS_MAP &param_map_, cons
 			{
 				if (url.find("/demand/list") == string::npos)
 				{
-					QLOG_APP(L"aysnc get api {0} result ok") << url.c_str();
+					LOG_MSG(L"aysnc get api {0} result ok") << url.c_str();
 				}
 
 			}
 			else
 			{
-				QLOG_APP(L"aysnc get api {0} result {1}") << url.c_str() << http_request->m_response.c_str();
+				LOG_MSG(L"aysnc get api {0} result {1}") << url.c_str() << http_request->m_response.c_str();
 			}
 		}
 
@@ -223,8 +237,15 @@ int ApiCaller::AsyncCallDelete(const std::string &path, SS_MAP &param_map_, cons
 
 	curl_slist* sl_headers = NULL;
 	sl_headers = curl_slist_append(sl_headers, "Accept: */*");
+#ifdef SERVER_SUPPORT
+	sl_headers = curl_slist_append(sl_headers, builde_auth_().c_str());
+	sl_headers = curl_slist_append(sl_headers, build_token_().c_str());
+#endif // SERVER_SUPPORT
+
+#ifndef SERVER_SUPPORT
 	sl_headers = curl_slist_append(sl_headers, builde_cookie_().c_str());
 	sl_headers = curl_slist_append(sl_headers, builde_auth_().c_str());
+#endif // SERVER_SUPPORT
 	std::string ts_str = "xy-nonce: " + param_map_["ts"];
 	sl_headers = curl_slist_append(sl_headers, ts_str.c_str());
 	std::string sign_str = "xy-sign: " + param_map_["sign"];
@@ -265,7 +286,7 @@ int ApiCaller::AsyncCallPost(const std::string &path, SS_MAP &param_map_, const 
 		ApiResult api_result;
 
 #ifdef DEBUG
-		QLOG_APP(nbase::UTF8ToUTF16(http_request->m_response));
+		LOG_MSG(nbase::UTF8ToUTF16(http_request->m_response));
 #endif
 
 
@@ -279,12 +300,12 @@ int ApiCaller::AsyncCallPost(const std::string &path, SS_MAP &param_map_, const 
 			ApiResult::Parse(http_request->m_response, api_result);
 			if (api_result.Success())
 			{
-				QLOG_APP(L"aysnc post api {0} result ok") << url.c_str();
+				LOG_MSG(L"aysnc post api {0} result ok") << url.c_str();
 				std::wstring msg = nbase::UTF8ToUTF16(api_result.GetMsg());
 			}
 			else
 			{
-				QLOG_APP(L"aysnc post api {0} result {1}") << url.c_str() << http_request->m_response.c_str();
+				LOG_MSG(L"aysnc post api {0} result {1}") << url.c_str() << http_request->m_response.c_str();
 				std::wstring msg = nbase::UTF8ToUTF16(api_result.GetMsg());
 			}
 		}
@@ -298,8 +319,17 @@ int ApiCaller::AsyncCallPost(const std::string &path, SS_MAP &param_map_, const 
 
 	curl_slist* sl_headers = NULL;
 	sl_headers = curl_slist_append(sl_headers, "Accept: */*");
+#ifdef SERVER_SUPPORT
+	sl_headers = curl_slist_append(sl_headers, builde_auth_().c_str());
+	sl_headers = curl_slist_append(sl_headers, build_token_().c_str());
+#endif // SERVER_SUPPORT
+
+#ifndef SERVER_SUPPORT
 	sl_headers = curl_slist_append(sl_headers, builde_cookie_().c_str());
 	sl_headers = curl_slist_append(sl_headers, builde_auth_().c_str());
+#endif // SERVER_SUPPORT
+
+
 	sl_headers = curl_slist_append(sl_headers, "Expect:");
 	std::string ts_str = "xy-nonce: " + param_map_["ts"];
 	sl_headers = curl_slist_append(sl_headers, ts_str.c_str());
@@ -337,9 +367,19 @@ std::string ApiCaller::builde_auth_()
 {
 	std::string auth_str("auth: ");
 
-	auth_str.append(ApiSetting::api_cookie_);
+	auth_str.append(ApiSetting::api_auth_);
 
 	return auth_str;
+}
+
+
+std::string ApiCaller::build_token_()
+{
+	std::string token_str("token: ");
+
+	token_str.append(ApiSetting::api_token_);
+
+	return token_str;
 }
 
 std::string ApiCaller::cal_general_sign_(std::string path, std::map<std::string, std::string> &param_map, bool need_sep)
@@ -527,7 +567,7 @@ size_t ApiCaller::DefaultApiDataCallback(void* pBuffer, size_t nSize, size_t nMe
 	assert(pParam);
 	ApiCaller* p_api_ = (ApiCaller*)pParam;
 
-	QLOG_APP(L"call api {0} result {1}") << p_api_->s_path_ << string((char*)(pBuffer));
+	LOG_MSG(L"call api {0} result {1}") << p_api_->s_path_ << string((char*)(pBuffer));
 	p_api_->s_response_.append((char*)pBuffer);
 
 	return nSize * nMemByte;
@@ -548,11 +588,18 @@ std::string ApiCaller::CallPut(std::string &path, std::map< std::string, std::st
 		std::string url = assemble_general_url_(path, param_map);
 		std::string ua = build_user_agent_();
 
-		QLOG_APP(L"call api {0}") << url;
+		LOG_MSG(L"call api {0}") << url;
 
 		sl_headers_ = curl_slist_append(sl_headers_, "Accept: */*");
 		sl_headers_ = curl_slist_append(sl_headers_, "Content-Type: text/plain");
+#ifdef SERVER_SUPPORT
+		sl_headers_ = curl_slist_append(sl_headers_, builde_auth_().c_str());
+		sl_headers_ = curl_slist_append(sl_headers_, build_token_().c_str());
+#endif // SERVER_SUPPORT
+
+#ifndef SERVER_SUPPORT
 		sl_headers_ = curl_slist_append(sl_headers_, builde_cookie_().c_str());
+#endif // SERVER_SUPPORT
 		string ts_str = "xy-nonce: " + param_map["ts"];
 		sl_headers_ = curl_slist_append(sl_headers_, ts_str.c_str());
 		string sign_str = "xy-sign: " + param_map["sign"];
@@ -598,7 +645,7 @@ std::string ApiCaller::CallPut(std::string &path, std::map< std::string, std::st
 
 		if (res != 0) {
 			s_ret_ = curl_easy_strerror(res);
-			QLOG_ERR(L"call api {0} error {1} {2}") << path << res << curl_easy_strerror(res);;
+			LOG_ERR(L"call api {0} error {1} {2}") << path << res << curl_easy_strerror(res);;
 
 		}
 
@@ -643,11 +690,11 @@ void ApiCaller::UploadFileToServer(const std::string &url_path, const std::wstri
 
 	auto api_comp_cb = [=](bool b_success, int code, const std::string& s)
 	{
-		QLOG_APP(L"async upload server ppt {0}, {1}, {2}") << b_success << code << s;
+		LOG_MSG(L"async upload server ppt {0}, {1}, {2}") << b_success << code << s;
 
 		if (!b_success)
 		{
-			QLOG_WAR(L"upload img failed {0}") << code;
+			LOG_WAR(L"upload img failed {0}") << code;
 			ApiResult api_result;
 			api_result.SetCode(-1);
 			api_result.SetMsg(L"连接服务器失败");
@@ -682,6 +729,10 @@ void ApiCaller::UploadFileToServer(const std::string &url_path, const std::wstri
 	request.AddHeader("Content-Type", std::string("multipart/form-data; boundary=").append(BOUNDARY));
 	std::string cookie = ApiSetting::api_cookie_;
 	request.AddHeader("auth", cookie);
+#ifdef SERVER_SUPPORT
+	request.AddHeader("token", ApiSetting::api_token_);
+#endif // SERVER_SUPPORT
+
 	request.AddHeader("xy-access-key", "jyxb");
 	request.SetMethodAsPost();
 	request.SetTimeout(1000 * 60 * 30);

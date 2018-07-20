@@ -2,11 +2,13 @@
 #include "base\callback\callback.h"
 #include <string>
 #include "channel_manager_global.h"
+#include <QWidget>
 
-class BaseDataChannel : public nbase::SupportWeakCallback
+class BaseDataChannel : public QObject, public nbase::SupportWeakCallback
 {
+	Q_OBJECT
 public:
-	BaseDataChannel(bool masetr);
+	BaseDataChannel(bool masetr, QObject* parent = 0);
 	BaseDataChannel(){};
 	~BaseDataChannel();
 
@@ -21,6 +23,8 @@ public:
 	virtual NetworkServiceType GetChannelType() = 0;
 	virtual std::string GetSessionOrChannelID() = 0;
 	virtual void SetSessionOrChannelID(std::string session_id) = 0;
+	virtual void SetConnectStateCb(DataChannelConnectStateCb connect_cb)=0;
+	virtual void SetChannelMessageCb(DataChannelMessageCb connect_cb) = 0;
 public:
 	bool b_master_;
 };

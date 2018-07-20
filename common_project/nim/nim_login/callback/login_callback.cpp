@@ -1,5 +1,5 @@
 ﻿#include "login_callback.h"
-#include "log_manager\log.h"
+#include "log\log.h"
 #include <string>
 #include "manager\login_manager.h"
 #include "nim_sdk_manager\api\nim_cpp_client.h"
@@ -15,8 +15,8 @@ namespace nim_comp
 {
 	void LoginCallback::OnLogoutCallback(nim::NIMResCode res_code)
 	{
-		QLOG_APP(L"OnLogoutCallback: {0}") << res_code;
-		QLOG_APP(L"-----logout end-----");
+		LOG_MSG(L"OnLogoutCallback: {0}") << res_code;
+		LOG_MSG(L"-----logout end-----");
 		
 		auto task = [=]{
 			LoginManager::GetInstance()->OnLogoutCallback(Logout_SUCCESS);
@@ -27,7 +27,7 @@ namespace nim_comp
 
 	void LoginCallback::OnKickoutCallback(const nim::KickoutRes& res)
 	{
-		QLOG_APP(L"OnKickoutCallback: {0} - {1}") << res.client_type_ << res.kick_reason_;
+		LOG_MSG(L"OnKickoutCallback: {0} - {1}") << res.client_type_ << res.kick_reason_;
 
 		auto task = [=]{
 			LoginManager::GetInstance()->OnLogoutCallback(Logout_KICKOUT);
@@ -38,7 +38,7 @@ namespace nim_comp
 
 	void LoginCallback::OnDisconnectCallback()
 	{
-		QLOG_APP(L"OnDisconnectCallback");
+		LOG_MSG(L"OnDisconnectCallback");
 		auto task = [=]{
 			LoginManager::GetInstance()->OnLogoutCallback(Logout_DISCONNECT);
 		};
@@ -50,7 +50,7 @@ namespace nim_comp
 	{
 		if (relogin)
 		{
-			QLOG_APP(L"-----relogin end {0}-----") << code;
+			LOG_MSG(L"-----relogin end {0}-----") << code;
 			if (code == nim::kNIMResSuccess)
 			{
 				LoginManager::GetInstance()->SetLoginStatus(LoginStatus_SUCCESS);
@@ -70,11 +70,11 @@ namespace nim_comp
 		}
 		else
 		{
-			QLOG_APP(L"-----login end {0}-----") << code;
+			LOG_MSG(L"-----login end {0}-----") << code;
 			
 			if (LoginManager::GetInstance()->GetLoginStatus() == LoginStatus_CANCEL)
 			{
-				QLOG_APP(L"-----login cancel end-----");
+				LOG_MSG(L"-----login cancel end-----");
 				if (code == nim::kNIMResSuccess) {
 					LoginManager::GetInstance()->DoLogout(false, nim::kNIMLogoutChangeAccout);
 				} else {
@@ -93,7 +93,7 @@ namespace nim_comp
 
 	void LoginCallback::OnLoginCallback(const nim::LoginRes& login_res, const void* user_data)
 	{
-		QLOG_APP(L"OnLoginCallback: {0} - {1}") << login_res.login_step_ << login_res.res_code_;
+		LOG_MSG(L"OnLoginCallback: {0} - {1}") << login_res.login_step_ << login_res.res_code_;
 		if (login_res.res_code_ == nim::kNIMResSuccess)
 		{
 			if (login_res.login_step_ == nim::kNIMLoginStepLogin)
@@ -109,7 +109,7 @@ namespace nim_comp
 
 	void LoginCallback::OnReLoginCallback(const nim::LoginRes& login_res)
 	{
-		QLOG_APP(L"OnReLoginCallback: {0} - {1}") << login_res.login_step_ << login_res.res_code_;
+		LOG_MSG(L"OnReLoginCallback: {0} - {1}") << login_res.login_step_ << login_res.res_code_;
 		if (login_res.res_code_ == nim::kNIMResSuccess)
 		{
 			if (login_res.login_step_ == nim::kNIMLoginStepLogin)
@@ -126,7 +126,7 @@ namespace nim_comp
 	//多端
 	void LoginCallback::OnMultispotLoginCallback(const nim::MultiSpotLoginRes& res)
 	{
-		QLOG_APP(L"OnMultispotLoginCallback: {0} - {1}") << res.notify_type_ << res.other_clients_.size();
+		LOG_MSG(L"OnMultispotLoginCallback: {0} - {1}") << res.notify_type_ << res.other_clients_.size();
 	}
 
 	void LoginCallback::OnKickoutOtherClientCallback(const nim::KickOtherRes& res)

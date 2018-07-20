@@ -127,7 +127,12 @@ static const char *kNIMMsgKeyAntiSpamEnable	= "anti_spam_enable";	/**< int, 是�
 static const char *kNIMMsgKeyAntiSpamContent= "anti_spam_content";	/**< string, (可选)开发者自定义的反垃圾字段,长度限制：5000字符, 格式为json string,{"type" : 1:文本，2：图片，3视频, "data" : "文本内容or图片地址or视频地址"}*/
 static const char *kNIMMsgKeyAntiSpamBizId = "anti_spam_business_id";	/**< string,  (可选)用户配置的对某些单条消息另外的反垃圾的业务ID*/
 static const char *kNIMMsgKeyAntiSpamUsingYiDun = "anti_spam_using_yidun";	/**< int,  (可选) 单条消息是否使用易盾反垃圾 0:(在开通易盾的情况下)不过易盾反垃圾而是通用反垃圾 其他都是按照原来的规则*/
+static const char *kNIMMsgKeyTeamMsgAck		= "team_msg_ack";		/** (可选)int, 群消息是否需要已读业务，0：不需要，1：需要*/
+static const char *kNIMMsgKeyClientAntiSpam = "client_anti_spam_hitting";	/**< int, (可选) 是否命中客户端反垃圾,命中:1 未命中：0 或者不填写*/
+
 //本地定义
+static const char *kNIMMsgKeyLocalKeyTeamMsgAckSent	= "team_msg_ack_sent";	/**< bool 是否已经发送群消息已读回执 */
+static const char *kNIMMsgKeyLocalKeyTeamMsgUnreadCount	= "team_msg_unread_count";	/**< int, 群消息未读数 */
 static const char *kNIMMsgKeyLocalFilePath			= "local_res_path";		/**< string,多媒体消息资源本地绝对路径,SDK本地维护,发送多媒体消息时必填 */
 static const char *kNIMMsgKeyLocalTalkId			= "talk_id";			/**< string,会话id,发送方选填,接收方收到的是消息发送方id */
 static const char *kNIMMsgKeyLocalResId				= "res_id";				/**< string,多媒体资源id,发送方选填,接收方收到的是客户端消息id */
@@ -143,7 +148,9 @@ static const char *kNIMSendAckKeyMsgId		= "msg_id";			/**< string,客户端消�
 static const char *kNIMSendAckKeyTalkId		= "talk_id";		/**< string,会话id */
 static const char *kNIMSendAckKeyRescode	= "rescode";		/**< int,消息错误码(NIMResCode) */
 static const char *kNIMSendAckKeyTimetag	= "msg_timetag";	/**< long,消息时间戳(毫秒),收到ack包时更新上层缓存的消息时间戳 */
-
+#ifndef NIMAPI_UNDER_WIN_DESKTOP_ONLY
+static const char *kNIMSendAckKeyClientAntiSpam = "client_anti_spam";	/**< int, 是否命中客户端反垃圾,命中:1 未命中：0*/
+#endif
 /** @}*/ //发送消息回执Json Keys
 
 /** @name attach多媒体资源参数通用键名定义，可替代不同类型多媒体所使用的相同的参数的键名.

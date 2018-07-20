@@ -400,11 +400,11 @@ void ImageViewForm::mouseMoveEvent(QMouseEvent *event)
 			return ;
 		}
 		QRect rect = ui->lab_image->geometry();
-		//printf("rect1: (%d, %d, %d, %d)\n", rect.x(), rect.y(), rect.width(), rect.height());
+
 		int x = rect.x() - (point_off_.x() - point.x());
 		int y = rect.y() - (point_off_.y() - point.y());
 		QRect newRect(x, y, rect.width(), rect.height());
-		//printf("rect2: (%d, %d, %d, %d)\n", newRect.x(), newRect.y(), newRect.width(), newRect.height());
+
 		ui->lab_image->setGeometry(newRect);
 		point_off_ = point;
 

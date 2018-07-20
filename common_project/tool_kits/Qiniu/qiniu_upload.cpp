@@ -5,6 +5,7 @@
 //#include "network/api_caller.h"
 #include <thread>
 #include "qiniu\http.h"
+#include "log\log.h"
 
 void QiniuTool::Init()
 {
@@ -19,12 +20,10 @@ void QiniuTool::Clean()
 /*debug º¯Êý*/
 void debuginfo(Qiniu_Client* client, Qiniu_Error err)
 {
-	printf("\nerror code: %d, message: %s\n", err.code, err.message);
-	printf("response header:\n%s", Qiniu_Buffer_CStr(&client->respHeader));
-	printf("response body:\n%s", Qiniu_Buffer_CStr(&client->b));
-	printf("\n\n\n");
+	DBG_WRAPPER(LOG_ERR(L"error code: {0}, message: {1}") << err.code << err.message);
+	DBG_WRAPPER(LOG_ERR(L"response header:\n{0}") << Qiniu_Buffer_CStr(&client->respHeader));
+	DBG_WRAPPER(LOG_ERR(L"response body:\n{0}") << Qiniu_Buffer_CStr(&client->b));
 }
-
 
 bool QiniuTool::UploadFile(std::string file, const upload_finished_cb& finished_cb)
 {
@@ -86,15 +85,14 @@ void QiniuTool::DoUpload(std::string& token, std::string& base, std::string& nam
 	Qiniu_Error error = Qiniu_Io_PutFile(&client, &putRet, token.c_str(), name.c_str(), file.c_str(), NULL);
 	if (error.code != 200)
 	{
-		//QLOG_ERR(L"Upload File {0}, error code: {1}, message: {2}") << file << error.code << error.message;
-		//printf("Upload File %s error.\n", file.c_str());
 		debuginfo(&client, error);
 		ret = false;
 		msg = "upload error";
 	}
 	else
 	{
-		printf("Upload File %s success.\n", file.c_str());
+		DBG_WRAPPER(LOG_DBG(L"Upload File Succeeded: {0}") << file);
+
 		ret = true;
 		msg = base + name;
 	}

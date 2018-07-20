@@ -3,7 +3,7 @@
 #include <algorithm>
 #include "nim_base\util.h"
 #include "base\file\file_util.h"
-#include "log_manager\log.h"
+#include "log\log.h"
 #include "base\system\api_setting.h"
 #include "base\util\string_number_conversions.h"
 
@@ -33,7 +33,7 @@ void CommonSetting::Load()
 	{
 		if (!doc.setContent(&file))
 		{
-			QLOG_ERR(L"load xml fail");
+			LOG_ERR(L"load xml fail");
 			break;
 		}
 

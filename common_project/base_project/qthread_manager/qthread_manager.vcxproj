@@ -110,9 +110,6 @@ xcopy "$(SolutionDir)$(Platform)\$(Configuration)\$(ProjectName).lib" "$(Solutio
     <ProjectReference Include="..\base\base.vcxproj">
       <Project>{8d9a6595-717a-41c8-b468-0011a72be3d1}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\log_manager\log_manager.vcxproj">
-      <Project>{fd21759f-e051-4309-bcce-15d31152e4d8}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

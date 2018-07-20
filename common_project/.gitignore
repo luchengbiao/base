@@ -9,6 +9,7 @@
 *.zip
 *.dll
 *.cache
+*.bat
 agora/*.lib
 base_project/*.lib
 nim/*.lib

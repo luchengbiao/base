@@ -16,9 +16,7 @@
 #include "qthread_manager\closure.h"
 #include "log_manager\log.h"
 
-#define API_UPLOAD_LOGEX std::string("/xqs-member/external/log/upload")
-#define API_UPLOAD_TOKENEX std::string("/xqs-third/external/qiniu/get-uploadToken")
-#define TEST
+
 LogManager::LogManager()
 {
 
@@ -87,7 +85,7 @@ void LogManager::OnUploadNormalLog(int64_t uid, std::string content)
 			param["logUrls"] = url;
 			param["source"] = "pc";
 			param["courseId"] = "-1";
-			ApiCaller().AsyncCallPost(API_UPLOAD_LOGEX, param, cb);
+			ApiCaller().AsyncCallPost(server_log_api_, param, cb);
 		}
 	});
 
@@ -148,7 +146,7 @@ void LogManager::OnUploadCrashLog(int64_t uid)
 
 			
 			param["source"] = "pc";
-			ApiCaller().AsyncCallPost(API_UPLOAD_LOGEX, param, cb);
+			ApiCaller().AsyncCallPost(server_log_api_, param, cb);
 		}
 	});
 
@@ -194,7 +192,7 @@ void LogManager::OnUploadAgoraLog()
 			param["courseId"] = "-1";
 #endif // !TEST
 			param["source"] = "pc";
-			ApiCaller().AsyncCallPost(API_UPLOAD_LOGEX, param, cb);
+			ApiCaller().AsyncCallPost(server_log_api_, param, cb);
 		}
 	});
 
@@ -449,7 +447,7 @@ void LogManager::OnUploadOnlineLog()
 				param["courseId"] = "-1";
 #endif // !TEST
 				param["source"] = "pc";
-				ApiCaller().AsyncCallPost(API_UPLOAD_LOGEX, param, cb);
+				ApiCaller().AsyncCallPost(server_log_api_, param, cb);
 			}
 		});
 
@@ -599,7 +597,7 @@ bool LogManager::UploadFile(std::string file, const upload_finished_cb& finished
 	SS_MAP param;
 	param["fileName"] = upload_name;
 	//param["type"] = "course-note";
-	ApiCaller().AsyncCallGet(API_UPLOAD_TOKENEX, param, cb, true);
+	ApiCaller().AsyncCallGet(qiniu_token_api_, param, cb, true);
 	return true;
 }
 
@@ -632,4 +630,10 @@ void LogManager::LogNormalRobot()
 	OnHalfToAgoraLog();
 
 	qtbase::Post2DelayedTask(kThreadMoreTaskHelper, nbase::Bind(&LogManager::LogNormalRobot, this), nbase::TimeDelta::FromMinutes(10));
+}
+
+void LogManager::SetUpLoadLogApi(std::string qiniu_token_api, std::string server_log_api)
+{
+	qiniu_token_api_ = qiniu_token_api;
+	server_log_api_ = server_log_api;
 }

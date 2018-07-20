@@ -30,7 +30,7 @@ enum NIMVideoChatSessionType{
 	kNIMVideoChatSessionTypeHangupRes		= 10,		/**< 通话挂断结果 */
 	kNIMVideoChatSessionTypeHangupNotify	= 11,		/**< 通话被挂断通知 */
 	kNIMVideoChatSessionTypeSyncAckNotify	= 12,		/**< 通话接听挂断同步通知 */
-#if NIMAPI_UNDER_WIN_DESKTOP_ONLY
+#ifdef NIMAPI_UNDER_WIN_DESKTOP_ONLY
 	kNIMVideoChatSessionTypeMp4Notify		= 13,		/**< 通知MP4录制状态，包括开始录制和结束录制 */
 	kNIMVideoChatSessionTypeInfoNotify		= 14,		/**< 通知实时音视频数据状态 */
 	kNIMVideoChatSessionTypeVolumeNotify	= 15,		/**< 通知实时音频发送和混音的音量状态 */
@@ -85,7 +85,7 @@ enum NIMVChatVideoFrameRate {
 	kNIMVChatVideoFrameRate25		= 5,		/**< 视频通话帧率 最大取每秒25帧 */
 };
 
-#if NIMAPI_UNDER_WIN_DESKTOP_ONLY
+#ifdef NIMAPI_UNDER_WIN_DESKTOP_ONLY
 
 /** @enum NIMVChatMp4RecordCode mp4录制状态 */
 enum NIMVChatMp4RecordCode {
@@ -149,6 +149,15 @@ enum NIMVChatVideoEncodeMode
 	kNIMVChatVEModeScreen		= 3,		/**< 屏幕共享场景调控策略，sdk不会根据网络调整分辨率 */
 };
 
+/** @enum NIMVChatAudioMode 音频模式  */
+enum NIMVChatAudioMode
+{
+	kNIMVChatAdModeDefault		= 0,		/**< 默认值，此时参考kNIMVChatAudioHighRate */
+	kNIMVChatAdModeNormal		= 1,		/**< 窄带，kNIMVChatAudioHighRate无效 */
+	kNIMVChatAdModeHighVoip		= 2,		/**< 高清语音，kNIMVChatAudioHighRate无效 */
+	kNIMVChatAdModeHighMusic	= 3,		/**< 高清音乐，kNIMVChatAudioHighRate无效 */
+};
+
 #endif
 
 /** @enum NIMVideoChatSessionStatus 音视频通话成员变化类型 */
@@ -165,6 +174,7 @@ enum NIMVideoChatUserLeftType{
 
 /** @enum NIMVideoChatSessionNetStat 音视频通话网络变化类型 */
 enum NIMVideoChatSessionNetStat{
+	kNIMVChatNetStatusVideoClose			= -1,	/**< 网络状态极差，视频强制关闭 */
     kNIMVideoChatSessionNetStatVeryGood		= 0,	/**< 网络状态很好 */
     kNIMVideoChatSessionNetStatGood			= 1,	/**< 网络状态较好 */
     kNIMVideoChatSessionNetStatPoor         = 2,	/**< 网络状态较差 */
@@ -216,6 +226,19 @@ enum NIMNetDetectVideoQuality
 	kNIMNDVideoQuality540p		= 6,		/**< 960*540 */
 };
 
+/** @enum NIMMainPictureOptCode 房间主画面设置返回码 */
+enum NIMMainPictureOptCode
+{
+	kNIMMainPictureOptSucess		= 200,		/**< 操作成功 */
+	kNIMMainPictureOptAuthError		= 401,		/**<认证错误*/
+	kNIMMainPictureOptRoomNotExist	= 404,		/**< 房间不存在 */
+	kNIMMainPictureOptUidNotExist	= 405,		/**< 房间下的uid不存在 */
+	kNIMMainPictureOptDataError		= 417,		/**< 请求数据不对 */
+	kNIMMainPictureOptError			= 500,		/**<内部错误*/
+	kNIMMainPictureOptServerError	= 600,		/**< 服务器内部错误 */
+	kNIMMainPictureOptInvilid		= 11403,	/**< 无效的操作 */
+};
+
 /** @name 网络探测 内容Json key for nim_vchat_net_detect
   * @{
   */
@@ -246,10 +269,12 @@ static const char *kNIMVChatCustomVideo		= "custom_video";	/**< int 是否用自
 static const char *kNIMVChatCustomAudio		= "custom_audio";	/**< int 是否用自主的音频数据 >0表示是 */
 static const char *kNIMVChatRecord			= "record";			/**< int 是否需要录制音频数据 >0表示是 （需要服务器配置支持，本地录制直接调用接口函数） */
 static const char *kNIMVChatVideoRecord		= "video_record";	/**< int 是否需要录制视频数据 >0表示是 （需要服务器配置支持，本地录制直接调用接口函数）*/
+static const char *kNIMVChatSingleRecord	= "single_record";	/**< int 是否需要录制多人模式下的本人数据 >0表示是 （需要服务器配置支持，并且开kNIMVChatRecord，kNIMVChatVideoRecord其中一个）*/
 static const char *kNIMVChatMaxVideoRate	= "max_video_rate";	/**< int 视频发送编码码率 >=100000 <=5000000有效 */
 static const char *kNIMVChatVideoQuality	= "video_quality";	/**< int 视频聊天分辨率选择 NIMVChatVideoQuality */
 static const char *kNIMVChatVideoFrameRate	= "frame_rate";		/**< int 视频画面帧率 NIMVChatVideoFrameRate */
 static const char *kNIMVChatAudioHighRate	= "high_rate";		/**< int 是否使用语音高清模式 >0表示是（默认关闭）3.3.0 之前的版本无法加入已经开启高清语音的多人会议 */
+static const char *kNIMVChatAudioMode		= "audio_mode";		/**< int 音频模式选择，非默认时kNIMVChatAudioHighRate无效 */
 static const char *kNIMVChatRtmpUrl			= "rtmp_url";		/**< string 直播推流地址(加入多人时有效)，非空代表主播旁路直播， kNIMVChatBypassRtmp决定是否开始推流 */
 static const char *kNIMVChatBypassRtmp		= "bypass_rtmp";	/**< int 是否旁路推流（如果rtmpurl为空是连麦观众，非空是主播的推流控制）， >0表示是 */
 static const char *kNIMVChatRtmpRecord		= "rtmp_record";	/**< int 是否开启服务器对直播推流录制（需要开启服务器能力）， >0表示是 */
@@ -296,6 +321,11 @@ static const char *kNIMVChatSelf			= "self";				/**< key 本人信息 */
 static const char *kNIMVChatReceiver		= "receiver";			/**< key 接收信息 */
 static const char *kNIMVChatLiveState		= "live_state";			/**< key 直播状态 kNIMVChatStatus(NIMVChatLiveStateCode) */
 static const char *kNIMVChatMp4AudioType	= "mp4_audio";			/**< int mp4录制时音频情况，0标识只录制当前成员，1标识录制通话全部混音（等同音频文件录制的声音） */
+static const char *kNIMVChatMp4Recode		= "mp4_recode";			/**< bool mp4录制时重新编码开关 */
+static const char *kNIMVChatMp4Width		= "mp4_width";			/**< int 录制的mp4的宽度，默认为0，小于16无效，无效时取视频默认大小*/
+static const char *kNIMVChatMp4Height		= "mp4_height";			/**< int 录制的mp4的高度，默认为0，小于16无效，无效时取视频默认大小*/
+static const char *kNIMVChatTrafficStatRX	= "trafficstat_rx";		/**< uint64 下行流量（字节） */
+static const char *kNIMVChatTrafficStatTX	= "trafficstat_tx";		/**< uint64 上行流量（字节） */
 /** @}*/ //json extension params
 
 /** @typedef void (*nim_vchat_cb_func)(NIMVideoChatSessionType type, int64_t channel_id, int code, const char *json_extension, const void *user_data)
@@ -307,7 +337,8 @@ static const char *kNIMVChatMp4AudioType	= "mp4_audio";			/**< int mp4录制时�
   * 			kNIMVideoChatSessionTypeCalleeAckNotify,	//确认通话，接受拒绝通知 code=无效，json 返回kNIMVChatUid对方，kNIMVChatType对应NIMVideoChatMode, kNIMVChatAccept \n
   * 			kNIMVideoChatSessionTypeControlRes,			//NIMVChatControlType 结果  code=200成功，json 返回kNIMVChatType对应NIMVChatControlType \n
   * 			kNIMVideoChatSessionTypeControlNotify,		//NIMVChatControlType 通知	code=无效，json 返回kNIMVChatUid对方，kNIMVChatType对应NIMVChatControlType \n
-  * 			kNIMVideoChatSessionTypeConnect,			//通话中链接状态通知 code对应NIMVChatConnectErrorCode， 非200均失败并底层结束,如果成功json中带kNIMVChatVideoRecordFile和kNIMVChatRecordFile \n
+  * 			kNIMVideoChatSessionTypeConnect,			//通话中链接状态通知 code对应NIMVChatConnectErrorCode， 非200均失败并底层结束 \n
+  *															//					code=1001,代表通话注销结果，带通话本地时长（kNIMVChatTime）及数据量（kNIMVChatTrafficStatRX kNIMVChatTrafficStatTX）\n
   * 			kNIMVideoChatSessionTypePeopleStatus,		//通话中成员状态 code对应NIMVideoChatSessionStatus, json返回kNIMVChatUid，如果是离开带kNIMVChatStatus对应NIMVideoChatUserLeftType \n
   * 			kNIMVideoChatSessionTypeNetStatus,			//通话中网络状态 code对应NIMVideoChatSessionNetStat, json返回kNIMVChatUid \n
   * 			kNIMVideoChatSessionTypeHangupRes,			//通话主动结果 code=200成功，json无效 \n
@@ -332,7 +363,7 @@ static const char *kNIMVChatMp4AudioType	= "mp4_audio";			/**< int mp4录制时�
   */
 typedef void (*nim_vchat_cb_func)(enum NIMVideoChatSessionType type, int64_t channel_id, int code, const char *json_extension, const void *user_data);
 
-#if NIMAPI_UNDER_WIN_DESKTOP_ONLY
+#ifdef NIMAPI_UNDER_WIN_DESKTOP_ONLY
 /** @typedef void (*nim_vchat_mp4_record_opt_cb_func)(bool ret, int code, const char *file, int64_t time, const char *json_extension, const void *user_data)
   * NIM MP4操作回调，实际的开始录制和结束都会在nim_vchat_cb_func中返回
   * @param[out] ret 结果代码，true表示成功

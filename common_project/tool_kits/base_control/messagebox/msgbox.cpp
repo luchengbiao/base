@@ -6,6 +6,8 @@
 #include "QPainter"
 #include "base\macros.h"
 #include "qmath.h"
+#include <QApplication>
+#include <QDesktopWidget>
 
 #define SHADOW_SIZE 10
 
@@ -16,7 +18,7 @@ MsgBox::MsgBox(QWidget *parent) :
     ui->setupUi(this);
 
 	ret_ = MB_NO;
-	SetWidthAndHeight(400, 150);
+	
 	//设置标题栏隐藏
 	setWindowTitle(QString::fromLocal8Bit("小棋神"));
 	setWindowIcon(QIcon(":/icon/images/icon/jyxb-logo.ico"));
@@ -56,6 +58,11 @@ MsgBox::MsgBox(QWidget *parent) :
 	connect(ui->btn_close, SIGNAL(clicked()), this, SLOT(SlotCancelOperate()));
 	//初始化定时器
 	connect(&m_durationTimer_, &QTimer::timeout, this, &MsgBox::timeOver);
+
+	SetWidthAndHeight(400, 185);
+	// 此方方法可以解决居中显示的问题
+	QRect curDesktopRc = QApplication::desktop()->screenGeometry(this);  //获取显示本窗口的屏幕区域
+	move((curDesktopRc.width() - width()) / 2, (curDesktopRc.height() - height()) / 2); //屏幕居中显示
 }
 
 MsgBox::~MsgBox()

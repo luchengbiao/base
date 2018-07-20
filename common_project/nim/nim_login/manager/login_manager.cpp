@@ -2,7 +2,7 @@
 #include "base/util/string_util.h"
 #include "base/file/file_util.h"
 #include "nim_base/user.h"
-#include "log_manager/log.h"
+#include "log/log.h"
 #include "qthread_manager/closure.h"
 #include "nim_sdk_manager/api/nim_cpp_client.h"
 #include "callback/login_callback.h"
@@ -101,10 +101,10 @@ void LoginManager::DoLogin(std::string user, std::string pass)
 	{
 		int ver = 0;
 		std::wstring vf;
-		QLOG_APP(L"App Version {0}") << ver;
-		QLOG_APP(L"Account {0}") << LoginManager::GetInstance()->GetAccount();
-		QLOG_APP(L"UI ThreadId {0}") << GetCurrentThreadId();
-		QLOG_APP(L"-----login begin-----");
+		LOG_MSG(L"App Version {0}") << ver;
+		LOG_MSG(L"Account {0}") << LoginManager::GetInstance()->GetAccount();
+		LOG_MSG(L"UI ThreadId {0}") << GetCurrentThreadId();
+		LOG_MSG(L"-----login begin-----");
 	}
 
 	std::string app_key = LoginManager::GetInstance()->GetAPPKey();
@@ -115,7 +115,7 @@ void LoginManager::DoLogin(std::string user, std::string pass)
 
 void LoginManager::DoLogout(bool over, nim::NIMLogoutType type)
 {
-	QLOG_APP(L"DoLogout: {0} {1}") << over << type;
+	LOG_MSG(L"DoLogout: {0} {1}") << over << type;
 	LoginStatus status = LoginManager::GetInstance()->GetLoginStatus();
 	if (status == LoginStatus_EXIT) {
 		return;

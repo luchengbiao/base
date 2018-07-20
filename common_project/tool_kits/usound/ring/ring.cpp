@@ -1,6 +1,6 @@
 ﻿#include "ring.h"
 #include <assert.h>
-#include "log_manager\log.h"
+#include "log\log.h"
 #include "nim_base\util.h"
 #include "..\common\tool\common_tool.h"
 
@@ -34,7 +34,7 @@ namespace nim_comp
 		hwnd_ = MCIWndCreateW(hwnd, NULL, WS_POPUP | MCIWNDF_NOERRORDLG | MCIWNDF_NOTIFYMODE, NULL);
 		if (hwnd_ == NULL)
 		{
-			QLOG_ERR(L"MCIWndCreateW error {0}") << GetLastError();
+			LOG_ERR(L"MCIWndCreateW error {0}") << GetLastError();
 			return false;
 		}
 		return true;
@@ -83,7 +83,7 @@ namespace nim_comp
 		}
 		else
 		{
-			QLOG_ERR(L"MCIWndOpen error {0}") << ret;
+			LOG_ERR(L"MCIWndOpen error {0}") << ret;
 		}
 	}
 

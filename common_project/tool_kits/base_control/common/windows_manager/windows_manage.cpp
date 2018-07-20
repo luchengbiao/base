@@ -26,7 +26,7 @@ bool WindowsManager::RegisterWindow(const std::wstring wnd_class_name, const std
 		std::map<std::wstring, QWidget*>::iterator it2 = it->second.find(wnd_id);
 		if (it2 != it->second.end())
 		{
-			//QLOG_PRO(L"The window <class name: {0}, id: {1}> has already registered !") << wnd_class_name << wnd_id;
+			//LOG_INFO(L"The window <class name: {0}, id: {1}> has already registered !") << wnd_class_name << wnd_id;
 		}
 		it->second[wnd_id] = wnd;
 	}

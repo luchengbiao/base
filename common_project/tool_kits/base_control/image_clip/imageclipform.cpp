@@ -14,7 +14,7 @@
 #define MINWNDWIDTH 700
 #define MINWNDHEIGHT 500
 #define MINCLIPLEN 150
-
+#define ImageMax(a,b)            (((a) > (b)) ? (a) : (b))
 const std::wstring ImageClipWindow::kClassName = L"ImageClipWindow";
 
 ImageClipWindow::ImageClipWindow(QWidget *parent) :BaseWindow(parent), ui(new Ui::ImageClipForm)
@@ -419,12 +419,45 @@ void ImageClipWindow::OnRotateImage()
 
 void ImageClipWindow::OnUploadImage()
 {
+	int image_width = m_image_.width();
+	int image_height = m_image_.height();
+	int hor_corner = 50;
+	int ver_corner = 97;
+
+	RECT rect_workarea;
+	SystemParametersInfo(SPI_GETWORKAREA, 0, &rect_workarea, 0);
+	int cxScreenWork = rect_workarea.right - rect_workarea.left;
+	int cyScreenWork = rect_workarea.bottom - rect_workarea.top;
+
+	float scale = GetDefaultScale(cxScreenWork - hor_corner, cyScreenWork - ver_corner, image_width, image_height);
+
 	QRect clipRect = ui->image_vlayout2->geometry();
 	QRect imageRect = ui->lab_image->geometry();
-	QRect rect = QRect(clipRect.x() - imageRect.x(), clipRect.y() - imageRect.y(), clipRect.width(), clipRect.height());
 	
-	QPixmap pixmap = QPixmap::grabWidget(ui->lab_image, rect);
+	int clip_width = image_width;
+	int clip_height = image_height;
+	int x = 0;
+	int y = 0;
 
+	if (fabs(scale) > 0.00001)
+	{
+		clip_width = clipRect.width() / scale;
+		clip_height = clipRect.height() / scale;
+		x = ImageMax((clipRect.x() - imageRect.x()) / scale, 0);
+		y = ImageMax((clipRect.y() - imageRect.y()) / scale, 0);
+		if (x + clip_width > image_width)
+		{
+			clip_width = image_width - x;
+		}
+		if (y + clip_height > image_height)
+		{
+			clip_height = image_height - y;
+		}
+	}
+	
+	QRect rect = QRect(x, y, clip_width, clip_height);
+	QImage img_tmp = m_image_.copy(rect);
+	QPixmap pixmap = QPixmap::fromImage(img_tmp);
 	std::wstring destPath = s_clip_image_path_;
 	std::wstring fileName = nbase::StringPrintf(L"image_tea_%lld.png", systembase::get_time_ms());
 	destPath.append(fileName);

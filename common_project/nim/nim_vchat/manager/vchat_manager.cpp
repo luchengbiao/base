@@ -1,5 +1,5 @@
 ﻿#include "vchat_manager.h"
-#include "log_manager\log.h"
+#include "log\log.h"
 #include "json\json.h"
 #include "nim_sdk_manager\api\nim_cpp_rts.h"
 #include "callback\vchat_callback.h"
@@ -43,12 +43,12 @@ void VChatManager::OnVChatEvent(nim::NIMVideoChatSessionType type, uint64_t chan
 {
 	if (type != nim::kNIMVideoChatSessionTypeInfoNotify && type != nim::kNIMVideoChatSessionTypeVolumeNotify)
 	{
-		QLOG_APP(L"OnVChatEvent type={0}, channel_id={1}, code={2}, json={3}") << type << channel_id << code << json;
+		LOG_MSG(L"OnVChatEvent type={0}, channel_id={1}, code={2}, json={3}") << type << channel_id << code << json;
 	}
 	switch (type)
 	{
 	case nim::kNIMVideoChatSessionTypeStartRes:{
-		QLOG_ERR(L"ChatStart no window");
+		LOG_ERR(L"ChatStart no window");
 		EndChat(json);
 	}break;
 	case nim::kNIMVideoChatSessionTypeInviteNotify:{
@@ -286,7 +286,7 @@ void VChatManager::EndDevice(nim::NIMDeviceType type, DeviceSessionType session_
 //通话
 bool VChatManager::StartChat(nim::NIMVideoChatMode mode, const std::string& apns_text, const std::string& custom_info, const std::string& uid, const std::string& session_id)
 {
-	QLOG_APP(L"StartChat mode={0}, uid={1}") << mode << uid;
+	LOG_MSG(L"StartChat mode={0}, uid={1}") << mode << uid;
 	Json::FastWriter fs;
 	Json::Value value;
 	value[nim::kNIMVChatSessionId] = session_id;
@@ -307,14 +307,14 @@ bool VChatManager::StartChat(nim::NIMVideoChatMode mode, const std::string& apns
 //设置视频类型
 bool VChatManager::SetVoipMode(nim::NIMVideoChatMode mode)
 {
-	QLOG_APP(L"SetVoipMode mode={0}") << mode;
+	LOG_MSG(L"SetVoipMode mode={0}") << mode;
 	return nim::VChat::SetTalkingMode(mode, "");
 }
 
 //回应邀请
 bool VChatManager::VChatCalleeAck(uint64_t channel_id, bool accept, const std::string& session_id)
 {
-	QLOG_APP(L"VChatCalleeAck channel_id={0}, accept={1}") << channel_id << accept;
+	LOG_MSG(L"VChatCalleeAck channel_id={0}, accept={1}") << channel_id << accept;
 	std::string json_value;
 	if (accept)
 	{
@@ -332,13 +332,13 @@ bool VChatManager::VChatCalleeAck(uint64_t channel_id, bool accept, const std::s
 //通话控制
 bool VChatManager::VChatControl(uint64_t channel_id, nim::NIMVChatControlType type)
 {
-	QLOG_APP(L"VChatControl channel_id={0}, type={1}") << channel_id << type;
+	LOG_MSG(L"VChatControl channel_id={0}, type={1}") << channel_id << type;
 	return nim::VChat::Control(channel_id, type);
 }
 
 void VChatManager::EndChat(const std::string& session_id)
 {
-	QLOG_APP(L"EndChat {0}") << session_id;
+	LOG_MSG(L"EndChat {0}") << session_id;
 	Json::FastWriter fs;
 	Json::Value value;
 	value[nim::kNIMVChatSessionId] = session_id;

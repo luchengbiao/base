@@ -22,7 +22,7 @@ public:
 	void ChannelInvitePhone(std::string s_channelID, std::string s_phoneNum, std::string s_sourcesNum);
 	void ChannelInvitePhone(std::string s_channelID, std::string s_phoneNum, std::string s_sourcesNum, std::string s_extra);
 	void ChannelInviteDTMF(std::string s_channelID, std::string s_phoneNum, std::string s_dtmf);
-	void ChannelInviteAccept(std::string s_channelID, std::string s_account, uint32_t uid);
+	void ChannelInviteAccept(std::string s_channelID, std::string s_account, uint32_t uid, std::string s_extra);
 	void ChannelInviteRefuse(std::string s_channelID, std::string s_account, uint32_t uid, std::string s_extra);
 	void ChannelInviteEnd(std::string s_channelID, std::string s_account, uint32_t uid);
 	void MessageAppSend(std::string s_msg, std::string s_msgID);

@@ -19,7 +19,7 @@ BaseWindow::BaseWindow(QWidget *parent /*= 0*/) :QWidget(parent)
 
 BaseWindow::~BaseWindow()
 {
-	delete trayIcon_;
+	//delete trayIcon_;
 }
 
 bool BaseWindow::RegisterWnd()
@@ -111,11 +111,11 @@ void BaseWindow::closeEvent(QCloseEvent *event)
 	}
 #endif
 	if (trayIcon_->isVisible() && GetWindowClassName() == L"MainWindow") {
-		QMessageBox::information(this, tr("login"),
+		/*QMessageBox::information(this, tr("login"),
 			tr("The program will keep running in the "
 			"system tray. To terminate the program, "
 			"choose <b>Quit</b> in the context menu "
-			"of the system tray entry."));
+			"of the system tray entry."));*/
 		hide();
 		event->ignore();
 	}

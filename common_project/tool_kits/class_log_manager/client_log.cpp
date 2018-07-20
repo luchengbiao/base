@@ -112,11 +112,18 @@ void ClientLog::ApiSubmitLog(ClientLogParam param)
 {
 	ApiCaller api_caller;
 	SS_MAP ss_param;
-	ss_param["bizId"] = param.biz_id;
+	ss_param["bizId"] = nbase::IntToString(param.biz_id);
 	ss_param["content"] = param.content;
 	ss_param["couseId"] = param.course_id;
 	ss_param["type"] = param.log_type;
 	ss_param["source"] = param.source;
-	ss_param["logUrls"] = param.log_urls;
+	if (param.dmp_urls != "")
+	{
+		ss_param["logUrls"] = param.dmp_urls;
+	}
+	else
+	{
+		ss_param["logUrls"] = param.log_urls;
+	}
 	api_caller.AsyncCallPost(api_path_, ss_param, nullptr);
 }

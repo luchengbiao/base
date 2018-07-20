@@ -42,6 +42,7 @@ private:
 	
 	std::string builde_cookie_();
 	std::string builde_auth_();
+	std::string build_token_();
 	std::string assemble_general_url_(std::string path, std::map<std::string, std::string> &param_map_, bool need_sep = false, bool need_url_encode = false);
 	std::string cal_general_sign_(std::string path, std::map<std::string, std::string> &param_map_,bool need_sep = false);  //need_sep 签名字段需要进行分割
 

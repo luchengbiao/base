@@ -141,13 +141,13 @@ bool Client::Init(const std::string& app_key
 {
 #ifdef NIM_SDK_DLL_IMPORT
 
-#if !defined (WIN32)
-	static const char *kSdkNimDll = "libnim.so";
+//#if !defined (WIN32)
+	//static const char *kSdkNimDll = "libnim.so";
 //#elif defined (_DEBUG) || defined (DEBUG)
 //	static const char *kSdkNimDll = "nim_d.dll";
-#else
+//#else
 	static const char *kSdkNimDll = "nim.dll";
-#endif
+//#endif
 	if (NULL == g_nim_sdk_instance)
 	{
 		g_nim_sdk_instance = new SDKInstance();
@@ -155,39 +155,50 @@ bool Client::Init(const std::string& app_key
 	if (!g_nim_sdk_instance->LoadSdkDll(app_install_dir.c_str(), kSdkNimDll))
 		return false;
 #endif
-
+	//g_nim_sdk_config_ = config;
 	Json::Value config_root;
 	//sdk能力参数（必填）
 	Json::Value config_values;
 	config_values[nim::kNIMDataBaseEncryptKey] = config.database_encrypt_key_;
-	config_values[nim::kNIMPreloadAttach] = config.preload_attach_;	
+	config_values[nim::kNIMPreloadAttach] = config.preload_attach_;
 	config_values[nim::kNIMPreloadImageQuality] = config.preload_image_quality_;
 	config_values[nim::kNIMPreloadImageResize] = config.preload_image_resize_;
 	config_values[nim::kNIMSDKLogLevel] = config.sdk_log_level_;
 	config_values[nim::kNIMSyncSessionAck] = config.sync_session_ack_;
 	config_values[nim::kNIMLoginRetryMaxTimes] = config.login_max_retry_times_;
-	config_root[nim::kNIMGlobalConfig] = config_values;
-	config_root[nim::kNIMAppKey] = app_key;
-
+#ifdef NIMAPI_UNDER_WIN_DESKTOP_ONLY	
+	config_values[nim::kNIMUseHttps] = config.use_https_;
+	config_values[nim::kNIMTeamNotificationUnreadCount] = config.team_notification_unread_count_;
+	config_values[nim::kNIMAnimatedImageThumbnailEnabled] = config.animated_image_thumbnail_enabled_;
+	config_values[nim::kNIMClientAntispam] = config.client_antispam_;
+	config_values[nim::kNIMTeamMessageAckEnabled] = config.team_msg_ack_;
+	config_values[nim::kNIMCachingMarkreadEnabled] = config.caching_markread_;
+	config_values[nim::kNIMCachingMarkreadTime] = config.caching_markread_time_;
+	config_values[nim::kNIMCachingMarkreadCount] = config.caching_markread_count_;
+	if (!config.server_conf_file_path_.empty())
+		config_root[nim::kNIMServerConfFilePath] = config.server_conf_file_path_;
 	if (config.use_private_server_)
 	{
 		Json::Value srv_config;
 		srv_config[nim::kNIMLbsAddress] = config.lbs_address_;
 		srv_config[nim::kNIMNosLbsAddress] = config.nos_lbs_address_;
-		for (auto iter = config.default_link_address_.begin(); iter != config.default_link_address_.end(); ++iter)
-			srv_config[nim::kNIMDefaultLinkAddress].append(*iter);
-		for (auto iter = config.default_nos_upload_address_.begin(); iter != config.default_nos_upload_address_.end(); ++iter)
-			srv_config[nim::kNIMDefaultNosUploadAddress].append(*iter);
-		for (auto iter = config.default_nos_download_address_.begin(); iter != config.default_nos_download_address_.end(); ++iter)
-			srv_config[nim::kNIMDefaultNosDownloadAddress].append(*iter);
-		for (auto iter = config.default_nos_access_address_.begin(); iter != config.default_nos_access_address_.end(); ++iter)
-			srv_config[nim::kNIMDefaultNosAccessAddress].append(*iter);
+		srv_config[nim::kNIMDefaultLinkAddress] = config.default_link_address_;
+		srv_config[nim::kNIMDefaultNosUploadAddress] = config.default_nos_upload_address_;
+		srv_config[nim::kNIMDefaultNosUploadHost] = config.default_nos_upload_host_;
 		srv_config[nim::kNIMRsaPublicKeyModule] = config.rsa_public_key_module_;
 		srv_config[nim::kNIMRsaVersion] = config.rsa_version_;
+		srv_config[nim::kNIMDownloadAddressTemplate] = config.nos_download_address_;
+		srv_config[nim::kNIMAccelerateHost] = config.nos_accelerate_host_;
+		srv_config[nim::kNIMAccelerateAddressTemplate] = config.nos_accelerate_address_;
+		srv_config[nim::kNIMNtserverAddress] = config.ntserver_address_;
+		config_values[kNIMUploadStatisticsData] = config.upload_statistics_data_;
 		config_root[nim::kNIMPrivateServerSetting] = srv_config;
 	}
-
+#endif
+	config_root[nim::kNIMGlobalConfig] = config_values;
+	config_root[nim::kNIMAppKey] = app_key;
 	return NIM_SDK_GET_FUNC(nim_client_init)(app_data_dir.c_str(), app_install_dir.c_str(), GetJsonStringWithNoStyled(config_root).c_str());
+	
 }
 
 void Client::Cleanup(const std::string& json_extension/* = ""*/)

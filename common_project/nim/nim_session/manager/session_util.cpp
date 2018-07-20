@@ -8,7 +8,7 @@
 #include "nim_base\util.h"
 #include "nim_base\user.h"
 #include "nim_sdk_manager\api\nim_cpp_talk.h"
-#include "log_manager\log.h"
+#include "log\log.h"
 #include "..\nim_sdk_manager\helper\nim_team_helper.h"
 #include "nim_sdk_manager\api\nim_cpp_rts.h"
 #include "..\nim_sdk_manager\api\nim_cpp_team.h"
@@ -399,11 +399,11 @@ void GetNotifyMsg(const std::string& msg_attach, const std::string& from_account
 		{
 			if (id == nim::kNIMNotificationIdTeamKick)
 			{
-				QLOG_APP(L"GetNotifyMsg Kick : {0}") << json[nim::kNIMNotificationKeyData]["attach"].asString();
+				LOG_MSG(L"GetNotifyMsg Kick : {0}") << json[nim::kNIMNotificationKeyData]["attach"].asString();
 			}
 			else if (id == nim::kNIMNotificationIdTeamInvite)
 			{
-				QLOG_APP(L"GetNotifyMsg invite : {0}") << json[nim::kNIMNotificationKeyData]["attach"].asString();
+				LOG_MSG(L"GetNotifyMsg invite : {0}") << json[nim::kNIMNotificationKeyData]["attach"].asString();
 			}
 		}
 

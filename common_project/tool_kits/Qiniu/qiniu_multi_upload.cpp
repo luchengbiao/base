@@ -7,6 +7,8 @@
 #include "json/cJSON.h"
 #include <thread>
 #include "common/tool/common_tool.h"
+#include "log\log.h"
+#include "base\util\string_number_conversions.h"
 
 using namespace std;
 
@@ -86,14 +88,16 @@ int ResumableUploadNotify(void* recvr, int blkIdx, int blkSize, Qiniu_Rio_Blkput
 		sum += pRecvr->progress[i];
 	}
 
-	printf("Fsize: %lld, BlkIndex: %d, Offset: %d, progress: %.2lf\n", pRecvr->fsize, blkIdx, ret->offset, (sum * 1.0) / pRecvr->fsize);
+	DBG_WRAPPER(LOG_DBG(L"Fsize: {0}, BlkIndex: {1}, Offset: {2}, progress: {3}") << pRecvr->fsize, blkIdx, ret->offset, nbase::DoubleToString((sum * 1.0) / pRecvr->fsize));
+	
 	pRecvr->progress_notify(sum * 1.0);
 
 	if (pRecvr->progressFilePath)
 	{
 		if (ret->offset % BLOCK_SIZE == 0 || blkIdx == pRecvr->blkCnt - 1)
 		{
-			printf("Write block %d progress\n", blkIdx);
+			DBG_WRAPPER(LOG_DBG(L"Write block {0} progress") << blkIdx);
+
 			Qiniu_Rio_BlkputRet *blk = pRecvr->blkputRets + blkIdx;
 			blk->checksum = _strdup(ret->checksum);
 			blk->crc32 = ret->crc32;
@@ -132,7 +136,8 @@ int UploadProgressNotify(void* recvr, int blkIdx, int blkSize, Qiniu_Rio_BlkputR
 		sum += pRecvr->progress[i];
 	}
 
-	printf("Fsize: %lld, BlkIndex: %d, Offset: %d, progress: %.2lf\n", pRecvr->fsize, blkIdx, ret->offset, (sum * 1.0) / pRecvr->fsize);
+	DBG_WRAPPER(LOG_DBG(L"Fsize: {0}, BlkIndex: {1}, Offset: {2}, progress: {3}") << pRecvr->fsize, blkIdx, ret->offset, nbase::DoubleToString((sum * 1.0) / pRecvr->fsize));
+	
 	pRecvr->progress_notify((sum * 1.0) / pRecvr->fsize);
 
 	return QINIU_RIO_NOTIFY_OK;
@@ -140,10 +145,9 @@ int UploadProgressNotify(void* recvr, int blkIdx, int blkSize, Qiniu_Rio_BlkputR
 
 void Debuginfo(Qiniu_Client* client, Qiniu_Error err)
 {
-	printf("\nerror code: %d, message: %s\n", err.code, err.message);
-	printf("response header:\n%s", Qiniu_Buffer_CStr(&client->respHeader));
-	printf("response body:\n%s", Qiniu_Buffer_CStr(&client->b));
-	printf("\n\n\n");
+	DBG_WRAPPER(LOG_ERR(L"error code: {0}, message: {1}") << err.code << err.message);
+	DBG_WRAPPER(LOG_ERR(L"response header:\n{0}") << Qiniu_Buffer_CStr(&client->respHeader));
+	DBG_WRAPPER(LOG_ERR(L"response body:\n{0}") << Qiniu_Buffer_CStr(&client->b));
 }
 
 bool QiniuMultiUpload::UploadFile(QiNiuUploadInfo info, const qiniu_upload_finished_cb& finished_cb)
@@ -172,15 +176,14 @@ void QiniuMultiUpload::DoUpload(string& token, string& base, string& name, strin
 	Qiniu_Error error = Qiniu_Io_PutFile(&client, &putRet, token.c_str(), name.c_str(), file.c_str(), NULL);
 	if (error.code != 200)
 	{
-		//QLOG_ERR(L"Upload File {0}, error code: {1}, message: {2}") << file << error.code << error.message;
-		//printf("Upload File %s error.\n", file.c_str());
 		Debuginfo(&client, error);
 		ret = false;
 		msg = "upload error";
 	}
 	else
 	{
-		printf("Upload File %s success.\n", file.c_str());
+		DBG_WRAPPER(LOG_DBG(L"Upload File Succeeded: {0}") << file);
+
 		ret = true;
 		msg = base + name;
 	}
@@ -244,15 +247,14 @@ void QiniuMultiUpload::DoUploadFile(string& token, string& base, string& name, s
 	Qiniu_Error error = Qiniu_Rio_PutFile(&client, &putRet, token.c_str(), name.c_str(), file.c_str(), &putExtra);
 	if (error.code != 200)
 	{
-		//QLOG_ERR(L"Upload File {0}, error code: {1}, message: {2}") << file << error.code << error.message;
-		//printf("Upload File %s error.\n", file.c_str());
 		Debuginfo(&client, error);
 		ret = false;
 		msg = "upload error";
 	}
 	else
 	{
-		printf("Upload File %s success.\n", file.c_str());
+		DBG_WRAPPER(LOG_DBG(L"Upload File Succeeded: {0}") << file);
+
 		ret = true;
 		msg = base + name;
 	}
@@ -345,7 +347,8 @@ void QiniuMultiUpload::DoResumableUpload(string uploadtoken, string name, string
 	char *progressFilePath = GetProgressFilePath("jyxb-media", name.c_str(), file.c_str());
 	putProgressRecvr.progressFilePath = progressFilePath;
 
-	printf("Local progress file is %s\n", progressFilePath);
+	DBG_WRAPPER(LOG_DBG(L"Local progress file is {0}") << progressFilePath);
+
 	//尝试读取本地进度
 	FILE *progressRecordHandle = fopen(progressFilePath, "rb+");
 	if (progressRecordHandle)
@@ -395,14 +398,13 @@ void QiniuMultiUpload::DoResumableUpload(string uploadtoken, string name, string
 	Qiniu_Error error = Qiniu_Rio_PutFile(&client, &putRet, uploadtoken.c_str(), name.c_str(), file.c_str(), &putExtra);
 	if (error.code != 200)
 	{
-		//QLOG_ERR(L"Upload File {0}, error code: {1}, message: {2}") << file << error.code << error.message;
-		//printf("Upload File %s error.\n", file.c_str());
 		Debuginfo(&client, error);
 		ret = false;
 	}
 	else
 	{
-		printf("Upload File %s success.\n", file.c_str());
+		DBG_WRAPPER(LOG_DBG(L"Upload File Succeeded: {0}") << file);
+
 		ret = true;
 	}
 

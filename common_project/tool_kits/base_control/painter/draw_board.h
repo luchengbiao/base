@@ -10,6 +10,7 @@ public:
 
 	virtual QImage GetImage() override;
 	virtual QImage GetImage(bool withBackgroudImage);
+	virtual QImage GetImageByForce();
 	virtual void SetVisibleEx(bool bvisible) override;
 	virtual void SetTeaPenColor(QColor color) override;
 	virtual void SetStuPenColor(QColor color) override;
@@ -17,8 +18,8 @@ public:
 	virtual void SetStuShape(Shape shape) override;
 	virtual void SetPenIcon(std::string color) override;
 	virtual void ResizeBoard(int width, int height) override;
-	virtual void OnStuDrawInfos(std::list<DrawOpInfo> info_list, bool b_paint = true) override;
-	virtual void OnTeaDrawInfos(std::list<DrawOpInfo> info_list, bool b_paint = true) override;
+	virtual void OnStuDrawInfos(const std::list<DrawOpInfo>& info_list, bool b_paint = true) override;
+	virtual void OnTeaDrawInfos(const std::list<DrawOpInfo>& info_list, bool b_paint = true) override;
 	virtual void SetDrawCb(DrawOpCallback cb) override;
 	virtual void SetAcceptEvent(bool bAccept) override;
 	virtual bool IsModified() override;

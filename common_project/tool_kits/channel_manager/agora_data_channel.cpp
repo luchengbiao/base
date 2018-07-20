@@ -2,7 +2,7 @@
 #include "agora_invite/agora_invite_manager.h"
 #include "agora_signalling_channel/agora_signalling_channel_manager.h"
 
-AgoraDataChannel::AgoraDataChannel(bool master) : BaseDataChannel(master)
+AgoraDataChannel::AgoraDataChannel(bool master) :BaseDataChannel(master)
 {
 	b_connection_ = false;
 	m_joinchannelCb_ = nullptr;

@@ -1,6 +1,6 @@
 #include "base_task_thread.h"
 #include "qthread_manager.h"
-#include "log_manager/log.h"
+#include "log\log.h"
 
 BaseTaskThread::BaseTaskThread(nbase::QThreadId thread_id, const char* name)
 : FrameworkQThread(name), thread_id_(thread_id)
@@ -22,5 +22,5 @@ void BaseTaskThread::Cleanup()
 {
 	nbase::QThreadManager::UnregisterThread();
 
-	QLOG_APP(L"ApiTaskThread Cleanup");
+	LOG_INFO(L"ApiTaskThread Cleanup");
 }

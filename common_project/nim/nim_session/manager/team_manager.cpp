@@ -1,4 +1,4 @@
-#include "log_manager\log.h"
+#include "log\log.h"
 #include "base\util\string_util.h"
 #include "nim_sdk_manager\api\nim_cpp_team.h"
 #include "nim_login\manager\login_manager.h"
@@ -21,7 +21,7 @@ namespace nim_comp
 
 	void TeamManager::OnAddTeamCallback(const std::string & tid, const nim::TeamInfo & tinfo)
 	{
-		QLOG_APP(L"InvokeAddTeam: tid={0} ") << tid;
+		LOG_MSG(L"InvokeAddTeam: tid={0} ") << tid;
 		cached_tinfo_[tid] = tinfo;
 		for (auto& it : add_team_cb_)
 		{
@@ -65,7 +65,7 @@ namespace nim_comp
 
 	void TeamManager::OnRemoveTeamCallback(const std::string& tid)
 	{
-		QLOG_APP(L"InvokeRemoveTeam: tid={0} ") << tid;
+		LOG_MSG(L"InvokeRemoveTeam: tid={0} ") << tid;
 
 		cached_tinfo_.erase(tid);
 
@@ -107,7 +107,7 @@ namespace nim_comp
 
 	void TeamManager::OnAddTeamMemberCallback(const std::string& tid, const nim::TeamMemberProperty& team_member)
 	{
-		QLOG_APP(L"invoke add: tid={0} uid={1}") << tid << team_member.GetAccountID();
+		LOG_MSG(L"invoke add: tid={0} uid={1}") << tid << team_member.GetAccountID();
 		for (auto& it : add_team_member_cb_)
 		{
 			(*it.second)(tid, team_member);
@@ -127,7 +127,7 @@ namespace nim_comp
 
 	void TeamManager::OnRemoveTeamMemberCallback(const std::string& tid, const std::string& uid)
 	{
-		QLOG_APP(L"invoke remove: tid={0} uid={1}") << tid << uid;
+		LOG_MSG(L"invoke remove: tid={0} uid={1}") << tid << uid;
 
 		if (LoginManager::GetInstance()->IsEqual(uid))
 		{
@@ -153,7 +153,7 @@ namespace nim_comp
 
 	void TeamManager::OnChangeTeamMemberCallback(const std::string& tid, const std::string& uid, const std::string& team_card)
 	{
-		QLOG_APP(L"invoke change: tid={0} uid={1} team_card={2}") << tid << uid << team_card;
+		LOG_MSG(L"invoke change: tid={0} uid={1} team_card={2}") << tid << uid << team_card;
 
 		for (auto& it : change_team_member_cb_)
 		{
@@ -177,7 +177,7 @@ namespace nim_comp
 
 	void TeamManager::OnChangeTeamAdminCallback(const std::string& tid, const std::string& uid, bool admin)
 	{
-		QLOG_APP(L"invoke admin: tid={0} uid={1} admin={2}") << tid << uid << admin;
+		LOG_MSG(L"invoke admin: tid={0} uid={1} admin={2}") << tid << uid << admin;
 		for (auto& it : change_team_admin_cb_)
 		{
 			(*it.second)(tid, uid, admin);
@@ -197,7 +197,7 @@ namespace nim_comp
 
 	void TeamManager::OnSetTeamOwnerCallback(const std::string& tid, const std::string& uid)
 	{
-		QLOG_APP(L"invoke set team owner: tid={0} uid={1}") << tid << uid;
+		LOG_MSG(L"invoke set team owner: tid={0} uid={1}") << tid << uid;
 		for (auto& it : set_team_owner_cb_)
 		{
 			(*it.second)(tid, uid);
@@ -217,7 +217,7 @@ namespace nim_comp
 
 	void TeamManager::OnMuteMemberCallback(const std::string& tid, const std::string& uid, bool set_mute)
 	{
-		QLOG_APP(L"invoke mute member: tid={0} uid={1} set_mute={2}") << tid << uid << set_mute;
+		LOG_MSG(L"invoke mute member: tid={0} uid={1} set_mute={2}") << tid << uid << set_mute;
 
 		for (auto& it : mute_member_cb_)
 		{

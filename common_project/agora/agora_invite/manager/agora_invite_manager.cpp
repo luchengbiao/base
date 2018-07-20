@@ -184,7 +184,7 @@ void AGInviteManager::ChannelInviteDTMF(std::string s_channelID, std::string s_p
 
 void AGInviteManager::ChannelInviteAccept(std::string s_channelID, std::string s_account, uint32_t uid)
 {
-	AGSignallingManager::GetAGSignalling()->ChannelInviteAccept(s_channelID, s_account, uid);
+	AGSignallingManager::GetAGSignalling()->ChannelInviteAccept(s_channelID, s_account, uid,"");
 }
 
 void AGInviteManager::ChannelInviteRefuse(std::string s_channelID, std::string s_account, uint32_t uid, std::string s_extra)

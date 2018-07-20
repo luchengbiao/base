@@ -1,6 +1,6 @@
 #include "HttpsClient.h"
 #include <stdio.h>
-#include "log_manager\log.h"
+#include "log\log.h"
 #include "..\common\system\system_tool.h"
 #include "base\system\api_setting.h"
 #include "base\macros.h"
@@ -12,6 +12,7 @@
 #include <process.h> 
 #include <sstream>
 #define DEBUG_CURL_THREAD
+#define LOG_THREAD_WAKE_UP
 #endif
 
 #ifdef _DEBUG
@@ -98,19 +99,18 @@ void CHttpClient::LazyCreateTheads()
 static int OnDebug(CURL *, curl_infotype itype, char * pData, size_t size, void *)
 {
 	if (itype == CURLINFO_TEXT) {
-		//printf("[TEXT]%s\n", pData);
 	}
 	else if (itype == CURLINFO_HEADER_IN) {
-		printf("[HEADER_IN]%s\n", pData);
+		DBG_WRAPPER(LOG_DBG(L"[HEADER_IN]{0}") << pData);
 	}
 	else if (itype == CURLINFO_HEADER_OUT) {
-		printf("[HEADER_OUT]%s\n", pData);
+		DBG_WRAPPER(LOG_DBG(L"[HEADER_OUT]{0}") << pData);
 	}
 	else if (itype == CURLINFO_DATA_IN) {
-		printf("[DATA_IN]%s\n", pData);
+		DBG_WRAPPER(LOG_DBG(L"[DATA_IN]{0}") << pData);
 	}
 	else if (itype == CURLINFO_DATA_OUT) {
-		printf("[DATA_OUT]%s\n", pData);
+		DBG_WRAPPER(LOG_DBG(L"[DATA_OUT]{0}") << pData);
 	}
 	return 0;
 }
@@ -274,7 +274,7 @@ void CHttpClient::Stop()
 
 	for (auto& threadPtr : m_curlWorkThreadPool)
 	{
-		if (threadPtr)
+		if (threadPtr && threadPtr->joinable())
 		{
 			threadPtr->join();
 		}
@@ -283,7 +283,7 @@ void CHttpClient::Stop()
 
 	for (auto& threadPtr : m_callbackThreadPool)
 	{
-		if (threadPtr)
+		if (threadPtr && threadPtr->joinable())
 		{
 			threadPtr->join();
 		}
@@ -486,7 +486,7 @@ void CHttpClient::CurlWorkThreadFunc()
 				}
 				else
 				{
-					QLOG_ERR(L"bad request, result:") << msg->msg;
+					LOG_ERR(L"bad request, result:") << msg->msg;
 				}
 			}
 		}
@@ -504,8 +504,8 @@ void CHttpClient::CurlWorkThreadFunc()
 			{
 				m_NewRequestCV.wait(lock, [this]{ return !m_NewRequestCollect.empty() || m_bQuit; });
 
-#ifdef DEBUG_CURL_THREAD
-				QLOG_WAR(L"CHttpClient::CurlWorkThreadFunc_{0} Wakeup") << threadId;
+#ifdef LOG_THREAD_WAKE_UP
+				LOG_INFO(L"CHttpClient::CurlWorkThreadFunc_{0} Wakeup") << threadId;
 #endif
 			}
 
@@ -561,8 +561,8 @@ void CHttpClient::CallbackThreadFunc()
 
 			m_FinishRequestCV.wait(lock, [this]{ return !m_FinishRequestCollect.empty() || m_bQuit; });
 
-#ifdef DEBUG_CURL_THREAD
-			QLOG_WAR(L"CHttpClient::CallbackThreadFunc_{0} Wakeup") << threadId;
+#ifdef LOG_THREAD_WAKE_UP
+			LOG_INFO(L"CHttpClient::CallbackThreadFunc_{0} Wakeup") << threadId;
 #endif
 
 			if (m_bQuit) 

@@ -1,5 +1,5 @@
 ﻿#include "rts_manager.h"
-#include "log_manager\log.h"
+#include "log\log.h"
 
 
 namespace nim_comp

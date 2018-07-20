@@ -14,8 +14,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common", "common\common.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "agora_manager", "agora_manager\agora_manager.vcxproj", "{1AB45405-9947-41B5-A34F-C34D124BCD8D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "channel_manager", "channel_manager\channel_manager.vcxproj", "{6185471D-ECEE-4145-976F-A040E45BDA58}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "invite_manager", "invite_manager\invite_manager.vcxproj", "{0309CF2B-0281-44D9-9F4C-B069218267E4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "login_third_party", "login_manager_for_third_party\login_manager_for_third_party.vcxproj", "{2F37146F-8EF2-4A06-A449-2F12AECAC669}"
@@ -30,11 +28,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zip", "zip\zip.vcxproj", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qiniu_upload", "Qiniu\Qiniu.vcxproj", "{3C8930CB-C30D-4188-BC47-BC698F403A3B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "class_log_manager", "class_log_manager\class_log_manager.vcxproj", "{BD65F21A-243A-4543-A30D-CDE5D459111E}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "chatroom_manager", "chatroom_manager\chatroom_manager.vcxproj", "{4DCFB5A8-8BEE-44A2-90C1-EDD100464249}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QtGuiApplication2", "QtGuiApplication2\QtGuiApplication2.vcxproj", "{B5A5064B-F3DC-4792-BC39-AF889A3BCD4A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "channel_manager", "channel_manager\channel_manager.vcxproj", "{59C7515D-3715-4326-A12B-A4F736EBCA70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,10 +64,6 @@ Global
 		{1AB45405-9947-41B5-A34F-C34D124BCD8D}.Debug|Win32.Build.0 = Debug|Win32
 		{1AB45405-9947-41B5-A34F-C34D124BCD8D}.Release|Win32.ActiveCfg = Release|Win32
 		{1AB45405-9947-41B5-A34F-C34D124BCD8D}.Release|Win32.Build.0 = Release|Win32
-		{6185471D-ECEE-4145-976F-A040E45BDA58}.Debug|Win32.ActiveCfg = Debug|Win32
-		{6185471D-ECEE-4145-976F-A040E45BDA58}.Debug|Win32.Build.0 = Debug|Win32
-		{6185471D-ECEE-4145-976F-A040E45BDA58}.Release|Win32.ActiveCfg = Release|Win32
-		{6185471D-ECEE-4145-976F-A040E45BDA58}.Release|Win32.Build.0 = Release|Win32
 		{0309CF2B-0281-44D9-9F4C-B069218267E4}.Debug|Win32.ActiveCfg = Debug|Win32
 		{0309CF2B-0281-44D9-9F4C-B069218267E4}.Debug|Win32.Build.0 = Debug|Win32
 		{0309CF2B-0281-44D9-9F4C-B069218267E4}.Release|Win32.ActiveCfg = Release|Win32
@@ -98,10 +92,6 @@ Global
 		{3C8930CB-C30D-4188-BC47-BC698F403A3B}.Debug|Win32.Build.0 = Debug|Win32
 		{3C8930CB-C30D-4188-BC47-BC698F403A3B}.Release|Win32.ActiveCfg = Release|Win32
 		{3C8930CB-C30D-4188-BC47-BC698F403A3B}.Release|Win32.Build.0 = Release|Win32
-		{BD65F21A-243A-4543-A30D-CDE5D459111E}.Debug|Win32.ActiveCfg = Debug|Win32
-		{BD65F21A-243A-4543-A30D-CDE5D459111E}.Debug|Win32.Build.0 = Debug|Win32
-		{BD65F21A-243A-4543-A30D-CDE5D459111E}.Release|Win32.ActiveCfg = Release|Win32
-		{BD65F21A-243A-4543-A30D-CDE5D459111E}.Release|Win32.Build.0 = Release|Win32
 		{4DCFB5A8-8BEE-44A2-90C1-EDD100464249}.Debug|Win32.ActiveCfg = Debug|Win32
 		{4DCFB5A8-8BEE-44A2-90C1-EDD100464249}.Debug|Win32.Build.0 = Debug|Win32
 		{4DCFB5A8-8BEE-44A2-90C1-EDD100464249}.Release|Win32.ActiveCfg = Release|Win32
@@ -110,6 +100,10 @@ Global
 		{B5A5064B-F3DC-4792-BC39-AF889A3BCD4A}.Debug|Win32.Build.0 = Debug|Win32
 		{B5A5064B-F3DC-4792-BC39-AF889A3BCD4A}.Release|Win32.ActiveCfg = Release|Win32
 		{B5A5064B-F3DC-4792-BC39-AF889A3BCD4A}.Release|Win32.Build.0 = Release|Win32
+		{59C7515D-3715-4326-A12B-A4F736EBCA70}.Debug|Win32.ActiveCfg = Debug|Win32
+		{59C7515D-3715-4326-A12B-A4F736EBCA70}.Debug|Win32.Build.0 = Debug|Win32
+		{59C7515D-3715-4326-A12B-A4F736EBCA70}.Release|Win32.ActiveCfg = Release|Win32
+		{59C7515D-3715-4326-A12B-A4F736EBCA70}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

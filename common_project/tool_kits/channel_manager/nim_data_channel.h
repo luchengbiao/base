@@ -4,6 +4,7 @@
 
 class NimDataChannel : public BaseDataChannel
 {
+	Q_OBJECT
 public:
 	NimDataChannel(bool master);
 	~NimDataChannel();
@@ -19,6 +20,8 @@ public:
 	virtual NetworkServiceType GetChannelType();
 	virtual std::string GetSessionOrChannelID();
 	virtual void SetSessionOrChannelID(std::string session_id){ rts_session_id_ = session_id; };
+	virtual void SetConnectStateCb(DataChannelConnectStateCb connect_cb){}
+	virtual void SetChannelMessageCb(DataChannelMessageCb msg_cb){}
 
 private:
 	void CreateChannelCb(nim::NIMResCode res_code);

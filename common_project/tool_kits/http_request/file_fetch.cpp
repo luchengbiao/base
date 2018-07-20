@@ -2,7 +2,7 @@
 #include "curl\curl.h"
 #include "nim_sdk_manager/api/nim_tools_http_cpp.h"
 #include "base\util\string_number_conversions.h"
-#include "log_manager\log.h"
+#include "log\log.h"
 #include "base\file\file_util.h"
 #include "base\util\string_util.h"
 #include "qthread_manager\closure.h"
@@ -112,7 +112,7 @@ int FileFetcher::AsyncFetchFile(std::string& url, std::string dir_path, const fi
 			{
 				qtbase::Post2Task(kThreadUIHelper, std::bind(comp_cb, std::string("")));
 			}
-			QLOG_WAR(L"async fetch file failed {0} reason code {1}") << url << response_code;
+			LOG_WAR(L"async fetch file failed {0} reason code {1}") << url << response_code;
 		}
 	};
 
@@ -191,7 +191,7 @@ int FileFetcher::AsyncFetchImage(std::string& url, std::string dir_path, const f
 			{
 				qtbase::Post2Task(kThreadUIHelper, std::bind(comp_cb, std::string("")));
 			}
-			QLOG_WAR(L"async fetch file failed {0} reason code {1}") << url << response_code;
+			LOG_WAR(L"async fetch file failed {0} reason code {1}") << url << response_code;
 		}
 	};
 

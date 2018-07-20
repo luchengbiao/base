@@ -1,5 +1,5 @@
 #include "api_result.h"
-#include "log_manager\log.h"
+#include "log\log.h"
 
 class ApiResult::ApiResultPrivate
 {
@@ -137,7 +137,7 @@ void ApiResult::Parse(std::string s_response_, ApiResult& api_result)
 		}
 		else
 		{
-			QLOG_ERR(L"parse failed: {0}") << s_response_;
+			LOG_ERR(L"parse failed: {0}") << s_response_;
 			ptr->code = -1;
 			ptr->SetMsg(L"·þÎñÆ÷Î´ÏìÓ¦");
 			ptr->b_parse_success = false;

@@ -102,7 +102,7 @@ std::string commontool::GetMac()
 
 		PIP_ADAPTER_INFO painfo = adapter;
 		memcpy(s, painfo->Address, 6);
-		//printf("Physical Address:%02X-%02X-%02X-%02X-%02X-%02X\n", s[0], s[1], s[2], s[3], s[4], s[5]);
+
 		mac = nbase::BinaryToHexString((char*)s, 6);
 	}
 
