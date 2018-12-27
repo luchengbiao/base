@@ -154,7 +154,7 @@ namespace wcb
 
 		CancelFlagWeakPtr GetCancelFlagWeakPtr()
 		{
-			auto cancel_flag_ptr = std::atomic_load(cancel_flag_ptr_);
+			auto cancel_flag_ptr = std::atomic_load(&cancel_flag_ptr_);
 			if (!cancel_flag_ptr)
 			{
 				CancelFlagSharedPtr cancel_flag_ptr_null;
@@ -173,7 +173,7 @@ namespace wcb
 
 		bool IsInUse()
 		{
-			auto cancel_flag_ptr = std::atomic_load(cancel_flag_ptr_);
+			auto cancel_flag_ptr = std::atomic_load(&cancel_flag_ptr_);
 
 			return cancel_flag_ptr.use_count() > 0;
 		}
