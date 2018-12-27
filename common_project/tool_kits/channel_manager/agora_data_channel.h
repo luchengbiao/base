@@ -10,7 +10,7 @@ public:
 	AgoraDataChannel(){};
 	~AgoraDataChannel();
 
-	virtual void JoinChannel(std::string channel_id, JoinChannelCallback& cb);
+	virtual void JoinChannel(std::string channel_id, JoinChannelCallback& cb, std::string url = "");
 	virtual void ReJoinChannel(JoinChannelCallback& cb);
 	virtual void LeaveChannel(std::string channel_id, std::string notified_account, LeaveChannelCallback& cb);
 	virtual void SendChannelMessage(std::string channel_id, std::string data);

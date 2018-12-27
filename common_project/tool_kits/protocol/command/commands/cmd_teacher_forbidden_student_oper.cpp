@@ -1,0 +1,7 @@
+#include "cmd_teacher_forbidden_student_oper.h"
+
+PROTO_NAMESPACE_BEGIN
+
+IMPLEMENT_COMMAND_RUNTIME_INFO(CommandType::TeacherForbiddenStudentOper, CmdTeacherForbiddenStudentOper, CommandCell)
+
+PROTO_NAMESPACE_END

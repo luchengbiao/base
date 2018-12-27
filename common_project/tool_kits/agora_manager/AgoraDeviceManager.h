@@ -9,18 +9,23 @@
 
 struct DeviceManagerParam
 {
-	int platsource_;		//来源 默认 一对一 班课
 	AgoraCameraManager* m_agCamera_;
 	AgoraPlayoutManager* m_agPlayout_;
 	AgoraAudInputManager* m_agAudioin_;
 
 	DeviceManagerParam()
 	{
-		platsource_ = 0;
 		m_agCamera_ = nullptr;
 		m_agPlayout_ = nullptr;
 		m_agAudioin_ = nullptr;
 	}
+};
+
+enum AgoraVChatChannelProfile
+{
+	AgoraVChatChannel_NONE = 0,
+	AgoraVChatChannel_COMMUNICATION = 1,
+	AgoraVChatChannel_LIVE = 2,
 };
 
 typedef std::map<int, DeviceManagerParam*> DeviceManagerParamMap;
@@ -32,18 +37,20 @@ public:
 
 	AgoraDeviceManager();
 	~AgoraDeviceManager();
-	void OnInit(std::string s_vendorKey = "");
-	void OnUninit();
-	void OnCreate(DeviceManagerParam &param);
+	void SetAppID(std::string app_id);
+	void SetChannelProfile(AgoraVChatChannelProfile type);
+	AgoraVChatChannelProfile GetChannelProfile();
+	DeviceManagerParam* CreateDeviceManager();
 	AGEngineManager* GetEngineManager();
 	IRtcEngine* GetRtcEngine();
-	void FreeDeviceManager(int type);
-	void GetDeviceManagerParam(DeviceManagerParam &param);
-
+	void FreeDeviceManager();
+	DeviceManagerParam* GetDeviceManager();
+	int setClientRole(CLIENT_ROLE_TYPE role, const char* permissionKey);
+	void CloseAGEngine();
 private:
-	void OnClose(DeviceManagerParam *param);
-private:
+	std::string s_app_id_;
+	AgoraVChatChannelProfile channel_type_;
 	AGEngineManager* p_agoraObject_;
 	IRtcEngine *p_rtcEngine_;
-	DeviceManagerParamMap device_manager_map_;
+	DeviceManagerParam* device_param_;
 };

@@ -2,11 +2,12 @@
 #include <functional>
 #include <string>
 #include <stdio.h>
+#include "base\callback\callback.h"
 
 typedef std::function<void(std::string)> file_fetcher_complete_cb;
 typedef std::function<void(double, double, double, double)> file_fetcher_progress_cb;
 
-class FileFetcher 
+class FileFetcher:public nbase::SupportWeakCallback 
 {
 public:
 	FileFetcher(){}

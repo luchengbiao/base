@@ -21,6 +21,24 @@ using namespace std;
 #define SERVER_SUPPORT
 bool ApiCaller::b_global_init = false;
 
+static void map2multimap(const SS_MAP& map, SS_MULTI_MAP& multimap)
+{
+	multimap.clear();
+	for (const auto& pair : map)
+	{
+		multimap.emplace(pair);
+	}
+}
+
+static void multimap2map(const SS_MULTI_MAP& multimap, SS_MAP& map)
+{
+	map.clear();
+	for (const auto& pair : multimap)
+	{
+		map.emplace(pair);
+	}
+}
+
 ApiCaller::ApiCaller()
 {
 	s_response_ = "";
@@ -33,30 +51,37 @@ ApiCaller::~ApiCaller()
 }
 
 
-int ApiCaller::AsyncCallGet(const std::string &path, SS_MAP &param_map_, const ASYNSC_API_CALLBACK& response_cb, bool need_url_encode /*= false*/)
+int ApiCaller::AsyncCallGet(const std::string &path, SS_MAP &param_map, const ASYNSC_API_CALLBACK& response_cb, bool need_url_encode /*= false*/)
 {
-	for (auto i = param_map_.begin(); need_url_encode && i != param_map_.end(); i++)
+	SS_MULTI_MAP multi_map;
+	map2multimap(param_map, multi_map);
+
+	int ret = AsyncCallGet(path, multi_map, response_cb, need_url_encode);
+
+	multimap2map(multi_map, param_map);
+
+	return ret;
+}
+
+int ApiCaller::AsyncCallGet(const std::string &path, SS_MULTI_MAP &param_map, const ASYNSC_API_CALLBACK& response_cb, bool need_url_encode)
+{
+	if (need_url_encode)
 	{
-		std::string& v = i->second;
-		v = urlencode(v);
+		for (auto& pair : param_map)
+		{
+			pair.second = urlencode(pair.second);
+		}
 	}
+
 	std::string url = "";
-	if (path.find("http://") != std::string::npos 
+	if (path.find("http://") != std::string::npos
 		|| path.find("https://") != std::string::npos)
 	{
-		url = path;
-		// 添加参数
-		std::map< std::string, std::string>::iterator iter_ = param_map_.begin();
-		while (iter_ != param_map_.end())
-		{
-			iter_ == param_map_.begin() ? url.append("?") : url.append("&");
-			url.append(iter_->first).append("=").append(iter_->second);
-			iter_++;
-		}
+		url = path + formatToUrlParams(param_map);
 	}
 	else
 	{
-		url = assemble_general_url_(path, param_map_);
+		url = assemble_general_url_(path, param_map);
 	}
 
 	auto  res_cb = [=](const CHttpRequestPtr & http_request)
@@ -102,10 +127,23 @@ int ApiCaller::AsyncCallGet(const std::string &path, SS_MAP &param_map_, const A
 	sl_headers = curl_slist_append(sl_headers, builde_cookie_().c_str());
 	sl_headers = curl_slist_append(sl_headers, builde_auth_().c_str());
 #endif // SERVER_SUPPORT
-	std::string ts_str = "xy-nonce: " + param_map_["ts"];
+
+	std::string ts_str = "xy-nonce: ";
+	auto it_ts = param_map.find("ts");
+	if (it_ts != param_map.end())
+	{
+		ts_str += it_ts->second;
+	}
 	sl_headers = curl_slist_append(sl_headers, ts_str.c_str());
-	std::string sign_str = "xy-sign: " + param_map_["sign"];
+
+	std::string sign_str = "xy-sign: ";
+	auto it_sign = param_map.find("sign");
+	if (it_sign != param_map.end())
+	{
+		sign_str += it_sign->second;
+	}
 	sl_headers = curl_slist_append(sl_headers, sign_str.c_str());
+
 	sl_headers = curl_slist_append(sl_headers, "xy-access-key: jyxb");
 
 	int status = CHttpClient::GetInstance()->AsyncGet(url, sl_headers, res_cb);
@@ -113,9 +151,9 @@ int ApiCaller::AsyncCallGet(const std::string &path, SS_MAP &param_map_, const A
 	return status;
 }
 
-int ApiCaller::AsyncCallPut(const std::string &path, SS_MAP &param_map_, const ASYNSC_API_CALLBACK& response_cb, bool need_url_encode /*= false*/)
+int ApiCaller::AsyncCallPut(const std::string &path, SS_MAP &param_map, const ASYNSC_API_CALLBACK& response_cb, bool need_url_encode /*= false*/)
 {
-	for (auto i = param_map_.begin(); need_url_encode && i != param_map_.end(); i++)
+	for (auto i = param_map.begin(); need_url_encode && i != param_map.end(); i++)
 	{
 		std::string& v = i->second;
 		v = urlencode(v);
@@ -128,7 +166,7 @@ int ApiCaller::AsyncCallPut(const std::string &path, SS_MAP &param_map_, const A
 	}
 	else
 	{
-		url = assemble_general_url_(path, param_map_);
+		url = assemble_general_url_(path, param_map);
 	}
 
 	auto  res_cb = [=](const CHttpRequestPtr & http_request)
@@ -174,9 +212,9 @@ int ApiCaller::AsyncCallPut(const std::string &path, SS_MAP &param_map_, const A
 	sl_headers = curl_slist_append(sl_headers, builde_cookie_().c_str());
 	sl_headers = curl_slist_append(sl_headers, builde_auth_().c_str());
 #endif // SERVER_SUPPORT
-	std::string ts_str = "xy-nonce: " + param_map_["ts"];
+	std::string ts_str = "xy-nonce: " + param_map["ts"];
 	sl_headers = curl_slist_append(sl_headers, ts_str.c_str());
-	std::string sign_str = "xy-sign: " + param_map_["sign"];
+	std::string sign_str = "xy-sign: " + param_map["sign"];
 	sl_headers = curl_slist_append(sl_headers, sign_str.c_str());
 	sl_headers = curl_slist_append(sl_headers, "xy-access-key: jyxb");
 
@@ -185,9 +223,9 @@ int ApiCaller::AsyncCallPut(const std::string &path, SS_MAP &param_map_, const A
 	return status;
 }
 
-int ApiCaller::AsyncCallDelete(const std::string &path, SS_MAP &param_map_, const ASYNSC_API_CALLBACK& response_cb, bool need_url_encode /*= false*/)
+int ApiCaller::AsyncCallDelete(const std::string &path, SS_MAP &param_map, const ASYNSC_API_CALLBACK& response_cb, bool need_url_encode /*= false*/)
 {
-	for (auto i = param_map_.begin(); need_url_encode && i != param_map_.end(); i++)
+	for (auto i = param_map.begin(); need_url_encode && i != param_map.end(); i++)
 	{
 		std::string& v = i->second;
 		v = urlencode(v);
@@ -200,7 +238,7 @@ int ApiCaller::AsyncCallDelete(const std::string &path, SS_MAP &param_map_, cons
 	}
 	else
 	{
-		url = assemble_general_url_(path, param_map_);
+		url = assemble_general_url_(path, param_map);
 	}
 
 	auto  res_cb = [=](const CHttpRequestPtr & http_request)
@@ -246,9 +284,9 @@ int ApiCaller::AsyncCallDelete(const std::string &path, SS_MAP &param_map_, cons
 	sl_headers = curl_slist_append(sl_headers, builde_cookie_().c_str());
 	sl_headers = curl_slist_append(sl_headers, builde_auth_().c_str());
 #endif // SERVER_SUPPORT
-	std::string ts_str = "xy-nonce: " + param_map_["ts"];
+	std::string ts_str = "xy-nonce: " + param_map["ts"];
 	sl_headers = curl_slist_append(sl_headers, ts_str.c_str());
-	std::string sign_str = "xy-sign: " + param_map_["sign"];
+	std::string sign_str = "xy-sign: " + param_map["sign"];
 	sl_headers = curl_slist_append(sl_headers, sign_str.c_str());
 	sl_headers = curl_slist_append(sl_headers, "xy-access-key: jyxb");
 
@@ -257,15 +295,15 @@ int ApiCaller::AsyncCallDelete(const std::string &path, SS_MAP &param_map_, cons
 	return status;
 }
 
-int ApiCaller::AsyncCallPost(const std::string &path, SS_MAP &param_map_, const ASYNSC_API_CALLBACK& response_cb, bool need_url_encode /*= false*/)
+int ApiCaller::AsyncCallPost(const std::string &path, SS_MAP &param_map, const ASYNSC_API_CALLBACK& response_cb, bool need_url_encode /*= false*/)
 {
-	for (auto i = param_map_.begin(); need_url_encode && i != param_map_.end(); i++)
+	for (auto i = param_map.begin(); need_url_encode && i != param_map.end(); i++)
 	{
 		string& v = i->second;
 		v = urlencode(v);
 	}
 
-	std::string post_f_ = generate_post_field_(param_map_);
+	std::string post_f_ = generate_post_field_(param_map);
 
 	SS_MAP field_map_;
 	field_map_["_post_field_"] = post_f_;
@@ -331,9 +369,91 @@ int ApiCaller::AsyncCallPost(const std::string &path, SS_MAP &param_map_, const 
 
 
 	sl_headers = curl_slist_append(sl_headers, "Expect:");
-	std::string ts_str = "xy-nonce: " + param_map_["ts"];
+	std::string ts_str = "xy-nonce: " + param_map["ts"];
 	sl_headers = curl_slist_append(sl_headers, ts_str.c_str());
-	std::string sign_str = "xy-sign: " + param_map_["sign"];
+	std::string sign_str = "xy-sign: " + param_map["sign"];
+	sl_headers = curl_slist_append(sl_headers, sign_str.c_str());
+	sl_headers = curl_slist_append(sl_headers, "xy-access-key: jyxb");
+
+	int64_t status = CHttpClient::GetInstance()->AsyncPost(url, post_f_, sl_headers, res_cb);
+
+	return (int)status;
+}
+
+int ApiCaller::AsyncCallPost(const std::string &path, const std::string& json_content, const ASYNSC_API_CALLBACK& response_cb, bool need_url_encode)
+{
+	SS_MAP param_map;
+
+	std::string post_f_ = need_url_encode ? urlencode(json_content) : json_content;
+
+	SS_MAP field_map_;
+	field_map_["_post_field_"] = post_f_;
+
+	std::string url = "";
+	if (path.find("http://") != std::string::npos
+		|| path.find("https://") != std::string::npos)
+	{
+		url = path;
+	}
+	else
+	{
+		url = assemble_post_url_(path, field_map_);
+	}
+
+	auto  res_cb = [=](const CHttpRequestPtr & http_request)
+	{
+		ApiResult api_result;
+
+#ifdef DEBUG
+		LOG_MSG(nbase::UTF8ToUTF16(http_request->m_response));
+#endif
+
+
+		if (!http_request || http_request->m_response.empty())
+		{
+			api_result.SetCode(-1);
+			api_result.SetMsg(L"连接服务器失败");
+		}
+		else
+		{
+			ApiResult::Parse(http_request->m_response, api_result);
+			if (api_result.Success())
+			{
+				LOG_MSG(L"aysnc post api {0} result ok") << url.c_str();
+				std::wstring msg = nbase::UTF8ToUTF16(api_result.GetMsg());
+			}
+			else
+			{
+				LOG_MSG(L"aysnc post api {0} result {1}") << url.c_str() << http_request->m_response.c_str();
+				std::wstring msg = nbase::UTF8ToUTF16(api_result.GetMsg());
+			}
+		}
+		if (response_cb)
+		{
+			response_cb(api_result);  // res_cb And response_cb are definitely called in HttpsClient::CallbackThreadPool
+			//qtbase::Post2Task(kThreadUIHelper, nbase::Bind(response_cb, api_result));
+		}
+	};
+
+
+	curl_slist* sl_headers = NULL;
+	sl_headers = curl_slist_append(sl_headers, "Accept: */*");
+#ifdef SERVER_SUPPORT
+	sl_headers = curl_slist_append(sl_headers, builde_auth_().c_str());
+	sl_headers = curl_slist_append(sl_headers, build_token_().c_str());
+#endif // SERVER_SUPPORT
+
+#ifndef SERVER_SUPPORT
+	sl_headers = curl_slist_append(sl_headers, builde_cookie_().c_str());
+	sl_headers = curl_slist_append(sl_headers, builde_auth_().c_str());
+#endif // SERVER_SUPPORT
+
+	sl_headers = curl_slist_append(sl_headers, "Content-Type:application/json;charset=UTF-8");
+
+	sl_headers = curl_slist_append(sl_headers, "Expect:");
+	std::string ts_str = "xy-nonce: " + param_map["ts"];
+	sl_headers = curl_slist_append(sl_headers, ts_str.c_str());
+	std::string sign_str = "xy-sign: " + param_map["sign"];
 	sl_headers = curl_slist_append(sl_headers, sign_str.c_str());
 	sl_headers = curl_slist_append(sl_headers, "xy-access-key: jyxb");
 
@@ -382,7 +502,19 @@ std::string ApiCaller::build_token_()
 	return token_str;
 }
 
-std::string ApiCaller::cal_general_sign_(std::string path, std::map<std::string, std::string> &param_map, bool need_sep)
+std::string ApiCaller::cal_general_sign_(const std::string& path, SS_MAP &param_map, bool need_sep)
+{
+	SS_MULTI_MAP multi_map;
+	map2multimap(param_map, multi_map);
+
+	auto str = cal_general_sign_(path, multi_map, need_sep);
+
+	multimap2map(multi_map, param_map);
+
+	return str;
+}
+
+std::string ApiCaller::cal_general_sign_(const std::string& path, SS_MULTI_MAP &param_map, bool need_sep)
 {
 	std::vector<std::string> vec_key;
 	
@@ -462,7 +594,19 @@ std::string ApiCaller::assemble_post_url_(std::string path, std::map<std::string
 	return url_str;
 }
 
-std::string ApiCaller::assemble_general_url_(std::string path, std::map< std::string, std::string>& param_map, bool need_sep, bool need_url_encode)
+std::string ApiCaller::assemble_general_url_(const std::string& path, SS_MAP& param_map, bool need_sep, bool need_url_encode)
+{
+	SS_MULTI_MAP multi_map;
+	map2multimap(param_map, multi_map);
+
+	auto url_str = assemble_general_url_(path, multi_map, need_sep, need_url_encode);
+
+	multimap2map(multi_map, param_map);
+
+	return url_str;
+}
+
+std::string ApiCaller::assemble_general_url_(const std::string& path, SS_MULTI_MAP &param_map, bool need_sep, bool need_url_encode)
 {
 	s_path_ = path;
 	//先计算签名
@@ -478,36 +622,23 @@ std::string ApiCaller::assemble_general_url_(std::string path, std::map< std::st
 	if (ApiSetting::api_port_ != 80)
 	{
 		url_str.append(":").append(nbase::IntToString(ApiSetting::api_port_));
-
 	}
-	url_str.append(ApiSetting::api_context_).append(path);
 
+	url_str.append(ApiSetting::api_context_).append(path).append(formatToUrlParams(param_map));
+
+	return url_str;
+}
+
+std::string ApiCaller::generate_post_field_(std::map< std::string, std::string> &param_map)
+{
+	std::string post_f_("");
 	if (!param_map.empty())
 	{
-
 		std::map< std::string, std::string>::iterator iter_ = param_map.begin();
 
 		while (iter_ != param_map.end())
 		{
-			iter_ == param_map.begin() ? url_str.append("?") : url_str.append("&");
-			url_str.append(iter_->first).append("=").append(iter_->second);
-			iter_++;
-		}
-	}
-	return url_str;
-
-}
-
-std::string ApiCaller::generate_post_field_(std::map< std::string, std::string> &param_map_)
-{
-	std::string post_f_("");
-	if (!param_map_.empty())
-	{
-		std::map< std::string, std::string>::iterator iter_ = param_map_.begin();
-
-		while (iter_ != param_map_.end())
-		{
-			if (iter_ != param_map_.begin())
+			if (iter_ != param_map.begin())
 			{
 				post_f_.append("&");
 			}
@@ -545,14 +676,19 @@ std::string ApiCaller::CalMd5ValidSign(std::map<std::string, std::string> &param
 std::string ApiCaller::build_user_agent_()
 {
 	std::string ua_("");
+	std::string reg_dir = "SOFTWARE\\"; 
+	std::string full_path =reg_dir.append(ApiSetting::register_dir_);
+	std::string source =nbase::UTF16ToUTF8(systembase::GetRegValue(nbase::UTF8ToUTF16(reg_dir), L"app_source"));
 
 	ua_.append("os/").append(systembase::GetOSVersionString());
 	ua_.append(" da_version/").append(ApiSetting::app_inner_version_);
 	ua_.append(" os_version/").append(nbase::IntToString(systembase::GetOSVersion()));
-	ua_.append(" jiayouxueba/").append(ApiSetting::app_version_);
-	ua_.append(" device/PCMAC_").append(systembase::GetMac());
-	ua_.append(" api/").append(ApiSetting::api_server_version_);
-
+	ua_.append(" app_version/").append(ApiSetting::app_version_);
+	ua_.append(" device_code/").append(systembase::GetMac());
+	ua_.append(" device_model/").append("pc");
+	ua_.append(" api_version/").append(ApiSetting::api_server_version_);
+	ua_.append(" channel/").append(source);
+	ua_.append(" browser/").append("PCWebView");
 	return ua_;
 }
 

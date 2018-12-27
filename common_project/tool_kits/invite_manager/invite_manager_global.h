@@ -14,7 +14,7 @@ enum One2OneUserType
 struct One2OneCallInfo
 {
 	bool b_creator_;
-	NetworkServiceType m_setvice_type_;   //信令选择
+	NetworkServiceType m_service_type_;   //信令选择
 	int rts_flag_type_;					  //呼叫状态
 	std::string peer_agora_account_;	  //声网移动账号
 	std::string peer_agora_account_pc_;	  //声网PC账号
@@ -50,7 +50,7 @@ struct One2OneCallInfo
 	std::string tea_rank_;				  //老师段位
 	double tea_price_;					  //老师辅导价格
 	double stu_balance_;				  //学生对应专属余额
-
+	int trail_balance_;					  //试听课时长
 	One2OneCallInfo()
 	{
 		m_user_type_ = USER_NORMAL;
@@ -59,12 +59,13 @@ struct One2OneCallInfo
 		im_id_ = 0;
 		my_agora_uid_ = 0;
 		peer_agora_uid_ = 0;
-		m_setvice_type_ = SWITCH_NETWORK_AGORA;
+		m_service_type_ = SWITCH_NETWORK_AGORA;
 		chat_type_ = SWITCH_NETWORK_AGORA;
 		data_type_ = SWITCH_NETWORK_AGORA;
 		tea_price_ = 0.0;
 		stu_balance_ = 0.0;
 		tea_subject_id_ = 0;
 		chess_board_type_ = 0;
+		trail_balance_ = 0;
 	}
 };

@@ -149,6 +149,11 @@ void DrawBoard::SetAcceptEvent(bool bAccept)
 	}
 }
 
+bool  DrawBoard::IsEventAccepted() const
+{
+	return draw_board_ ? draw_board_->IsEventAccepted() : false;
+}
+
 bool DrawBoard::IsModified()
 {
 	bool draw_modify = false;

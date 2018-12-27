@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="command\base\command_cell_with_draw.h" />
+    <ClInclude Include="command\base\command_fwd.h" />
+    <ClInclude Include="command\base\command_group_with_draw_list.h" />
+    <ClInclude Include="command\base\command.h" />
+    <ClInclude Include="command\base\command_cell.h" />
+    <ClInclude Include="command\base\command_class_runtime_info.h" />
+    <ClInclude Include="command\base\command_factory.h" />
+    <ClInclude Include="command\base\command_group.h" />
+    <ClInclude Include="command\commands\cmd_group_with_timestamp.h" />
+    <ClInclude Include="command\base\command_variant.h" />
+    <ClInclude Include="command\commands\cmd_audio_start.h" />
+    <ClInclude Include="command\commands\cmd_check_heartbeat_from_peer.h" />
+    <ClInclude Include="command\commands\cmd_clear_game_board.h" />
+    <ClInclude Include="command\commands\cmd_end_course.h" />
+    <ClInclude Include="command\commands\cmd_exchange_data.h" />
+    <ClInclude Include="command\commands\cmd_exchange_user_info.h" />
+    <ClInclude Include="command\commands\cmd_group_student_draw.h" />
+    <ClInclude Include="command\commands\cmd_group_teacher_draw.h" />
+    <ClInclude Include="command\commands\cmd_group_teacher_eraser.h" />
+    <ClInclude Include="command\commands\cmd_observe_data.h" />
+    <ClInclude Include="command\commands\cmd_replay_ask.h" />
+    <ClInclude Include="command\commands\cmd_replay_receive.h" />
+    <ClInclude Include="command\commands\cmd_start_observe.h" />
+    <ClInclude Include="command\commands\cmd_student_audio_start.h" />
+    <ClInclude Include="command\commands\cmd_student_change_board_pager.h" />
+    <ClInclude Include="command\commands\cmd_student_change_game_board.h" />
+    <ClInclude Include="command\commands\cmd_student_change_photo_pager.h" />
+    <ClInclude Include="command\commands\cmd_student_change_ppt_pager.h" />
+    <ClInclude Include="command\commands\cmd_student_charge_balance.h" />
+    <ClInclude Include="command\commands\cmd_student_clean.h" />
+    <ClInclude Include="command\commands\cmd_student_draw_end.h" />
+    <ClInclude Include="command\commands\cmd_student_draw_move.h" />
+    <ClInclude Include="command\commands\cmd_student_draw_start.h" />
+    <ClInclude Include="command\commands\cmd_student_hangsup_speak.h" />
+    <ClInclude Include="command\commands\cmd_student_move_chess.h" />
+    <ClInclude Include="command\commands\cmd_student_recv_course_start.h" />
+    <ClInclude Include="command\commands\cmd_student_revoke.h" />
+    <ClInclude Include="command\commands\cmd_teacher_add_cancel_stu_chess.h" />
+    <ClInclude Include="command\commands\cmd_teacher_allow_forbid_stu_speak.h" />
+    <ClInclude Include="command\commands\cmd_teacher_back_forward.h" />
+    <ClInclude Include="command\commands\cmd_teacher_change_board_pager.h" />
+    <ClInclude Include="command\commands\cmd_teacher_change_color.h" />
+    <ClInclude Include="command\commands\cmd_teacher_change_game_board.h" />
+    <ClInclude Include="command\commands\cmd_teacher_change_photo_page.h" />
+    <ClInclude Include="command\commands\cmd_teacher_change_price.h" />
+    <ClInclude Include="command\commands\cmd_teacher_change_to_ppt.h" />
+    <ClInclude Include="command\commands\cmd_teacher_check_manual_chess.h" />
+    <ClInclude Include="command\commands\cmd_teacher_class_begin_upload.h" />
+    <ClInclude Include="command\commands\cmd_teacher_class_change_ppt_pager.h" />
+    <ClInclude Include="command\commands\cmd_teacher_class_clean_ppt.h" />
+    <ClInclude Include="command\commands\cmd_teacher_class_end_upload.h" />
+    <ClInclude Include="command\commands\cmd_teacher_import_chess_manual.h" />
+    <ClInclude Include="command\commands\cmd_teacher_class_upload_ppt_files.h" />
+    <ClInclude Include="command\commands\cmd_teacher_clean.h" />
+    <ClInclude Include="command\commands\cmd_teacher_draw_end.h" />
+    <ClInclude Include="command\commands\cmd_teacher_draw_move.h" />
+    <ClInclude Include="command\commands\cmd_teacher_draw_start.h" />
+    <ClInclude Include="command\commands\cmd_teacher_eraser_draw_down.h" />
+    <ClInclude Include="command\commands\cmd_teacher_eraser_draw_move.h" />
+    <ClInclude Include="command\commands\cmd_teacher_eraser_draw_up.h" />
+    <ClInclude Include="command\commands\cmd_teacher_exchange_stu_chess.h" />
+    <ClInclude Include="command\commands\cmd_teacher_forbidden_student_oper.h" />
+    <ClInclude Include="command\commands\cmd_teacher_mark_manual_chess.h" />
+    <ClInclude Include="command\commands\cmd_teacher_move_chess.h" />
+    <ClInclude Include="command\commands\cmd_teacher_new_game_board.h" />
+    <ClInclude Include="command\commands\cmd_teacher_new_game_board_ex.h" />
+    <ClInclude Include="command\commands\cmd_teacher_reset_ppt.h" />
+    <ClInclude Include="command\commands\cmd_teacher_revoke.h" />
+    <ClInclude Include="command\commands\cmd_teacher_show_board_rule.h" />
+    <ClInclude Include="command\commands\cmd_teacher_start_course.h" />
+    <ClInclude Include="command\commands\cmd_teacher_start_pause_stu_chess.h" />
+    <ClInclude Include="command\commands\cmd_teacher_start_sync_current_chess_board.h" />
+    <ClInclude Include="command\commands\cmd_teacher_switch_to_history_board.h" />
+    <ClInclude Include="command\commands\cmd_teacher_sync_current_chess_board.h" />
+    <ClInclude Include="command\commands\cmd_teacher_update_auto_taking_pieces.h" />
+    <ClInclude Include="command\commands\cmd_teacher_update_mark_on_board.h" />
+    <ClInclude Include="command\commands\cmd_teacher_upload_ppt_files.h" />
+    <ClInclude Include="command\commands\cmd_times_sign.h" />
+    <ClInclude Include="command\commands\cmd_upload_img.h" />
+    <ClInclude Include="command\command_factory_default.h" />
+    <ClInclude Include="command\command_types.h" />
+    <ClInclude Include="command\entities\import_chess_manual.h" />
+    <ClInclude Include="command\entities\new_game_board_ex.h" />
+    <ClInclude Include="macros.h" />
+    <ClInclude Include="utils\byte_parser.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="command\base\command_group_with_draw_list.cpp" />
+    <ClCompile Include="command\base\command.cpp" />
+    <ClCompile Include="command\base\command_cell.cpp" />
+    <ClCompile Include="command\base\command_factory.cpp" />
+    <ClCompile Include="command\base\command_group.cpp" />
+    <ClCompile Include="command\base\command_variant.cpp" />
+    <ClCompile Include="command\commands\cmd_group_with_timestamp.cpp" />
+    <ClCompile Include="command\commands\cmd_audio_start.cpp" />
+    <ClCompile Include="command\commands\cmd_check_heartbeat_from_peer.cpp" />
+    <ClCompile Include="command\commands\cmd_clear_game_board.cpp" />
+    <ClCompile Include="command\commands\cmd_end_course.cpp" />
+    <ClCompile Include="command\commands\cmd_exchange_data.cpp" />
+    <ClCompile Include="command\commands\cmd_exchange_user_info.cpp" />
+    <ClCompile Include="command\commands\cmd_group_student_draw.cpp" />
+    <ClCompile Include="command\commands\cmd_group_teacher_draw.cpp" />
+    <ClCompile Include="command\commands\cmd_group_teacher_eraser.cpp" />
+    <ClCompile Include="command\commands\cmd_observe_data.cpp" />
+    <ClCompile Include="command\commands\cmd_replay_ask.cpp" />
+    <ClCompile Include="command\commands\cmd_replay_receive.cpp" />
+    <ClCompile Include="command\commands\cmd_start_observe.cpp" />
+    <ClCompile Include="command\commands\cmd_student_audio_start.cpp" />
+    <ClCompile Include="command\commands\cmd_student_change_board_pager.cpp" />
+    <ClCompile Include="command\commands\cmd_student_change_game_board.cpp" />
+    <ClCompile Include="command\commands\cmd_student_change_photo_pager.cpp" />
+    <ClCompile Include="command\commands\cmd_student_change_ppt_pager.cpp" />
+    <ClCompile Include="command\commands\cmd_student_charge_balance.cpp" />
+    <ClCompile Include="command\commands\cmd_student_clean.cpp" />
+    <ClCompile Include="command\commands\cmd_student_draw_end.cpp" />
+    <ClCompile Include="command\commands\cmd_student_draw_move.cpp" />
+    <ClCompile Include="command\commands\cmd_student_draw_start.cpp" />
+    <ClCompile Include="command\commands\cmd_student_hangsup_speak.cpp" />
+    <ClCompile Include="command\commands\cmd_student_move_chess.cpp" />
+    <ClCompile Include="command\commands\cmd_student_recv_course_start.cpp" />
+    <ClCompile Include="command\commands\cmd_student_revoke.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_add_cancel_stu_chess.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_allow_forbid_stu_speak.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_back_forward.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_change_board_pager.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_change_color.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_change_game_board.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_change_photo_page.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_change_price.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_change_to_ppt.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_check_manual_chess.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_class_begin_upload.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_class_change_ppt_pager.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_class_clean_ppt.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_class_end_upload.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_import_chess_manual.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_class_upload_ppt_files.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_clean.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_draw_end.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_draw_move.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_draw_start.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_eraser_draw_down.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_eraser_draw_move.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_eraser_draw_up.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_exchange_stu_chess.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_forbidden_student_oper.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_mark_manual_chess.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_move_chess.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_new_game_board.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_new_game_board_ex.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_reset_ppt.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_revoke.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_show_board_rule.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_start_course.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_start_pause_stu_chess.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_start_sync_current_chess_board.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_switch_to_history_board.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_sync_current_chess_board.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_update_auto_taking_pieces.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_update_mark_on_board.cpp" />
+    <ClCompile Include="command\commands\cmd_teacher_upload_ppt_files.cpp" />
+    <ClCompile Include="command\commands\cmd_times_sign.cpp" />
+    <ClCompile Include="command\commands\cmd_upload_img.cpp" />
+    <ClCompile Include="command\command_factory_default.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4B0558F1-9300-48CC-9084-2C48618A77D2}</ProjectGuid>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120_xp</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;PROTOCOL_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;..;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;..\..\..\libs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>del "$(SolutionDir)..\..\libs\include\$(ProjectName)\" /q /f /s
+rmdir "$(SolutionDir)..\..\libs\include\$(ProjectName)\"
+xcopy "$(ProjectDir)*.h" "$(SolutionDir)..\..\libs\include\$(ProjectName)\" /S /E /Y
+xcopy "$(OutDir)$(TargetName)$(TargetExt)" "$(SolutionDir)..\..\libs\" /S /E /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;PROTOCOL_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat />
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).lib</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" Qt5Version_x0020_Win32="msvc2013" MocOptions="" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

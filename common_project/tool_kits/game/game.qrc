@@ -1,0 +1,105 @@
+<RCC>
+  <qresource  prefix="/common">
+    <file>res/images/common/disabled_flag.png</file>
+    <file>res/images/common/online_msg_box.png</file>
+    <file>res/images/common/online_msg_close.png</file>
+    <file>res/images/common/online_msg_ok_normal.png</file>
+    <file>res/images/common/online_msg_ok_hover.png</file>
+    <file>res/images/common/online_msg_ok_pressed.png</file>
+    <file>res/images/common/online_msg_ok_disabled.png</file>
+    <file>res/images/common/btn_close_black.png</file>
+    <file>res/images/common/combo_arrow_down.png</file>
+    <file>res/images/common/combo_arrow_up.png</file>
+    <file>res/images/common/combo_arrow_disabled.png</file>
+  </qresource>
+  
+  <qresource  prefix="/chess">
+    <file>res/images/chess/pawn_red.png</file>
+    <file>res/images/chess/pawn_red_moving.png</file>
+    <file>res/images/chess/pawn_red_selected.png</file>
+    <file>res/images/chess/rook_red.png</file>
+    <file>res/images/chess/rook_red_moving.png</file>
+    <file>res/images/chess/rook_red_selected.png</file>
+    <file>res/images/chess/knight_red.png</file>
+    <file>res/images/chess/knight_red_moving.png</file>
+    <file>res/images/chess/knight_red_selected.png</file>
+    <file>res/images/chess/bishop_red.png</file>
+    <file>res/images/chess/bishop_red_moving.png</file>
+    <file>res/images/chess/bishop_red_selected.png</file>
+    <file>res/images/chess/queen_red.png</file>
+    <file>res/images/chess/queen_red_moving.png</file>
+    <file>res/images/chess/queen_red_selected.png</file>
+    <file>res/images/chess/king_red.png</file>
+    <file>res/images/chess/king_red_moving.png</file>
+    <file>res/images/chess/king_red_selected.png</file>
+    <file>res/images/chess/pawn_black.png</file>
+    <file>res/images/chess/pawn_black_moving.png</file>
+    <file>res/images/chess/pawn_black_selected.png</file>
+    <file>res/images/chess/rook_black.png</file>
+    <file>res/images/chess/rook_black_moving.png</file>
+    <file>res/images/chess/rook_black_selected.png</file>
+    <file>res/images/chess/knight_black.png</file>
+    <file>res/images/chess/knight_black_moving.png</file>
+    <file>res/images/chess/knight_black_selected.png</file>
+    <file>res/images/chess/bishop_black.png</file>
+    <file>res/images/chess/bishop_black_moving.png</file>
+    <file>res/images/chess/bishop_black_selected.png</file>
+    <file>res/images/chess/queen_black.png</file>
+    <file>res/images/chess/queen_black_moving.png</file>
+    <file>res/images/chess/queen_black_selected.png</file>
+    <file>res/images/chess/king_black.png</file>
+    <file>res/images/chess/king_black_moving.png</file>
+    <file>res/images/chess/king_black_selected.png</file>
+    <file>res/images/chess/chess_board.png</file>
+    <file>res/images/chess/chess_bk.png</file>
+  </qresource>
+  
+  <qresource  prefix="/go">
+    <file>res/images/go/9_black.png</file>
+    <file>res/images/go/9_black_moving.png</file>
+    <file>res/images/go/9_black_selected.png</file>
+    <file>res/images/go/13_black.png</file>
+    <file>res/images/go/13_black_moving.png</file>
+    <file>res/images/go/13_black_selected.png</file>
+    <file>res/images/go/19_black.png</file>
+    <file>res/images/go/19_black_moving.png</file>
+    <file>res/images/go/19_black_selected.png</file>
+    <file>res/images/go/9_white.png</file>
+    <file>res/images/go/9_white_moving.png</file>
+    <file>res/images/go/9_white_selected.png</file>
+    <file>res/images/go/13_white.png</file>
+    <file>res/images/go/13_white_moving.png</file>
+    <file>res/images/go/13_white_selected.png</file>
+    <file>res/images/go/19_white.png</file>
+    <file>res/images/go/19_white_moving.png</file>
+    <file>res/images/go/19_white_selected.png</file>
+    <file>res/images/go/basket_black.png</file>
+    <file>res/images/go/basket_white.png</file>
+    <file>res/images/go/dot.png</file>
+    <file>res/images/go/go_board_bk.png</file>
+    <file>res/images/go/last_flag.png</file>
+    <file>res/images/go/nogo_big.png</file>
+    <file>res/images/go/nogo_small.png</file>
+    <file>res/images/go/auto_taking_check.png</file>
+    <file>res/images/go/auto_taking_uncheck.png</file>
+  </qresource>
+
+  <qresource  prefix="/icon">
+    <file>res/images/icon/logo.ico</file>
+  </qresource>
+
+  <qresource  prefix="/portrait">
+    <file>res/images/portrait/border_44.png</file>
+    <file>res/images/portrait/mask_44.png</file>
+    <file>res/images/portrait/default_stu.png</file>
+    <file>res/images/portrait/default_tea.png</file>
+  </qresource>
+
+  <qresource  prefix="/qss">
+    <file>res/qss/game.qss</file>
+  </qresource>
+
+  <qresource  prefix="/literal">
+    <file>res/literal/game.json</file>
+  </qresource>
+</RCC>

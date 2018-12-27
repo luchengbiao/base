@@ -22,7 +22,8 @@ namespace systembase
 
 	void SplitString(const std::string &str, const std::string &seperator, std::vector<std::string> &array);
 	void SplitString(const std::wstring &str, const std::wstring &seperator, std::vector<std::wstring> &array);
-
+	
+	std::wstring GetRegValue(const std::wstring& strUrl, const std::wstring& strKey);
 	unsigned int BKDRHash(std::string str);
 
 	void NumberToChinese(unsigned int num, std::string& chnStr);

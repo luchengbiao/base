@@ -2,7 +2,7 @@
 #include "base\callback\callback.h"
 #include <string>
 #include "channel_manager_global.h"
-#include <QWidget>
+#include "QObject"
 
 class BaseDataChannel : public QObject, public nbase::SupportWeakCallback
 {
@@ -12,7 +12,7 @@ public:
 	BaseDataChannel(){};
 	~BaseDataChannel();
 
-	virtual void JoinChannel(std::string channel_id, JoinChannelCallback& cb) = 0;
+	virtual void JoinChannel(std::string channel_id, JoinChannelCallback& cb,std::string url="") = 0;
 	virtual void ReJoinChannel(JoinChannelCallback& cb) = 0;
 	virtual void LeaveChannel(std::string channel_id, std::string notified_account, LeaveChannelCallback& cb) = 0;
 	virtual void SendChannelMessage(std::string channel_id, std::string data) = 0;

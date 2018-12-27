@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CreateNewBoardDialog</class>
+ <widget class="QWidget" name="CreateNewBoardDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>579</width>
+    <height>585</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <layout class="QVBoxLayout" name="main_layout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QFrame" name="fr_title">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>24</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>12</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="lb_title">
+          <property name="text">
+           <string>新建棋局</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_close">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="fr_contents">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <layout class="QFormLayout" name="formLayout">
+          <property name="horizontalSpacing">
+           <number>12</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>48</number>
+          </property>
+          <property name="topMargin">
+           <number>30</number>
+          </property>
+          <property name="rightMargin">
+           <number>48</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="lb_chess_name">
+            <property name="text">
+             <string>棋局名称</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lineEdit"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="lb_chess_mode">
+            <property name="text">
+             <string>棋盘模式</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="game::UIComboBox" name="com_mode"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="lb_chess_status">
+            <property name="text">
+             <string>棋盘布局</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="game::UIComboBox" name="com_status"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="lb_grids">
+            <property name="text">
+             <string>棋路选择</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="game::UIComboBox" name="com_grids"/>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="lb_first_operator">
+            <property name="text">
+             <string>棋子先行</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="game::UIComboBox" name="com_first_operator">
+            <item>
+             <property name="text">
+              <string>黑方</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>白方</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="lb_black_operator">
+            <property name="text">
+             <string>黑方</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="game::UIComboBox" name="com_black_operator"/>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="lb_white_operator">
+            <property name="text">
+             <string>白方</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="game::UIComboBox" name="com_white_operator"/>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="fr_button">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="leftMargin">
+         <number>92</number>
+        </property>
+        <property name="rightMargin">
+         <number>92</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="btn_cancel">
+          <property name="text">
+           <string>取消</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_new">
+          <property name="text">
+           <string>新建</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>game::UIComboBox</class>
+   <extends>QComboBox</extends>
+   <header>game/view/combo_box/combo_box.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

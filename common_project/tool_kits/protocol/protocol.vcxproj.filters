@@ -1,0 +1,517 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\byte_parser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\base\command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\base\command_cell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\base\command_class_runtime_info.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\base\command_factory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\base\command_group.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\base\command_variant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_audio_start.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_check_heartbeat_from_peer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_clear_game_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_end_course.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_exchange_data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_exchange_user_info.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_observe_data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_replay_ask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_replay_receive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_start_observe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_audio_start.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_change_board_pager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_change_game_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_change_photo_pager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_change_ppt_pager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_charge_balance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_clean.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_draw_end.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_draw_move.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_draw_start.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_hangsup_speak.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_move_chess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_recv_course_start.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_student_revoke.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_add_cancel_stu_chess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_allow_forbid_stu_speak.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_change_board_pager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_change_color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_change_game_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_change_photo_page.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_change_price.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_change_to_ppt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_check_manual_chess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_class_begin_upload.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_class_change_ppt_pager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_class_clean_ppt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_class_end_upload.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_class_upload_ppt_files.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_clean.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_draw_end.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_draw_move.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_draw_start.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_eraser_draw_down.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_eraser_draw_move.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_eraser_draw_up.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_exchange_stu_chess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_forbidden_student_oper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_mark_manual_chess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_move_chess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_new_game_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_reset_ppt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_revoke.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_show_board_rule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_start_course.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_start_pause_stu_chess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_start_sync_current_chess_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_sync_current_chess_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_upload_ppt_files.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_times_sign.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_upload_img.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\command_factory_default.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\command_types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\base\command_group_with_draw_list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_group_student_draw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_group_teacher_draw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_group_teacher_eraser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_group_with_timestamp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\base\command_fwd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\base\command_cell_with_draw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_new_game_board_ex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_back_forward.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\entities\new_game_board_ex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_switch_to_history_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_import_chess_manual.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\entities\import_chess_manual.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_update_mark_on_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\commands\cmd_teacher_update_auto_taking_pieces.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="command\base\command.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\base\command_cell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\base\command_factory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\base\command_group.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_audio_start.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_check_heartbeat_from_peer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_clear_game_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_end_course.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_exchange_data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_exchange_user_info.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_observe_data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_replay_ask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_replay_receive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_start_observe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_audio_start.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_change_board_pager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_change_game_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_change_photo_pager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_change_ppt_pager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_charge_balance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_clean.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_draw_end.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_draw_move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_draw_start.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_hangsup_speak.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_move_chess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_recv_course_start.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_student_revoke.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_add_cancel_stu_chess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_allow_forbid_stu_speak.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_change_board_pager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_change_color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_change_game_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_change_photo_page.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_change_price.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_change_to_ppt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_check_manual_chess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_class_begin_upload.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_class_change_ppt_pager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_class_clean_ppt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_class_end_upload.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_class_upload_ppt_files.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_clean.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_draw_end.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_draw_move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_draw_start.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_eraser_draw_down.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_eraser_draw_move.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_eraser_draw_up.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_exchange_stu_chess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_forbidden_student_oper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_mark_manual_chess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_move_chess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_new_game_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_reset_ppt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_revoke.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_show_board_rule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_start_course.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_start_pause_stu_chess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_start_sync_current_chess_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_sync_current_chess_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_upload_ppt_files.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_times_sign.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_upload_img.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\command_factory_default.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\base\command_group_with_draw_list.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_group_student_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_group_teacher_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_group_teacher_eraser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_group_with_timestamp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_new_game_board_ex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_back_forward.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_switch_to_history_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_import_chess_manual.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_update_mark_on_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\commands\cmd_teacher_update_auto_taking_pieces.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\base\command_variant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

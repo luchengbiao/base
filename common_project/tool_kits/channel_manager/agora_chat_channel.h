@@ -14,7 +14,7 @@ public:
 	virtual bool ReJoinChannel();
 	virtual void LeaveChannel();
 	virtual void InitDevices(int type, std::string speaker_device, std::string mic_device);
-
+	virtual int setClientRole(CLIENT_ROLE_TYPE role, const char* permissionKey);
 	virtual void StartRecordService(std::string channel_id);   //channel_id == s_recording_key_ ; ´«recording_key
 	virtual void StopRecordService();
 

@@ -21,7 +21,8 @@
 #include "nim_doc/callback/doc_callback.h"
 #include "nim_chatroom/manager/chatroom_manager.h"
 #include "nim_vchat/manager/vchat_manager.h"
-
+#include "iostream"
+using namespace std;
 void NimInitManager::RegCallback()
 {
 	// 初始化云信音视频
@@ -91,10 +92,18 @@ void NimInitManager::RegCallback()
 
 void NimInitManager::Cleanup()
 {
+	cout << "SetAudioDataCb ing" << endl;
 	nim_comp::VChatManager::GetInstance()->SetAudioDataCb(nullptr);
+	cout << "SetAudioDataCb end" << endl;
+	cout << "Audio clean up ing" << endl; 
 	nim_audio::Audio::Cleanup();
+	cout << "Audio clean up end" << endl;
+	cout << "VChat clean up start" << endl;
 	nim::VChat::Cleanup();
+	cout << "VChat clean up end" << endl;
+	cout << "Client clean up start" << endl;
 	nim::Client::Cleanup();
+	cout << "Client clean up end" << endl;
 }
 
 void NimInitManager::Init(std::string app_key, std::string app_local_address)

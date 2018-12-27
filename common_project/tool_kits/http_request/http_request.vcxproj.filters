@@ -70,6 +70,15 @@
     <ClInclude Include="api_caller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="websocket\easywsclient.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="websocket\easywsclients.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ws_service.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="file_fetch.cpp">
@@ -88,6 +97,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="api_caller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="websocket\easywsclient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="websocket\easywsclients.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ws_service.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

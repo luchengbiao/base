@@ -1,12 +1,10 @@
 #pragma once
-#include "QColor"
-#include "QImage"
 #include <vector>
-#include "QPoint"
+#include <QColor>
+#include <QPoint>
+#include <QRect>
 
-#define	knLineWidth			1.5						// 线粗
-#define	knEeaseRadius	    5						// 橡皮擦的半径
-#define	knEraseRadiusRatio	0.05	// 橡皮擦的半径比例
+class QImage;
 
 enum DrawUnitType
 {
@@ -18,16 +16,16 @@ enum DrawUnitType
 class DrawUnit
 {
 public:
-	DrawUnit(QPoint point, QRect rc);
+	DrawUnit(const QPoint& point, const QRect& rc);
 	virtual ~DrawUnit();
 	void Render(QImage &image, bool is_continue = false);  // 绘制接口
 	void SetPenWidth(int pen_width);
-	void SetPenColor(QColor color);
+	void SetPenColor(const QColor& color);
 	QPoint GetStartPoint();
 	QRect GetRectValid();
 	void SetRectValid(const QRect& rc_valid);
 	QRect GetDrawRect();
-	virtual bool SetEndPoint(QPoint point);
+	virtual bool SetEndPoint(const QPoint& point);
 	virtual QPoint GetEndPoint();
 	virtual void ResetDrawPos();
 	virtual DrawUnitType GetType();
@@ -35,10 +33,10 @@ public:
 protected:
 	virtual	void RenderSelf(QImage &image, bool is_continue) = 0;
 	void MeasurePoint(double &x, double &y);	// 确保要绘制的点在截图区域范围内 
-	QPointF TransformPoint(QPointF point);
-	QPointF TransformRatio(QPoint point);
-	void CalcDrawRect(std::vector<QPointF> vec_point, int radius);
-	void CalcDrawRect(QPointF point, int radius);
+	QPointF TransformPoint(const QPointF& point);
+	QPointF TransformRatio(const QPoint& point);
+	void CalcDrawRect(const std::vector<QPointF>& vec_point, int radius);
+	void CalcDrawRect(const QPointF& point, int radius);
 
 protected:
 	QPoint start_point_;
@@ -54,8 +52,8 @@ protected:
 class DrawUnitPen : public DrawUnit
 {
 public:
-	DrawUnitPen(QPoint point, QRect rc);
-	virtual	bool SetEndPoint(QPoint point) override;
+	DrawUnitPen(const QPoint& point, const QRect& rc);
+	virtual	bool SetEndPoint(const QPoint& point) override;
 	virtual	QPoint GetEndPoint() override;
 	virtual void ResetDrawPos() override;
 	virtual DrawUnitType GetType() override;
@@ -77,7 +75,7 @@ class DrawUnitErase : public DrawUnit
 {
 public:
 	DrawUnitErase(QPoint point, QRect rc);
-	virtual	bool SetEndPoint(QPoint point) override;
+	virtual	bool SetEndPoint(const QPoint& point) override;
 	virtual	QPoint GetEndPoint() override;
 	virtual void ResetDrawPos() override;
 	virtual DrawUnitType GetType() override;

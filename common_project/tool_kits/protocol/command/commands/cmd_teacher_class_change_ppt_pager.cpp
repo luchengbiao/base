@@ -1,0 +1,7 @@
+#include "cmd_teacher_class_change_ppt_pager.h"
+
+PROTO_NAMESPACE_BEGIN
+
+IMPLEMENT_COMMAND_RUNTIME_INFO(CommandType::TeacherClassChangePptPager, CmdTeacherClassChangePptPager, CommandCell)
+
+PROTO_NAMESPACE_END

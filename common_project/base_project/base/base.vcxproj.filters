@@ -250,6 +250,15 @@
     <ClInclude Include="system\api_setting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="memory\objectcounter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="memory\objectpool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\value_guard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="file\file_util.cpp">

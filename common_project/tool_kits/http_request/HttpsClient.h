@@ -66,7 +66,7 @@ public:
 	void Stop();
 
 private:
-	void LazyCreateTheads();
+	void CreateTheads();
 
 	void CacheAndNotify(CHttpRequestPtr&& request);
 
@@ -93,12 +93,12 @@ private:
 	int Gets(const std::string & strUrl, std::string & strResponse, const char * pCaPath = NULL);
 
 private:
-	bool										m_bDebug = false;
+	bool										m_bDebug{ false };
 
-	float										m_connectTimeOut = 20.0f;
-	float										m_requestTimeOut = 30.0f;
+	float										m_connectTimeOut{ 20.0f };
+	float										m_requestTimeOut{ 30.0f };
 
-	std::atomic<bool>							m_bThreadsCreated = false;
+	std::atomic<bool>							m_bThreadsCreated{ false };
 
 	CHttpRequestCollect							m_NewRequestCollect;
 	std::mutex									m_NewRequestMutex;
@@ -110,7 +110,7 @@ private:
 
 	std::vector<std::shared_ptr<std::thread>>	m_curlWorkThreadPool;
 	std::vector<std::shared_ptr<std::thread>>	m_callbackThreadPool;
-	std::atomic<bool>							m_bQuit = false;
+	std::atomic<bool>							m_bQuit{ false };
 };
 
 class CHttpRequest

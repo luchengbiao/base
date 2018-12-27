@@ -1,6 +1,9 @@
 #include "ui_utils.h"
+#include <QLayout>
+#include <QLayoutItem>
 #include <QPainter>
 #include <QPixmap>
+#include <QWidget>
 
 namespace UiUtils
 {
@@ -36,6 +39,112 @@ namespace UiUtils
 		}
 	}
 
+#define LEFT_ANCHOR		0.0f
+#define RGIHT_ANCHOR	1.0f
+#define TOP_ANCHOR		0.0f
+#define BOTTOM_ANCHOR	1.0f
+#define MIDDLE_ANCHOR	0.5f
+
+	void MoveWidgetAnchorPointTo(QWidget* widget, const QPoint& pos, const QPointF& anchorPoint)
+	{
+		widget->move(pos.x() - anchorPoint.x() * widget->width(), pos.y() - anchorPoint.y() * widget->height());
+	}
+
+	void MoveWidgetLeftTopTo(QWidget* widget, const QPoint& pos)
+	{
+		widget->move(pos);
+	}
+
+	void MoveWidgetMiddleTopTo(QWidget* widget, const QPoint& pos)
+	{
+		MoveWidgetAnchorPointTo(widget, pos, QPointF(MIDDLE_ANCHOR, TOP_ANCHOR));
+	}
+
+	void MoveWidgetRightTopTo(QWidget* widget, const QPoint& pos)
+	{
+		MoveWidgetAnchorPointTo(widget, pos, QPointF(RGIHT_ANCHOR, TOP_ANCHOR));
+	}
+
+	void MoveWidgetLeftMiddleTo(QWidget* widget, const QPoint& pos)
+	{
+		MoveWidgetAnchorPointTo(widget, pos, QPointF(LEFT_ANCHOR, MIDDLE_ANCHOR));
+	}
+
+	void MoveWidgetMiddleTo(QWidget* widget, const QPoint& pos)
+	{
+		MoveWidgetAnchorPointTo(widget, pos, QPointF(MIDDLE_ANCHOR, MIDDLE_ANCHOR));
+	}
+
+	void MoveWidgetRightMiddleTo(QWidget* widget, const QPoint& pos)
+	{
+		MoveWidgetAnchorPointTo(widget, pos, QPointF(RGIHT_ANCHOR, MIDDLE_ANCHOR));
+	}
+
+	void MoveWidgetLeftBottomTo(QWidget* widget, const QPoint& pos)
+	{
+		MoveWidgetAnchorPointTo(widget, pos, QPointF(LEFT_ANCHOR, BOTTOM_ANCHOR));
+	}
+
+	void MoveWidgetMiddleBottomTo(QWidget* widget, const QPoint& pos)
+	{
+		MoveWidgetAnchorPointTo(widget, pos, QPointF(MIDDLE_ANCHOR, BOTTOM_ANCHOR));
+	}
+
+	void MoveWidgetRightBottomTo(QWidget* widget, const QPoint& pos)
+	{
+		MoveWidgetAnchorPointTo(widget, pos, QPointF(RGIHT_ANCHOR, BOTTOM_ANCHOR));
+	}
+
+	QPoint WidgetPosByAnchorPoint(const QWidget* widget, const QPointF& anchorPoint)
+	{
+		return QPoint(widget->x() + anchorPoint.x() * widget->width(), widget->y() + anchorPoint.y() * widget->height());
+	}
+
+	QPoint WidgetPosOfLeftTop(QWidget* widget)
+	{
+		return widget->pos();
+	}
+
+	QPoint WidgetPosOfMiddleTop(QWidget* widget)
+	{
+		return WidgetPosByAnchorPoint(widget, QPointF(MIDDLE_ANCHOR, TOP_ANCHOR));
+	}
+
+	QPoint WidgetPosOfRightTop(QWidget* widget)
+	{
+		return WidgetPosByAnchorPoint(widget, QPointF(RGIHT_ANCHOR, TOP_ANCHOR));
+	}
+
+	QPoint WidgetPosOfLeftMiddle(QWidget* widget)
+	{
+		return WidgetPosByAnchorPoint(widget, QPointF(LEFT_ANCHOR, MIDDLE_ANCHOR));
+	}
+
+	QPoint WidgetPosOfMiddle(QWidget* widget)
+	{
+		return WidgetPosByAnchorPoint(widget, QPointF(MIDDLE_ANCHOR, MIDDLE_ANCHOR));
+	}
+
+	QPoint WidgetPosOfRightMiddle(QWidget* widget)
+	{
+		return WidgetPosByAnchorPoint(widget, QPointF(RGIHT_ANCHOR, MIDDLE_ANCHOR));
+	}
+
+	QPoint WidgetPosOfLeftBottom(QWidget* widget)
+	{
+		return WidgetPosByAnchorPoint(widget, QPointF(LEFT_ANCHOR, BOTTOM_ANCHOR));
+	}
+
+	QPoint WidgetPosOfMiddleBottom(QWidget* widget)
+	{
+		return WidgetPosByAnchorPoint(widget, QPointF(MIDDLE_ANCHOR, BOTTOM_ANCHOR));
+	}
+
+	QPoint WidgetPosOfRightBottom(QWidget* widget)
+	{
+		return WidgetPosByAnchorPoint(widget, QPointF(RGIHT_ANCHOR, BOTTOM_ANCHOR));
+	}
+
 	bool WidgetContainsGlobalPosition(const QWidget* widget, const QPoint& globalPos)
 	{
 		auto localPos = widget->mapFromGlobal(globalPos);
@@ -45,7 +154,52 @@ namespace UiUtils
 		return rect.contains(localPos);
 	}
 
-	QPixmap* PixmapFrom9Patch(const QPixmap& pixSrc, int horzCorner, int vertCorner, int widthDst, int heightDst)
+	void RemoveAllWidgetsInLayout(QLayout* layout)
+	{
+		int cnt = layout->count();
+		for (int i = cnt-1; i>=0; i--)
+		{
+			QLayoutItem* item = layout->itemAt(i);
+			QWidget* widget = item->widget();
+			if (widget)
+			{
+				widget->hide();
+				layout->removeWidget(widget);
+				widget->deleteLater();
+				widget = nullptr;
+			}
+		}
+	}
+
+	void RemoveAllChildWidgets(QWidget* widget)
+	{
+		auto list = widget->findChildren<QWidget*>();
+		for (auto item : list)
+		{
+			item->deleteLater();
+		}
+	}
+
+	QWidget* GetAncestorWidget(QWidget* widget)
+	{
+		QWidget* parent = widget;
+		while (parent)
+		{
+			auto parent_parent = parent->parentWidget();
+			if (parent_parent)
+			{
+				parent = parent_parent;
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		return parent;
+	}
+
+	std::unique_ptr<QPixmap> PixmapFrom9Patch(const QPixmap& pixSrc, int horzCorner, int vertCorner, int widthDst, int heightDst)
 	{
 		QPixmap* pixRet = nullptr;
 
@@ -97,10 +251,10 @@ namespace UiUtils
 
 		} while (false);
 
-		return pixRet;
+		return std::unique_ptr<QPixmap>(pixRet);
 	}
 
-	QPixmap* PixmapFrom9Patch(const QString& picFilePath, int horzCorner, int vertCorner, int widthDst, int heightDst)
+	std::unique_ptr<QPixmap> PixmapFrom9Patch(const QString& picFilePath, int horzCorner, int vertCorner, int widthDst, int heightDst)
 	{
 		return PixmapFrom9Patch(QPixmap(picFilePath), horzCorner, vertCorner, widthDst, heightDst);
 	}

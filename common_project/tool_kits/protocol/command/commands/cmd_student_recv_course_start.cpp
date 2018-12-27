@@ -1,0 +1,7 @@
+#include "cmd_student_recv_course_start.h"
+
+PROTO_NAMESPACE_BEGIN
+
+IMPLEMENT_COMMAND_RUNTIME_INFO(CommandType::StudentRecvCourseStart, CmdStudentRecvCourseStart, CommandCell)
+
+PROTO_NAMESPACE_END

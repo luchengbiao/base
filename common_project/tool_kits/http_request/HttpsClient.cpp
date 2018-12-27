@@ -53,6 +53,8 @@ typedef struct tagTHREADNAME_INFO {
 CHttpClient::CHttpClient(void)
 {
 	curl_global_init(CURL_GLOBAL_ALL);
+
+	this->CreateTheads();
 }
 
 CHttpClient::~CHttpClient(void)
@@ -65,12 +67,11 @@ CHttpClient::~CHttpClient(void)
 	curl_global_cleanup();
 }
 
-void CHttpClient::LazyCreateTheads()
+void CHttpClient::CreateTheads()
 {
-	if (! m_bThreadsCreated)
+	bool flag = false;
+	if (m_bThreadsCreated.compare_exchange_strong(flag, true))
 	{
-		m_bThreadsCreated = true;
-
 		int cpuCount = 1;
 
 #ifndef __linux__
@@ -93,7 +94,6 @@ void CHttpClient::LazyCreateTheads()
 			m_callbackThreadPool.emplace_back(std::make_shared<std::thread>(std::bind(&CHttpClient::CallbackThreadFunc, this)));
 		}
 	}
-	
 }
 
 static int OnDebug(CURL *, curl_infotype itype, char * pData, size_t size, void *)
@@ -217,15 +217,11 @@ int64_t CHttpClient::AsyncPost(const std::string & strUrl, const std::string & s
 
 void  CHttpClient::CacheAndNotify(CHttpRequestPtr&& request)
 {
-	this->LazyCreateTheads();
+	std::lock_guard<std::mutex> lock(m_NewRequestMutex);
 
-	{
-		std::lock_guard<std::mutex> lock(m_NewRequestMutex);
+	m_NewRequestCollect.emplace_back(std::move(request));
 
-		m_NewRequestCollect.emplace_back(std::move(request));
-
-		m_NewRequestCV.notify_one();
-	}
+	m_NewRequestCV.notify_one();
 }
 
 int CHttpClient::Post(const std::string & strUrl, const std::string & strPost, std::string & strResponse)
@@ -359,12 +355,19 @@ static CURL* curl_easy_handler(int http_type, std::string & sUrl, std::string & 
 
 	std::string ua_("");
 
+	std::string reg_dir = "SOFTWARE\\";
+	std::string full_path = reg_dir.append(ApiSetting::register_dir_);
+	std::string source = nbase::UTF16ToUTF8(systembase::GetRegValue(nbase::UTF8ToUTF16(reg_dir), L"app_source"));
+
 	ua_.append("os/").append(systembase::GetOSVersionString());
 	ua_.append(" da_version/").append(ApiSetting::app_inner_version_);
 	ua_.append(" os_version/").append(nbase::IntToString(systembase::GetOSVersion()));
-	ua_.append(" jiayouxueba/").append(ApiSetting::app_version_);
-	ua_.append(" device/PCMAC_").append(systembase::GetMac());
-	ua_.append(" api/").append(ApiSetting::api_server_version_);
+	ua_.append(" app_version/").append(ApiSetting::app_version_);
+	ua_.append(" device_code/").append(systembase::GetMac());
+	ua_.append(" device_model/").append("pc");
+	ua_.append(" api_version/").append(ApiSetting::api_server_version_);
+	ua_.append(" channel/").append(source);
+	ua_.append(" browser/").append("PCWebView");
 
 	CURL * curl = curl_easy_init();
 

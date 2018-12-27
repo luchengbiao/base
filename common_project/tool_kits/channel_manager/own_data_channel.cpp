@@ -1,45 +1,43 @@
 #include "own_data_channel.h"
 #include "qthread_manager\closure.h"
+#include "log\singleton\log_class_online.h"
+#include "..\http_request\ws_service.h"
+#include "json\value.h"
+#include "json\reader.h"
 
 OwnDataChannel::OwnDataChannel(bool b_master) :BaseDataChannel(b_master)
 {
-	b_init_join_ = false;
-	b_disconnect_tips_ = false;
-	disconnect_count_ = 0;
+	count_ping_pong_ = 0;
 	b_connect_ = false;
 	ssl_url_ = "";
-	heart_beat_interval_ = 500;
+	s_channel_id_ = "";
 }
 
 OwnDataChannel::~OwnDataChannel()
 {
-	OnDisconnect();
+	reconnect_timer_.Cancel();
+	long_connection_timer_.Cancel();
 }
 
-void OwnDataChannel::JoinChannel(std::string channel_id, JoinChannelCallback& cb)
+void OwnDataChannel::JoinChannel(std::string channel_id, JoinChannelCallback& cb, std::string url)
 {
+	s_channel_id_ = channel_id;
 	m_joinchannelCb_ = cb;
-	QObject::connect(&m_webSocket_, SIGNAL(connected()), this, SLOT(SlotConnected()));
-	QObject::connect(&m_webSocket_, SIGNAL(sslErrors(const QList<QSslError>&)), this, SLOT(SlotSslErrors(const QList<QSslError>&)));
-	QObject::connect(&m_webSocket_, SIGNAL(disconnected()), this, SLOT(SlotDisConnected()));
-	QObject::connect(&m_webSocket_, SIGNAL(textMessageReceived(const QString&)), this, SLOT(SlotTextMessageReceived(const QString&)));
-	QObject::connect(&m_webSocket_, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(SlotError(QAbstractSocket::SocketError)));
-	QObject::connect(&m_webSocket_, SIGNAL(pong(quint64, const QByteArray &)), this, SLOT(SlotPong(quint64, const QByteArray &)));
-	QObject::connect(&m_reconnect_timer_, SIGNAL(timeout()), this, SLOT(SlotReconnect()));
-	QObject::connect(&m_heart_beat_timer_, SIGNAL(timeout()), this, SLOT(SlotHeartBeat()));
-	ssl_url_ = channel_id;
-	heart_beat_interval_ = 500;
-	qDebug() << QString::fromStdString(ssl_url_);
-	m_webSocket_.open(QUrl(QString::fromStdString(channel_id)));
-	
-	auto join_check = ToWeakCallback([=](){
-		OnDisconnect();
-		if (m_joinchannelCb_)
-		{
-			m_joinchannelCb_("", -1);
-		}
+	ssl_url_ = url;
+
+	WsService::GetInstance()->OnClose();
+
+	auto join_channel_cb = nbase::Bind(&OwnDataChannel::OnJoinChannelCb, this, std::placeholders::_1);
+	auto connect_close_cb = nbase::Bind(&OwnDataChannel::OnConnectCloseCb, this);
+	WsService::GetInstance()->RegisterConnectCloseCallback(connect_close_cb);
+	WsService::GetInstance()->RegisterMessageCallback(join_channel_cb);
+	std::string ws_url = ssl_url_;
+	auto task_cb = ToWeakCallback([ws_url](){
+		WsService::GetInstance()->OnConnect(ws_url);
 	});
-	qtbase::Post2DelayedTask(kThreadUIHelper, join_check, nbase::TimeDelta::FromSeconds(6));
+	qtbase::Post2Task(kThreadWebSocket, task_cb);
+	LOG_O2O(L"websocket url:{0}.") << ssl_url_;
+	LOG_O2O(L"Join Own Data Channel: first connect...");
 }
 
 void OwnDataChannel::ReJoinChannel(JoinChannelCallback& cb)
@@ -49,14 +47,17 @@ void OwnDataChannel::ReJoinChannel(JoinChannelCallback& cb)
 
 void OwnDataChannel::LeaveChannel(std::string channel_id, std::string notified_account, LeaveChannelCallback& cb)
 {
-	OnDisconnect();
+	LOG_O2O(L"OwnDataChannel::LeaveChannel");
+	reconnect_timer_.Cancel();
+	StopHeartBeat();
+	WsService::GetInstance()->OnClose();
 }
 
 void OwnDataChannel::SendChannelMessage(std::string channel_id, std::string data)
 {
 	if (b_connect_)
 	{
-		int len = m_webSocket_.sendTextMessage(QString::fromStdString(data));
+		WsService::GetInstance()->OnSendMessage(data);
 	}
 }
 
@@ -67,12 +68,13 @@ void OwnDataChannel::SendP2PMessage(std::string account, uint32_t uid, std::stri
 
 void OwnDataChannel::SetConnection(bool b_connect)
 {
-
+	b_connect_ = b_connect;
 }
 
 void OwnDataChannel::GetChannelInfo(ChannelInfo& info)
 {
-
+	info.agora_channel_id_ = s_channel_id_;
+	info.b_channel_connect_ = b_connect_;
 }
 
 NetworkServiceType OwnDataChannel::GetChannelType()
@@ -82,123 +84,12 @@ NetworkServiceType OwnDataChannel::GetChannelType()
 
 std::string OwnDataChannel::GetSessionOrChannelID()
 {
-	return "";
+	return s_channel_id_;
 }
 
 void OwnDataChannel::SetSessionOrChannelID(std::string session_id)
 {
 
-}
-
-void OwnDataChannel::SlotConnected()
-{
-	qDebug() << "websocket connect";
-	b_init_join_ = true;
-	m_reconnect_timer_.stop();
-	b_connect_ = true;
-	if (b_disconnect_tips_)
-	{
-		b_disconnect_tips_ = false;
-		disconnect_count_ = 0;
-		connect_state_cb_(1);  //提示断线
-	}
-	ping_seq_ = 0;
-	m_heart_beat_timer_.start(heart_beat_interval_); // 每隔heart_beat_interval_(ms)给服务器发送一次心跳
-
-	if (m_joinchannelCb_)
-	{
-		m_joinchannelCb_("", 0);
-	}
-}
-
-void OwnDataChannel::SlotTextMessageReceived(const QString &message)
-{
-	receive_message_cb_(message.toStdString());
-}
-
-void OwnDataChannel::SlotSslErrors(const QList<QSslError> &errors)
-{
-	Q_UNUSED(errors);
-
-	// WARNING: Never ignore SSL errors in production code.
-	// The proper way to handle self-signed certificates is to add a custom root
-	// to the CA store.
-
-	m_webSocket_.ignoreSslErrors();
-}
-
-void OwnDataChannel::SlotDisConnected()
-{
-	qDebug() << "websocket disconnect";
-	if (!b_init_join_)
-	{
-		OnDisconnect();
-	}
-	else
-	{
-		b_connect_ = false;
-		m_reconnect_timer_.start(500);
-		m_heart_beat_timer_.stop();
-	}
-}
-
-void OwnDataChannel::SlotReconnect()
-{
-	qDebug() << "websocket start reconnect";
-	m_webSocket_.abort();
-	m_webSocket_.open(QUrl(QString::fromStdString(ssl_url_)));
-}
-
-void OwnDataChannel::SlotHeartBeat()
-{
-	if (ping_seq_ != pong_seq_)
-	{
-		qDebug() << "disconnect";
-		b_connect_ = false;
-		++disconnect_count_;
-		if (disconnect_count_ >5)
-		{
-			if (!b_disconnect_tips_)
-			{
-				b_disconnect_tips_ = true;
-				connect_state_cb_(0);  //提示断线
-			}
-		}
-	}
-	else
-	{
-		qDebug() << "connect";
-		b_connect_ = true;
-		if (b_disconnect_tips_)
-		{
-			b_disconnect_tips_ = false;
-			disconnect_count_ = 0;
-			connect_state_cb_(1);  //提示断线
-		}
-	}
-	qDebug() << "ping";
-	QString seq_str = QString::number(++ping_seq_, 10);
-	m_webSocket_.ping(seq_str.toLatin1());
-}
-
-void OwnDataChannel::SlotError(QAbstractSocket::SocketError error)
-{
-
-}
-
-void OwnDataChannel::SlotPong(quint64 elapsedTime, const QByteArray &payload)
-{
-	qDebug() << "pong: " << elapsedTime << ", " << payload;
-	QString seq_str(payload);
-	pong_seq_ = seq_str.toInt();
-}
-
-void OwnDataChannel::OnDisconnect()
-{
-	b_connect_ = false;
-	m_reconnect_timer_.stop();
-	m_heart_beat_timer_.stop();
-	m_webSocket_.close();
 }
 
 void OwnDataChannel::SetConnectStateCb(DataChannelConnectStateCb connect_cb)
@@ -209,4 +100,98 @@ void OwnDataChannel::SetConnectStateCb(DataChannelConnectStateCb connect_cb)
 void OwnDataChannel::SetChannelMessageCb(DataChannelMessageCb msg_cb)
 {
 	receive_message_cb_ = msg_cb;
+}
+
+void OwnDataChannel::OnJoinChannelCb(std::string message)
+{
+	if (message == "pong")
+	{
+		count_ping_pong_ = 0;
+	}
+	else
+	{
+		//收到消息表明websocket已经成功连接
+		if (m_joinchannelCb_)
+		{
+			m_joinchannelCb_(s_channel_id_, 0);
+			m_joinchannelCb_ = nullptr;
+		}
+		else if (connect_state_cb_ && !b_connect_)
+		{
+			connect_state_cb_(1);
+		}
+
+		if (!b_connect_)
+		{
+			SetConnection(true);
+			OnStartSchedulePing();   //连接成功 开启心跳
+		}
+
+		if (receive_message_cb_)
+		{
+			receive_message_cb_(message);
+		}
+	}
+}
+
+void OwnDataChannel::OnConnectCloseCb()
+{
+	if (b_connect_)
+	{
+		if (connect_state_cb_)
+		{
+			connect_state_cb_(0);
+		}
+		OnRejoinConnect();
+	}
+
+	SetConnection(false);
+	if (m_joinchannelCb_)
+	{
+		m_joinchannelCb_(s_channel_id_, -1);
+		m_joinchannelCb_ = nullptr;
+	}
+}
+
+void OwnDataChannel::OnRejoinConnect()
+{
+	LOG_O2O(L"OwnDataChannel::OnRejoinConnect...");
+	WsService::GetInstance()->OnClose();
+	StopHeartBeat();
+	std::string ws_url = ssl_url_;
+	reconnect_timer_.Cancel();
+	auto task_cb = reconnect_timer_.ToWeakCallback([ws_url](){
+		WsService::GetInstance()->OnConnect(ws_url);
+	});
+	qtbase::Post2RepeatedTask(kThreadWebSocket, task_cb, nbase::TimeDelta::FromSeconds(3));
+}
+
+void OwnDataChannel::OnStartSchedulePing()
+{
+	count_ping_pong_ = 0;
+	reconnect_timer_.Cancel();
+	long_connection_timer_.Cancel();
+	auto task = long_connection_timer_.ToWeakCallback(nbase::Bind(&OwnDataChannel::PingWebSocket, this));
+	qtbase::Post2RepeatedTask(kThreadMoreTaskHelper, task, nbase::TimeDelta::FromSeconds(2));
+}
+
+void OwnDataChannel::PingWebSocket()
+{
+	if (count_ping_pong_ >1)
+	{
+		//超过两次 认为已经断线 需要重连
+		OnConnectCloseCb();
+		return;
+	}
+	++count_ping_pong_;
+#ifdef _DEBUG
+	LOG_O2O(L"OwnDataChannel::OnSendPing...{0}") << count_ping_pong_;
+#endif
+	
+	WsService::GetInstance()->OnSendPing();
+}
+
+void OwnDataChannel::StopHeartBeat()
+{
+	long_connection_timer_.Cancel();
 }

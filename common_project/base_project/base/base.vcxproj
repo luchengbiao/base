@@ -36,6 +36,8 @@
     <ClInclude Include="memory\blockbuffer.h" />
     <ClInclude Include="memory\lazy_instance.h" />
     <ClInclude Include="memory\deleter.h" />
+    <ClInclude Include="memory\objectcounter.h" />
+    <ClInclude Include="memory\objectpool.h" />
     <ClInclude Include="memory\singleton.h" />
     <ClInclude Include="network\network_util.h" />
     <ClInclude Include="network\nio_base.h" />
@@ -68,6 +70,7 @@
     <ClInclude Include="util\unicode.h" />
     <ClInclude Include="util\util.h" />
     <ClInclude Include="util\valuemap.h" />
+    <ClInclude Include="util\value_guard.h" />
     <ClInclude Include="win32\object_watcher.h" />
     <ClInclude Include="win32\path_util.h" />
     <ClInclude Include="win32\platform_string_util.h" />

@@ -112,6 +112,10 @@ int FileFetcher::AsyncFetchFile(std::string& url, std::string dir_path, const fi
 			{
 				qtbase::Post2Task(kThreadUIHelper, std::bind(comp_cb, std::string("")));
 			}
+			else
+			{
+				LOG_WAR(L"File fetch call back failed");
+			}
 			LOG_WAR(L"async fetch file failed {0} reason code {1}") << url << response_code;
 		}
 	};
@@ -136,7 +140,7 @@ int FileFetcher::AsyncFetchFile(std::string& url, std::string dir_path, const fi
 	{
 		HttpRequest http_request(url, full_path, complete_cb_, progress_cb_);
 		http_request.AddHeader("Accept", "*/*");
-
+		LOG_WAR(L"File Fetch PostRequest");
 		return PostRequest(http_request);
 	}
 }
@@ -160,7 +164,7 @@ int FileFetcher::AsyncFetchImage(std::string& url, std::string dir_path, const f
 	}
 	std::string full_path = file_dir.append(file_name);
 
-	auto complete_cb_ = [this, comp_cb, full_path, url](bool b_success, int response_code)
+	auto complete_cb_ =[this, comp_cb, full_path, url](bool b_success, int response_code)
 	{
 		if (b_success && comp_cb)
 		{
@@ -191,11 +195,15 @@ int FileFetcher::AsyncFetchImage(std::string& url, std::string dir_path, const f
 			{
 				qtbase::Post2Task(kThreadUIHelper, std::bind(comp_cb, std::string("")));
 			}
+			else
+			{
+				LOG_WAR(L"File fetch call back failed");
+			}
 			LOG_WAR(L"async fetch file failed {0} reason code {1}") << url << response_code;
 		}
 	};
 
-	auto progress_cb_ = [=](double d1, double d2, double d3, double d4)
+	auto progress_cb_ =[=](double d1, double d2, double d3, double d4)
 	{
 		if ((d1 > 0 || d2 > 0 || d3 > 0 || d4 > 0)
 			&& prog_cb)
@@ -215,7 +223,8 @@ int FileFetcher::AsyncFetchImage(std::string& url, std::string dir_path, const f
 	{
 		HttpRequest http_request(url, full_path, complete_cb_, progress_cb_);
 		http_request.AddHeader("Accept", "*/*");
-
+		LOG_WAR(L"Image Path:{0}") << path;
+		LOG_WAR(L"Image Fetch PostRequest");
 		return PostRequest(http_request);
 	}
 }
@@ -228,9 +237,12 @@ bool FileFetcher::IsValidImage(std::wstring file_path)
 		if (image.load(QString::fromStdWString(file_path))
 			&& image.height() > 0 && image.width() > 0)
 		{
-			return IsCompletedImage(file_path);
+			bool b_res = IsCompletedImage(file_path);
+			LOG_WAR(L"IsCompletedImage {0}") << b_res;
+			return b_res;
 		}
 	}
+	LOG_WAR(L"IsValidImage false");
 	return false;
 }
 

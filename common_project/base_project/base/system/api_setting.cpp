@@ -20,6 +20,12 @@ std::string ApiSetting::api_auth_ = "";
 
 std::string ApiSetting::api_token_ = "";
 
+std::string ApiSetting::api_socket_ = "";
+
+std::string ApiSetting::register_dir_ = "";
+
+std::string ApiSetting::url_head_ = "";
+
 std::map<std::string, std::string> ApiSetting::map_other_host_;
 
 std::map<std::string, std::string> ApiSetting::map_app_key_;

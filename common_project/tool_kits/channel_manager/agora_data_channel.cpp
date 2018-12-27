@@ -14,7 +14,7 @@ AgoraDataChannel::~AgoraDataChannel()
 
 }
 
-void AgoraDataChannel::JoinChannel(std::string channel_id, JoinChannelCallback& cb)
+void AgoraDataChannel::JoinChannel(std::string channel_id, JoinChannelCallback& cb, std::string url)
 {
 	s_channel_id_ = channel_id;
 	ReJoinChannel(cb);

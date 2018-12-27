@@ -1,6 +1,7 @@
 #include "agora_chat_channel.h"
 #include "agora_vchat/agora_vchat_manager.h"
 #include "base/util/string_util.h"
+#include "log\log.h"
 
 AgoraChatChannel::AgoraChatChannel(bool master) :BaseChatChannel(master)
 {
@@ -45,15 +46,16 @@ void AgoraChatChannel::LeaveChannel()
 
 void AgoraChatChannel::InitDevices(int type, std::string speaker_device, std::string mic_device)
 {
-	DeviceManagerParam param;
-	param.platsource_ = type;
-	AgoraDeviceManager::GetInstance()->OnCreate(param);
-	m_agCamera_ = param.m_agCamera_;
-	m_agPlayout_ = param.m_agPlayout_;
-	m_agAudioin_ = param.m_agAudioin_;
+	DeviceManagerParam* param = AgoraDeviceManager::GetInstance()->CreateDeviceManager();
+	if (param)
+	{
+		m_agCamera_ = param->m_agCamera_;
+		m_agPlayout_ = param->m_agPlayout_;
+		m_agAudioin_ = param->m_agAudioin_;
 
-	InitAudioDevice(speaker_device);
-	InitMicroDevice(mic_device);
+		InitAudioDevice(speaker_device);
+		InitMicroDevice(mic_device);
+	}
 }
 
 void AgoraChatChannel::StartRecordService(std::string channel_id)
@@ -140,20 +142,31 @@ void AgoraChatChannel::InitStuVedioDevice(HWND vedio_hwnd, uint32_t m_stu_uid)
 
 void AgoraChatChannel::FreeAudioDevice()
 {
-	m_agPlayout_->Close();
+	if (m_agPlayout_)
+	{
+		m_agPlayout_->Close();
+	}
+	
 }
 
 void AgoraChatChannel::FreeMicroDevice()
 {
-	m_agAudioin_->Close();
+	if (m_agAudioin_)
+	{
+		m_agAudioin_->Close();
+	}
+	
 }
 
 void AgoraChatChannel::FreeVedioDevice(HWND vedio_hwnd, uint32_t m_stu_uid)
 {
-	m_agCamera_->TestCameraDevice(NULL, FALSE);
-	m_agCamera_->TestRemoteCameraDevice(vedio_hwnd, m_stu_uid, FALSE);
+	if (m_agCamera_)
+	{
+		m_agCamera_->TestCameraDevice(NULL, FALSE);
+		m_agCamera_->TestRemoteCameraDevice(vedio_hwnd, m_stu_uid, FALSE);
 
-	m_agCamera_->Close();
+		m_agCamera_->Close();
+	}
 }
 
 bool AgoraChatChannel::SpeakerGlobleDeviceCheck(std::string mic_device)
@@ -247,7 +260,13 @@ void AgoraChatChannel::OnJoinMediaChannelSuccess(std::string s_channel_id, uint3
 {
 	if (join_cb_)
 	{
-		join_cb_(200, s_channel_id, uid, "");
+		LOG_O2O(L"AgoraChatChannel::OnJoinMediaChannelSuccess ChannelId: {0},current userId {1}") << s_channel_id << uid;
+		join_cb_(200, s_channel_id, uid, ""); 
 	}
+}
+
+int AgoraChatChannel::setClientRole(CLIENT_ROLE_TYPE role, const char* permissionKey)
+{
+	return AgoraDeviceManager::GetInstance()->setClientRole(role, permissionKey);
 }
 

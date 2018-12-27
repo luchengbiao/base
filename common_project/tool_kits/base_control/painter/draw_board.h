@@ -22,6 +22,7 @@ public:
 	virtual void OnTeaDrawInfos(const std::list<DrawOpInfo>& info_list, bool b_paint = true) override;
 	virtual void SetDrawCb(DrawOpCallback cb) override;
 	virtual void SetAcceptEvent(bool bAccept) override;
+	bool IsEventAccepted() const;
 	virtual bool IsModified() override;
 	virtual int GetCoursewareType() override;
 	virtual int GetPage() override;

@@ -35,4 +35,5 @@ private:
 	std::unique_ptr<BaseTaskThread>	  http_task_thread_;
 	std::unique_ptr<BaseTaskThread>	  uihelper_task_thread_;
 	std::unique_ptr<BaseTaskThread>	  more_task_helper_thread_;
+	std::unique_ptr<BaseTaskThread>	  ws_task_thread_;
 };

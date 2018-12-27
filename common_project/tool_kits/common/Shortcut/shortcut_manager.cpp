@@ -1,4 +1,5 @@
 #include "shortcut_manager.h"
+#include "base\util\string_number_conversions.h"
 
 //////////////////////////////////////////////////////////////////////////
 //
@@ -38,12 +39,21 @@ bool ShortCutManager::ParseCommand(std::string command_str)
 				 std::string second_str = sub_command.substr(index+1);
 				 if (first_str == "playback" && !second_str.empty())
 				 {
-					 /* OnlineCoursePlayBack(second_str,"online-course");
-					  return false;*/
+					 uint64_t number;
+
+					 if (nbase::StringToUint64(second_str, &number))
+					 {
+						 emit SignalO2OPlayback(number);
+					 }
 				 }
 				 else if (first_str == "classback" && !second_str.empty())
 				 {
-					// OnlineCoursePlayBack(second_str, "class-course");
+					 uint64_t number;
+
+					 if (nbase::StringToUint64(second_str, &number))
+					 {
+						 emit SignalO2MPlayback(number);
+					 }
 				 }
 				 else if (first_str == "vedioes")
 				 {
@@ -56,14 +66,23 @@ bool ShortCutManager::ParseCommand(std::string command_str)
 					  return false;
 					  }*/
 				 }
-				 else if (first_str == "classroom")
+				 else if (first_str == "reading_setting" &&!second_str.empty())
 				 {
-					/* auto enter_cb = ([=](bool ret, std::string msg, int code)
+					 if (second_str == "0")
 					 {
+						emit SignalReadingSetting(false);
+						return true;
+					 }
+					 else if (second_str == "1")
+					 {
+						emit SignalReadingSetting(true);
+						return true;
+					 }
+				 }
 
-					 });*/
-
-					 //ClassroomForm::Enter(second_str, "", enter_cb);
+				 else if (first_str == "classroom"&& !second_str.empty())
+				 {
+					 emit SignalMockOpenClassroom(second_str);
 				 }
 				 //指令可以一直往后加
 				 //else if(first_str == "TODO")
@@ -92,60 +111,24 @@ bool ShortCutManager::ParseCommand(std::string command_str)
 				 {
 					 emit SignalMockServerHeartStart();
 				 }
+				 else
+				 {
+					 uint64_t number;
+
+					 if (nbase::StringToUint64(sub_command, &number)) //#123
+					 {
+						 emit SignalO2OPlayback(number);
+					 }
+					 else if (sub_command.size() > 2 && 
+							  sub_command.substr(0, 2) == "##" && 
+							  nbase::StringToUint64(sub_command.substr(2), &number)) //###123
+					 {
+						 emit SignalO2MPlayback(number);
+					 }
+				 }
 			 }
 		 }
 	}
 
 	return false;
 }
-
-void ShortCutManager::OnlineCoursePlayBack(std::string course_id,std::string class_type)
-{
-//	auto cb = [this,course_id](int code, std::wstring msg, ResUrlMap res_map){
-//		if (api_success(code))
-//		{
-//			if (res_map.size() > 0)
-//			{
-//				int i_course_id = 0;
-//				nbase::StringToInt(course_id,&i_course_id);
-//				CoursePlayBackForm::ShowO2OPlayWin(i_course_id,ONE_2_ONE,res_map);
-//			}
-//		}
-//		else
-//		{
-//			ShowAutoCloseMsgBox(NULL, msg);
-//		}
-//	};
-//
-//	std::vector<std::string> vec;
-//	vec.push_back("course-pdata-tea");
-//	vec.push_back("course-pdata-stu");
-//	vec.push_back("course-audio-mix");
-//	vec.push_back("course-audio-tea");
-//	vec.push_back("course-audio-stu");
-////	CourseApi::GetMyO2OCourseRes(course_id, "online-course", vec, cb);
-//	CourseApi::GetMyO2OCourseRes(course_id, class_type, vec, cb);
-}
-
-void ShortCutManager::SeriesCoursePlayBack(std::string user_id, std::string course_id)
-{
-	/*auto cb = [this](int code, std::wstring msg, VedioInfoVec vec){
-		if (api_success(code))
-		{
-		if (vec.size() > 0)
-		{
-		VedioPlayerForm::ShowVedioPlay(vec, 0);
-		}
-		}
-		else
-		{
-		ShowAutoCloseMsgBox(NULL, msg);
-		}
-		};
-
-		CourseApi::GetSeriesCourse(user_id,course_id, cb);*/
-}
-
-
-
-

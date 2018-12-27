@@ -48,10 +48,13 @@ struct ChannelJoinParam
 	uint32_t agora_uid_;
 	std::string channel_key_;
 
+	std::string own_url_;
+
 	ChannelJoinParam()
 	{
 		data_service_ = SWITCH_NETWORK_OWN;
 		chat_service_ = SWITCH_NETWORK_AGORA;
+		own_url_ = "";
 	}
 };
 

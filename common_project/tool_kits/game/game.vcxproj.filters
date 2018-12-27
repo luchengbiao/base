@@ -1,0 +1,1987 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{59cb7198-8f77-46d8-8614-37db40a40728}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{f9846fa1-be84-460f-a0a1-b5b91ca100d5}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="model\chess\chess_trait.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\chess_enum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\go_enum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\chess_game_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\stockfish_converter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\chess_board_info_adapter_for_rule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\simple_path_rule\move_detail.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\simple_path_rule\move_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\simple_path_rule\chess_path_rule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\command_handler\command_handler_fwd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_action_error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_game_action.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_game_action_class_runntime_info.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_game_action_clear_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_game_action_factory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_game_action_move_insideof_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_game_action_move_into_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_game_action_move_outof_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_game_action_new_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_game_action_types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\go_trait.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\go_game_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action_types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_action_error.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action_class_runntime_info.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action_clear_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action_factory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action_move_insideof_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action_move_into_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action_move_outof_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action_new_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\rule\go_rule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\rule\go_group.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\action\game_action.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\action\game_action_facotry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\action\game_action_move_base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\action\game_action_result.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\board\game_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\board\game_board_base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\board\game_board_base_fwd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\chess\chess_info.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\chess\chess_info_adapter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\chess\chess_info_matrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\chess\chess_variation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\grid\grid_index.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\record\game_record.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_action_friends.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\record\custom_record.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\chess_record.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\go_record.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\command_handler\command_conflict_level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\action\game_action_result_extra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_game_action_new_board_ex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_action_friends.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action_new_board_ex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\action\game_action_with_result.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\board\game_board_observer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\grid\grid_motion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\animation\animation_delegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\base\game_board_layout_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\base\chess_face_fwd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\base\chess_face_impl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\base\chess_piece\chess_piece_with_mixins.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\base\chess_piece\chess_piece_grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\chess\operational\chess_operational_delegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\go\operational\go_operational_delegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\record\game_action_with_state.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_game_action_back_forward.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\proto_entities_view\new_game_board_ex_view.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_target_chess_to_promote.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\action\game_action_back_forward_base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_game_action_switch_to_history_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\action\game_action_clear_board_base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\chess\actions\chess_game_action_import_manual.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\command_handler\command_checker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\enums\client_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\enums\usage_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\enums\game_mode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\enums\player_side.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\enums\game_board_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\proto_entities_view\import_chess_manual_view.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\base\proto_entities_view\public_view.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_chess_basket_o2o.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\structs\cmd_group_with_executor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\files_fetcher\files_fetcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\resourse_manager\resourse_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\unsigned_includer\unsigned_includer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\literal_stock\literal_stock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\literal_stock\literal_keys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_player_bar.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\structs\vs_player_info\vs_player_info.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\structs\student_info_in_class\student_info_in_class.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\enums\game_over_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action_switch_to_history_board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action_update_auto_taking_pieces.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action_back_forward.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="model\go\actions\go_game_action_import_manual.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\go\chess_id_generator\chess_id_generator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\go\chess_id_generator\chess_id_generator_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\go\go_piece\go_piece_flag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\go\go_piece\go_piece_index.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_go_basket_o2o.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\go\board_painter\go_board_painter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_online_msg_box.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="public\enums\game_type.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\base\game_board_wrapper_state_set.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_create_new_board.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\base\operational_layer\operational_layer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view\base\operational_layer\operational_hook_layer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="model\chess\chess_game_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_message_processor.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_message_processor.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="model\message_processor\message_processor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_game.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\chess_trait.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\stockfish_converter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\command_handler\command_handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\actions\chess_action_error.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\actions\chess_game_action.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\actions\chess_game_action_clear_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\actions\chess_game_action_factory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\actions\chess_game_action_move_insideof_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\actions\chess_game_action_move_into_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\actions\chess_game_action_move_outof_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\actions\chess_game_action_new_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_widget_with_pixmap.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_widget_with_pixmap.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\widget_with_pixmap\widget_with_pixmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\go_game_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\actions\go_action_error.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\actions\go_game_action.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\actions\go_game_action_clear_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\actions\go_game_action_factory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\actions\go_game_action_move_insideof_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\actions\go_game_action_move_into_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\actions\go_game_action_move_outof_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\actions\go_game_action_new_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\base\action\game_action_result.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\base\board\game_board_base.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\base\chess\chess_info_matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\base\grid\grid_index.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\chess_record.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\go_record.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\actions\chess_game_action_new_board_ex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\actions\go_game_action_new_board_ex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\base\action\game_action_with_result.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\base\chess\chess_variation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_animation_layer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_animation_layer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\animation\animation_layer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_grid_mark.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_grid_mark.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\animation\grid_mark.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_arrow_line.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_arrow_line.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\arrow_line\arrow_line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_scale_line.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_scale_line.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_scale_line_layer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_scale_line_layer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_chess_basket_base.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_chess_basket_base.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_chess_piece_base.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_chess_piece_base.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\base\chess_piece\chess_piece_base.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\chess\operational\chess_operational_layer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_chess_operational_layer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_chess_operational_layer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\chess\operational\chess_path_marker_layer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_chess_path_marker_layer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_chess_path_marker_layer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_chess_piece.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_chess_piece.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\chess\chess_game_board_wrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_chess_game_board_wrapper.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_chess_game_board_wrapper.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_go_basket_base.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_go_basket_base.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\go\baskets\go_basket_base.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_go_basket_o2o.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_go_basket_o2o.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\go\baskets\go_basket_o2o.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_go_color_basket.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_go_color_basket.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\go\baskets\go_color_basket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_go_piece_in_basket.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_go_piece_in_basket.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\go\operational\go_operational_layer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_go_operational_layer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_go_operational_layer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_go_piece.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_go_piece.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\base\game_board_base_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_game_board_wrapper_ui.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_game_board_wrapper_ui.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\base\game_board_wrapper_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_chess_game_board_ui.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_chess_game_board_ui.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\chess\chess_game_board_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_game_board_base_ui.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_game_board_base_ui.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_go_game_board_ui.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_go_game_board_ui.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\go\go_game_board_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_go_game_board_wrapper.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_go_game_board_wrapper.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\go\go_game_board_wrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\actions\chess_game_action_back_forward.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\base\record\game_action_with_state.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\chess\promote_dialog\target_chess_to_promote_dialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_target_chess_to_promote_dialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_target_chess_to_promote_dialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\actions\chess_game_action_switch_to_history_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\base\record\game_record.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\chess\actions\chess_game_action_import_manual.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_chess_manual_helper.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_chess_manual_helper.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="model\command_handler\heartbeat_helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_heartbeat_helper.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_heartbeat_helper.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_md5_sync_helper.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_md5_sync_helper.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="model\command_handler\md5_sync_helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_course_data_helper.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_course_data_helper.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="model\command_handler\command_checker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\command_handler\course_file_writer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_course_file_writer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_course_file_writer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_decorator_board.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_decorator_board.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\decorator\decorator_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\head_portrait\head_portrait.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_head_portrait.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_head_portrait.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\scale_line\scale_line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\scale_line\scale_line_layer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\base\record\custom_record.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="public\chess_manaul_helper\chess_manual_helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="public\course_data_helper\course_data_helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="public\downloaded_files_recorder\downloaded_files_recorder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="public\files_fetcher\files_fetcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="public\public_setting\public_setting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="public\resourse_manager\resourse_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="public\literal_stock\literal_stock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\player_bar\player_bar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="public\structs\vs_player_info\vs_player_info.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="public\structs\student_info_in_class\student_info_in_class.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_chess_basket_o2o.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_chess_basket_o2o.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_chess_piece_in_basket.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_chess_piece_in_basket.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\chess\baskets\chess_basket_o2o.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\chess\baskets\chess_piece_in_basket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\actions\go_game_action_switch_to_history_board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\actions\go_game_action_update_auto_taking_pieces.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\actions\go_game_action_back_forward.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="model\go\actions\go_game_action_import_manual.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\go\chess_id_generator\chess_id_generator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\base\chess_basket\chess_basket_base.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\base\chess_basket\player_wrapper_in_basket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\go\board_painter\go_board_painter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\msg_box\online_msg_box.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_online_msg_box.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_online_msg_box.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_tip_helper.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_tip_helper.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\tip_helper\tip_helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_create_new_board_dialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_create_new_board_dialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\create_new_board\create_new_board_dialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_combo_box.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="view\combo_box\combo_box.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_combo_box.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="view\base\operational_layer\operational_layer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view\base\operational_layer\operational_hook_layer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="model\message_processor\message_processor.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="model\command_handler\game_board_wrapper.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\widget_with_pixmap\widget_with_pixmap.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\animation\animation_layer.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\animation\grid_mark.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\arrow_line\arrow_line.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\base\chess_piece\chess_piece_with_trait.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\base\chess_piece\chess_piece_base.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\chess\operational\chess_operational_layer.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\chess\operational\chess_path_marker_layer.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\chess\chess_piece.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\chess\chess_game_board_wrapper.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\go\baskets\go_basket_base.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\go\baskets\go_basket_o2o.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\go\baskets\go_color_basket.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\go\baskets\go_piece_in_basket.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\go\operational\go_operational_layer.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\base\game_board_wrapper_ui.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\chess\chess_game_board_ui.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\base\game_board_base_ui.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\go\go_game_board_ui.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\go\go_game_board_wrapper.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\chess\promote_dialog\target_chess_to_promote_dialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="model\command_handler\command_handler.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="model\command_handler\heartbeat_helper.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="model\command_handler\md5_sync_helper.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="model\command_handler\course_file_writer.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\decorator\decorator_board.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\head_portrait\head_portrait.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\scale_line\scale_line.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\scale_line\scale_line_layer.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="public\chess_manaul_helper\chess_manual_helper.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="public\course_data_helper\course_data_helper.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="public\downloaded_files_recorder\downloaded_files_recorder.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="public\public_setting\public_setting.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="game.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="res\ui\chess_basket_o2o.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="res\ui\target_chess_to_promote.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="res\ui\player_bar.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\player_bar\player_bar.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\chess\baskets\chess_basket_o2o.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\chess\baskets\chess_piece_in_basket.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\go\go_piece\go_piece.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="res\ui\go_basket_o2o.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\base\chess_basket\chess_basket_base.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\base\chess_basket\player_wrapper_in_basket.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="res\ui\online_msg_box.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\msg_box\online_msg_box.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\tip_helper\tip_helper.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="res\ui\create_new_board.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\create_new_board\create_new_board_dialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view\combo_box\combo_box.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\class_online\detect_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\online_bg.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\tab_bar_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\top_bar_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\head_28.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\head_mask_28.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\head_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\camera_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\icon_audio.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\icon_micro.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\slider_btn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\slider_front.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\extra_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\tab1_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\tab2_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\tab3_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\tab4_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\logo1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\qilou_title.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\tool_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\tool_fengge.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\xiangpi_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\xiangpi_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\all_disable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\all_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\all_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\all_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\new_disable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\new_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\new_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\new_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\nine_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\nine_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\ninteen_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\ninteen_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record_disable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\thirteen_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\thirteen_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\watch_disable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\watch_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\watch_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\watch_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\cb_sel.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\cb_unsel.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\disable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\recharg_disable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\recharg_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\recharg_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\recharg_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\camera_change_disable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\camera_change_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\camera_change_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\camera_change_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\camera_close_disable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\camera_close_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\camera_close_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\camera_close_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\camera_hide_disable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\camera_hide_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\camera_hide_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\camera_hide_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\detect_disable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\detect_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\detect_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\detect_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\finish_disable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\finish_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\finish_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\finish_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\indicate_column.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\indicate_row.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record_board_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\msg_box.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\msg_close.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\msg_ok_disabled.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\msg_ok_hover.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\msg_ok_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\msg_ok_pressed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\qilou_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\qilou_white.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\go_board_9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\go_board_13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\go_board_19.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\go_board_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\bnine_move.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\bnine_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\bnine_select.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\bninteen_move.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\bninteen_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\bninteen_select.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\bthirteen_move.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\bthirteen_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\bthirteen_select.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\circle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\wnine_move.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\wnine_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\wnine_select.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\wninteen_move.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\wninteen_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\wninteen_select.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\wthirteen_move.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\wthirteen_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\go\wthirteen_select.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\bishop_move_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\bishop_move_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\bishop_selected_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\bishop_selected_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\cannon_gray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\cannon_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\chess_gilou.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\chess_qipan.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\elephant_gray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\elephant_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\horse_gray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\horse_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\item_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\king_gray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\king_move_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\king_move_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\king_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\king_selected_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\king_selected_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\knight_move_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\knight_move_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\knight_selected_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\knight_selected_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\pawn_move_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\pawn_move_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\pawn_selected_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\pawn_selected_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\queen_gray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\queen_move_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\queen_move_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\queen_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\queen_selected_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\queen_selected_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\rook_move_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\rook_move_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\rook_selected_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\rook_selected_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\soldier_gray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\soldier_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\chess\solider_gray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_course\play_disable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_course\play_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_course\head_32.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_course\head_mask_32.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\arrow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\btnA51.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\btnA52.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\btnA53.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\btnA54.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\btnB41.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\btnB42.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\btnB43.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\btnB44.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\btnB51.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\btnB52.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\btnB53.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\btnB54.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\chargestatus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\radio1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\radio2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\radio3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\title.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\refundreason.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\refund\txcomment.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record\record_big_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record\record_small_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record\list_record_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record\btn_next.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record\btn_prev.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record\black_big.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record\black_small.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record\record_small_bk_sel.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record\star_big.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record\star_small.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record\white_big.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\record\white_small.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\charge\alipay.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\charge\alipayQR.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\charge\chargechecked.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\charge\chargestatus.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\charge\chargeunchecked.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\charge\checked.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\charge\unchecked.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\charge\wechat.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\charge\wechatcell.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\charge\wechatQR.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\add_classware.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\black_btn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\blue_btn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\classware.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\classware_bg.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\clean_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\clean_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\color_choose.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\Onlineclass.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\OnlineClass_bg.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\red_btn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\revok_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\revok_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\class_online\white_board\write_color.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\callout\connect_bg.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\callout\head.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\callout\head_bg.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\callout\head_mask.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\bubble_grey.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\bubble_orange.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\delete_session.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\mouse_right_menu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\mouse_right_push.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\pc_icon_chat.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\phone_icon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\teacher_detail_point.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\head.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\head_mask.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\cut.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\cut_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\express.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\express_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\img.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\img_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\micro_phone.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\micro_phone_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\voice.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\voice_hot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\voice_pressed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\express_pressed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\img_pressed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\voice_icon_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\voice_icon_white.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\my_message\cut_pressed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\backwards_hover.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\backwards_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\backwards_press.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\forwards_hover.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\forwards_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\forwards_press.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\pause_hover.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\pause_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\pause_press.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\play_hover.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\play_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\play_press.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\sound.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\playback\slider.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\qilou_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\qilou_white.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\bnine_move.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\bnine_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\bnine_select.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\bninteen_move.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\bninteen_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\bninteen_select.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\bthirteen_move.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\bthirteen_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\bthirteen_select.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\circle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\wnine_move.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\wnine_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\wnine_select.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\wninteen_move.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\wninteen_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\wninteen_select.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\wthirteen_move.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\wthirteen_normal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\go\wthirteen_select.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\bishop_move_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\bishop_move_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\bishop_selected_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\bishop_selected_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\cannon_gray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\cannon_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\chess_gilou.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\chess_qipan.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\elephant_gray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\elephant_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\horse_gray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\horse_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\item_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\king_gray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\king_move_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\king_move_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\king_selected_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\king_selected_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\knight_move_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\knight_move_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\knight_selected_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\knight_selected_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\pawn_move_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\pawn_move_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\pawn_selected_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\pawn_selected_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\queen_gray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\queen_move_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\queen_move_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\queen_selected_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\queen_selected_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\rook_move_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\rook_move_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\rook_selected_black.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\rook_selected_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\soldier_gray.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\chess\soldier_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\chess\king_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\chess\queen_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\go\go_board_9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\go\go_board_13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\go\go_board_19.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\go\go_board_bk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="qss\default_qss_style.qss">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\qss\game.qss" />
+    <None Include="res\literal\game.json" />
+  </ItemGroup>
+</Project>

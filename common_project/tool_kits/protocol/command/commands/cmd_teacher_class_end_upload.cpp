@@ -1,0 +1,7 @@
+#include "cmd_teacher_class_end_upload.h"
+
+PROTO_NAMESPACE_BEGIN
+
+IMPLEMENT_COMMAND_RUNTIME_INFO(CommandType::TeacherClassEndUpload, CmdTeacherClassEndUpload, CommandCell)
+
+PROTO_NAMESPACE_END

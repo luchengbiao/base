@@ -1,5 +1,6 @@
-#ifndef __WEAK_CALLBACK_H__
-#define __WEAK_CALLBACK_H__
+#ifndef __COMMON_WEAK_CALLBACK_WEAK_CALLBACK_H__
+#define __COMMON_WEAK_CALLBACK_WEAK_CALLBACK_H__
+#include <atomic>
 #include <memory>
 #include <functional>
 #include <mutex>
@@ -13,42 +14,42 @@ namespace wcb
 		typedef std::shared_ptr<WeakClass>	WeakClassSharedPtr;
 
 	public:
-		WeakCallback(const WeakClassWeakPtr& weakPtr, const Callee& callee)
-			: _weakPtr(weakPtr)
-			, _callee(callee)
+		WeakCallback(const WeakClassWeakPtr& weak_ptr, const Callee& callee)
+			: weak_ptr_(weak_ptr)
+			, callee_(callee)
 		{}
 
-		WeakCallback(const WeakClassWeakPtr& weakPtr, Callee&& callee)
-			: _weakPtr(weakPtr)
-			, _callee(std::move(callee))
+		WeakCallback(const WeakClassWeakPtr& weak_ptr, Callee&& callee)
+			: weak_ptr_(weak_ptr)
+			, callee_(std::move(callee))
 		{}
 
 		template<class WeakType>
-		WeakCallback(const WeakType& weakCallback)
-			: _weakPtr(weakCallback._weakPtr)
-			, _callee(weakCallback._callee)
+		WeakCallback(const WeakType& weak_cb)
+			: weak_ptr_(weak_cb.weak_ptr_)
+			, callee_(weak_cb.callee_)
 		{}
 
 		template<class... Args>
-		auto operator ()(Args && ... args) const->decltype(_callee(std::forward<Args>(args)...))
+		auto operator ()(Args && ... args) const->decltype(callee_(std::forward<Args>(args)...))
 		{
-			WeakClassSharedPtr sharedPtr(_weakPtr.lock());
-			if (sharedPtr)
+			WeakClassSharedPtr shared_ptr(weak_ptr_.lock());
+			if (shared_ptr)
 			{
-				return _callee(std::forward<Args>(args)...);
+				return callee_(std::forward<Args>(args)...);
 			}
 
-			return decltype(_callee(std::forward<Args>(args)...))();
+			return decltype(callee_(std::forward<Args>(args)...))();
 		}
 
 		bool Expired() const
 		{
-			return _weakPtr.expired();
+			return weak_ptr_.expired();
 		}
 
 	private:
-		WeakClassWeakPtr	_weakPtr;
-		mutable Callee		_callee;
+		WeakClassWeakPtr	weak_ptr_;
+		mutable Callee		callee_;
 	};
 
 	template<typename Derived>
@@ -87,97 +88,99 @@ namespace wcb
 		typedef std::shared_ptr<WeakClass>	WeakClassSharedPtr;
 
 	public:
-		WeakCallbackCancelable(const WeakClassWeakPtr& weakPtr, const CancelFlagWeakPtr& flagWeakPtr, const Callee& callee)
-			: _weakPtr(weakPtr)
-			, _flagWeakPtr(flagWeakPtr)
-			, _callee(callee)
+		WeakCallbackCancelable(const WeakClassWeakPtr& weak_ptr, const CancelFlagWeakPtr& flag_weak_ptr, const Callee& callee)
+			: weak_ptr_(weak_ptr)
+			, flag_weak_ptr_(flag_weak_ptr)
+			, callee_(callee)
 		{}
 
-		WeakCallbackCancelable(const WeakClassWeakPtr& weakPtr, const CancelFlagWeakPtr& flagWeakPtr, Callee&& callee)
-			: _weakPtr(weakPtr)
-			, _flagWeakPtr(flagWeakPtr)
-			, _callee(std::move(callee))
+		WeakCallbackCancelable(const WeakClassWeakPtr& weak_ptr, const CancelFlagWeakPtr& flag_weak_ptr, Callee&& callee)
+			: weak_ptr_(weak_ptr)
+			, flag_weak_ptr_(flag_weak_ptr)
+			, callee_(std::move(callee))
 		{}
 
 		template<class WeakType>
-		WeakCallbackCancelable(const WeakType& weakCallback)
-			: _weakPtr(weakCallback._weakPtr)
-			, _flagWeakPtr(weakCallback._flagWeakPtr)
-			, _callee(weakCallback._callee)
+		WeakCallbackCancelable(const WeakType& weak_cb)
+			: weak_ptr_(weak_cb.weak_ptr_)
+			, flag_weak_ptr_(weak_cb.flag_weak_ptr_)
+			, callee_(weak_cb.callee_)
 		{}
 
 		template<class... Args>
-		auto operator ()(Args && ... args) const->decltype(_callee(std::forward<Args>(args)...))
+		auto operator ()(Args && ... args) const->decltype(callee_(std::forward<Args>(args)...))
 		{
-			CancelFlagSharedPtr flagSharedPtr(_flagWeakPtr.lock());
-			if (flagSharedPtr)
+			CancelFlagSharedPtr flag_shared_ptr(flag_weak_ptr_.lock());
+			if (flag_shared_ptr)
 			{
-				WeakClassSharedPtr sharedPtr(_weakPtr.lock());
-				if (sharedPtr)
+				WeakClassSharedPtr shared_ptr(weak_ptr_.lock());
+				if (shared_ptr)
 				{
-					return _callee(std::forward<Args>(args)...);
+					return callee_(std::forward<Args>(args)...);
 				}
 			}
 
-			return decltype(_callee(std::forward<Args>(args)...))();
+			return decltype(callee_(std::forward<Args>(args)...))();
 		}
 
 		bool Expired() const
 		{
-			return _weakPtr.expired() || _flagWeakPtr.expired();
+			return weak_ptr_.expired() || flag_weak_ptr_.expired();
 		}
 
 	private:
-		WeakClassWeakPtr	_weakPtr;
-		CancelFlagWeakPtr	_flagWeakPtr;
-		mutable Callee		_callee;
+		WeakClassWeakPtr	weak_ptr_;
+		CancelFlagWeakPtr	flag_weak_ptr_;
+		mutable Callee		callee_;
 	};
 
 	template<typename Owner>
 	class WeakCallbackFlagCancelable final
 	{
 	public:
-		void SetWeakPtr(const std::weak_ptr<Owner>& weakPtr) { _weakPtr = weakPtr; }
+		void SetWeakPtr(const std::weak_ptr<Owner>& weak_ptr) { weak_ptr_ = weak_ptr; }
 
 		template<typename CallbackType>
 		auto ToWeakCallback(const CallbackType& callee)->WeakCallbackCancelable<CallbackType, Owner>
 		{
-			return this->ToWeakCallback(callee, _weakPtr);
+			return this->ToWeakCallback(callee, weak_ptr_);
 		}
 
 		template<typename CallbackType>
-		auto ToWeakCallback(const CallbackType& callee, const std::weak_ptr<Owner>& weakPtr)->WeakCallbackCancelable<CallbackType, Owner>
+		auto ToWeakCallback(const CallbackType& callee, const std::weak_ptr<Owner>& weak_ptr)->WeakCallbackCancelable<CallbackType, Owner>
 		{
-			return WeakCallbackCancelable<CallbackType, Owner>(weakPtr, GetCancelFlagWeakPtr(), callee);
+			return WeakCallbackCancelable<CallbackType, Owner>(weak_ptr, GetCancelFlagWeakPtr(), callee);
 		}
 
 		CancelFlagWeakPtr GetCancelFlagWeakPtr()
 		{
-			std::lock_guard<std::mutex> lock(_mutex);
-			if (!_cancelFlagPtr)
+			auto cancel_flag_ptr = std::atomic_load(cancel_flag_ptr_);
+			if (!cancel_flag_ptr)
 			{
-				_cancelFlagPtr.reset((CancelFlag*)0x01, [](CancelFlag*){/* do nothing with the fake pointer 0x01*/});
+				CancelFlagSharedPtr cancel_flag_ptr_null;
+				cancel_flag_ptr.reset((CancelFlag*)0x01, [](CancelFlag*){/* do nothing with the fake pointer 0x01*/});
+
+				while (!std::atomic_compare_exchange_weak(&cancel_flag_ptr_, &cancel_flag_ptr_null, cancel_flag_ptr));
 			}
 
-			return _cancelFlagPtr;
+			return cancel_flag_ptr;
 		}
 
 		void Cancel()
 		{
-			std::lock_guard<std::mutex> lock(_mutex);
-			_cancelFlagPtr.reset();
+			std::atomic_store(&cancel_flag_ptr_, CancelFlagSharedPtr());
 		}
 
-		bool HasUsed()
+		bool IsInUse()
 		{
-			std::lock_guard<std::mutex> lock(_mutex);
-			return _cancelFlagPtr.use_count() > 0;
+			auto cancel_flag_ptr = std::atomic_load(cancel_flag_ptr_);
+
+			return cancel_flag_ptr.use_count() > 0;
 		}
 
 	private:
-		std::weak_ptr<Owner>				_weakPtr;
-		CancelFlagSharedPtr					_cancelFlagPtr;
-		std::mutex							_mutex;
+		std::weak_ptr<Owner>	weak_ptr_;
+		CancelFlagSharedPtr		cancel_flag_ptr_;
 	};
 
 
@@ -193,22 +196,22 @@ namespace wcb
 	template<class R, class C, class... DArgs, class P, class... Args>
 	auto Bind(R(C::*f)(DArgs...) const, P && p, Args && ... args)->WeakCallback<decltype(std::bind(f, p, args...)), C>
 	{
-		auto weakPtr = ((util::SupportWeakCallback*)p)->GetWeakPtr();
+		auto weak_ptr = ((util::SupportWeakCallback*)p)->GetWeakPtr();
 		auto bindObj = std::bind(f, p, args...);
 		static_assert(std::is_base_of<wcb::SupportWeakCallback, C>::value, "wcb::SupportWeakCallback should be base of C");
-		WeakCallback<decltype(bindObj)> weakCallback(weakPtr, std::move(bindObj));
-		return weakCallback;
+		WeakCallback<decltype(bindObj)> weak_cb(weak_ptr, std::move(bindObj));
+		return weak_cb;
 	}
 
 	// non-const class member function 
 	template<class R, class C, class... DArgs, class P, class... Args>
 	auto Bind(R(C::*f)(DArgs...), P && p, Args && ... args) ->WeakCallback<decltype(std::bind(f, p, args...)), C>
 	{
-		auto weakPtr = ((util::SupportWeakCallback*)p)->GetWeakFlag();
+		auto weak_ptr = ((util::SupportWeakCallback*)p)->GetWeakFlag();
 		auto bindObj = std::bind(f, p, args...);
 		static_assert(std::is_base_of<wcb::SupportWeakCallback, C>::value, "wcb::SupportWeakCallback should be base of C");
-		WeakCallback<decltype(bindObj)> weakCallback(weakPtr, std::move(bindObj));
-		return weakCallback;
+		WeakCallback<decltype(bindObj)> weak_cb(weak_ptr, std::move(bindObj));
+		return weak_cb;
 	}
 }
 

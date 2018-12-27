@@ -4,13 +4,19 @@
 #include "nim_base\util.h"
 #include "..\common\tool\common_tool.h"
 
-static const std::wstring kNewMessage = L"new_message.wav";
-static const std::wstring kVoipConnecting = L"voip_connecting.wav";
-static const std::wstring kVoipNoResponse = L"voip_no_response.wav";
-static const std::wstring kVoipPeerBusy = L"voip_peer_busy.wav";
-static const std::wstring kVoipPeerReject = L"voip_peer_reject.wav";
-static const std::wstring kVoipRing = L"voip_ring.wav";
-static const std::wstring kCourseOver = L"course_over.wav";
+static const std::wstring kNewMessage		= L"new_message.wav";
+static const std::wstring kVoipConnecting	= L"voip_connecting.wav";
+static const std::wstring kVoipNoResponse	= L"voip_no_response.wav";
+static const std::wstring kVoipPeerBusy		= L"voip_peer_busy.wav";
+static const std::wstring kVoipPeerReject	= L"voip_peer_reject.wav";
+static const std::wstring kVoipRing			= L"voip_ring.wav";
+static const std::wstring kCourseOver		= L"course_over.wav";
+
+static const std::wstring kChessEat		= L"chess_eat.wav";
+static const std::wstring kChessMove	= L"chess_move.wav";
+static const std::wstring kChessNewDown = L"chess_new_down.wav";
+static const std::wstring kGoMove		= L"go_move.wav";
+static const std::wstring kGoDeadStone  = L"go_dead_stone.wav";
 
 #pragma comment(lib, "VFW32.lib")
 #pragma comment(lib,"winmm.lib")
@@ -73,6 +79,21 @@ namespace nim_comp
 			break;
 		case RING_COURSE_OVER:
 			dir.append(kCourseOver);
+			break;
+		case RING_CHESS_EAT:
+			dir.append(kChessEat);
+			break;
+		case RING_CHESS_MOVE:
+			dir.append(kChessMove);
+			break;
+		case RING_CHESS_NEW_DOWN:
+			dir.append(kChessNewDown);
+			break;
+		case RING_GO_MOVE:
+			dir.append(kGoMove);
+			break;
+		case RING_GO_DEAD_STONE:
+			dir.append(kGoDeadStone);
 			break;
 		}
 

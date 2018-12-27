@@ -16,7 +16,7 @@ NimDataChannel::~NimDataChannel()
 
 }
 
-void NimDataChannel::JoinChannel(std::string channel_id, JoinChannelCallback& cb)
+void NimDataChannel::JoinChannel(std::string channel_id, JoinChannelCallback& cb, std::string url)
 {
 	s_channel_id_ = channel_id;
 	m_joinchannelCb_ = cb;

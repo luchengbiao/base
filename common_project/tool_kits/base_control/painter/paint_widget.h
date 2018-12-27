@@ -11,7 +11,7 @@
 #include "paint_data.h"
 #include "QLabel"
 
-typedef std::function<void(DrawOpInfo info)> DrawOpCallback;
+typedef std::function<void(const DrawOpInfo&)> DrawOpCallback;
 
 struct DrawRecord
 {
@@ -48,6 +48,7 @@ public:
 	void OnTeaDrawInfos(const std::list<DrawOpInfo>& info_list, bool b_paint = true);
 	void SetDrawCb(DrawOpCallback cb);
 	void SetAcceptEvent(bool bAccept);
+	bool IsEventAccepted() const;
 	QRect GetDrawRect();
 	int GetCoursewareType();
 	int GetPage();
@@ -110,6 +111,8 @@ private:
 	std::map<std::string, std::string> map_pen_icon_;
 	QRect draw_rect_;
 	bool b_stu_draw_;
+
+	bool b_visible_ex_;
 };
 
 #endif // PAINTAREA_H

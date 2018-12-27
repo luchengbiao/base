@@ -89,11 +89,20 @@ void CommonSetting::Load()
 		{
 			ApiSetting::SetAppKey("NIM_APPKEY", iter->second);
 		}
-
 		iter = m_setting_pair.find("AGORA_APP_ID");
 		if (iter != m_setting_pair.end())
 		{
 			ApiSetting::SetAppKey("AGORA_APP_ID", iter->second);
+		}
+		iter = m_setting_pair.find("SOCKET_HOST");
+		if (iter != m_setting_pair.end())
+		{
+			ApiSetting::api_socket_ = iter->second;
+		}
+		iter = m_setting_pair.find("URL_HEAD");
+		if (iter != m_setting_pair.end())
+		{
+			ApiSetting::url_head_ = iter->second;
 		}
 
 	} while (false);

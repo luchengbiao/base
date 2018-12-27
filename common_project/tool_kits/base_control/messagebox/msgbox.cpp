@@ -199,26 +199,30 @@ void MsgBox::paintEvent(QPaintEvent *e)
 
 void MsgBox::closeEvent(QCloseEvent *e)
 {
+	auto ret = ret_;
+	auto callback = msgbox_callback_;
+
 	if (msgbox_callback_)
 	{
 		if (!ui->btn_cancel->isVisible())
 		{
 			if (ret_ != MB_OTHER)
 			{
-				msgbox_callback_(MB_YES);
+				ret = MB_YES;
 			}
 			else
 			{
-				msgbox_callback_(MB_OTHER);
+				ret = MB_OTHER;
 			}
-		}	
-		else
-		{
-			msgbox_callback_(ret_);
 		}
 	}
 
 	QDialog::closeEvent(e);
+
+	if (callback)
+	{
+		callback(ret);
+	}
 }
 
 void MsgBox::SetInfo(int width,int height,QString title_info, QString msg_info, QString ok_text, QString cancel_text, QString cancel_text_2, QString HighLignt_title)

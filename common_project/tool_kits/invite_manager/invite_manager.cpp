@@ -103,7 +103,7 @@ void InviteManager::InitInvite(One2OneCallInfo call_info)
 		SAFE_DELETE(base_invite_);
 	}
 
-	base_invite_ = CreateInvite(call_info_.m_setvice_type_);
+	base_invite_ = CreateInvite(call_info_.m_service_type_);
 	if (!call_info_.b_creator_)
 	{
 		base_invite_->OnSetCallInfo(call_info_);
@@ -201,7 +201,7 @@ void InviteManager::AcceptInvite()
 	{
 		return;
 	}
-	if (call_info_.m_setvice_type_ == SWITCH_NETWORK_AGORA)
+	if (call_info_.m_service_type_ == SWITCH_NETWORK_AGORA)
 	{
 		base_invite_->OnInitInvite(call_info_, true);
 	}

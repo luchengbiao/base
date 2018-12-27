@@ -3,7 +3,11 @@
 
 AgoraDeviceManager::AgoraDeviceManager()
 {
-
+	p_agoraObject_ = NULL;
+	p_rtcEngine_ = NULL;
+	device_param_ = NULL;
+	s_app_id_ = "";
+	channel_type_ = AgoraVChatChannel_NONE;
 }
 
 AgoraDeviceManager::~AgoraDeviceManager()
@@ -11,26 +15,21 @@ AgoraDeviceManager::~AgoraDeviceManager()
 
 }
 
-void AgoraDeviceManager::OnInit(std::string s_vendorKey /*= ""*/)
+void AgoraDeviceManager::SetAppID(std::string app_id)
 {
-	p_agoraObject_ = AGEngineManager::GetAGEngine(s_vendorKey);
-	if (p_agoraObject_)
+	s_app_id_ = app_id;
+}
+
+DeviceManagerParam* AgoraDeviceManager::CreateDeviceManager()
+{
+	if (channel_type_ == AgoraVChatChannel_NONE)
 	{
-		p_agoraObject_->EnableVideo(TRUE);
+		return NULL;
 	}
-}
 
-void AgoraDeviceManager::OnUninit()
-{
-	AGEngineManager::CloseAGEngine();
-}
-
-void AgoraDeviceManager::OnCreate(DeviceManagerParam &param)
-{
-	FreeDeviceManager(param.platsource_);
+	FreeDeviceManager();
 	p_rtcEngine_ = p_agoraObject_->GetEngine();
 	p_agoraObject_->EnableLocalVideo(true);
-	p_agoraObject_->EnableVideo(TRUE);
 
 	AgoraCameraManager*	m_agCamera = new AgoraCameraManager();
 	AgoraPlayoutManager* m_agPlayout = new AgoraPlayoutManager();
@@ -40,17 +39,12 @@ void AgoraDeviceManager::OnCreate(DeviceManagerParam &param)
 	m_agPlayout->Create(p_rtcEngine_);
 	m_agAudioin->Create(p_rtcEngine_);
 
-	param.m_agCamera_ = m_agCamera;
-	param.m_agAudioin_ = m_agAudioin;
-	param.m_agPlayout_ = m_agPlayout;
+	device_param_ = new DeviceManagerParam;
+	device_param_->m_agCamera_ = m_agCamera;
+	device_param_->m_agAudioin_ = m_agAudioin;
+	device_param_->m_agPlayout_ = m_agPlayout;
 
-	DeviceManagerParam* d_param = new DeviceManagerParam;
-	d_param->platsource_ = param.platsource_;
-	d_param->m_agAudioin_ = m_agAudioin;
-	d_param->m_agPlayout_ = m_agPlayout;
-	d_param->m_agCamera_ = m_agCamera; 
-
-	device_manager_map_.insert(DeviceManagerParamMap::value_type(d_param->platsource_, d_param));
+	return device_param_;
 }
 
 AGEngineManager* AgoraDeviceManager::GetEngineManager()
@@ -63,53 +57,84 @@ IRtcEngine* AgoraDeviceManager::GetRtcEngine()
 	return p_rtcEngine_;
 }
 
-void AgoraDeviceManager::OnClose(DeviceManagerParam *param)
+void AgoraDeviceManager::FreeDeviceManager()
 {
-	AgoraCameraManager*	m_agCamera = param->m_agCamera_;
-	AgoraPlayoutManager* m_agPlayout = param->m_agPlayout_;
-	AgoraAudInputManager* m_agAudioin = param->m_agAudioin_;
-	if (m_agCamera)
+	if (!device_param_)
 	{
-		m_agCamera->TestCameraDevice(NULL, FALSE);
-		m_agCamera->Close();
-		SAFE_DELETE(m_agCamera);
+		return;
 	}
-	if (m_agAudioin)
+
+	if (device_param_->m_agCamera_)
 	{
-		m_agAudioin->Close();
-		SAFE_DELETE(m_agAudioin);
+		device_param_->m_agCamera_->TestCameraDevice(NULL, FALSE);
+		device_param_->m_agCamera_->Close();
+		SAFE_DELETE(device_param_->m_agCamera_);
 	}
-	if (m_agPlayout)
+	if (device_param_->m_agAudioin_)
 	{
-		m_agPlayout->Close();
-		SAFE_DELETE(m_agPlayout);
+		device_param_->m_agAudioin_->Close();
+		SAFE_DELETE(device_param_->m_agAudioin_);
 	}
+	if (device_param_->m_agPlayout_)
+	{
+		device_param_->m_agPlayout_->Close();
+		SAFE_DELETE(device_param_->m_agPlayout_);
+	}
+
+	SAFE_DELETE(device_param_);
 }
 
-void AgoraDeviceManager::FreeDeviceManager(int type)
+DeviceManagerParam* AgoraDeviceManager::GetDeviceManager()
 {
-	auto it = device_manager_map_.find(type);
-	if (it != device_manager_map_.end())
-	{
-		OnClose(it->second);
-		SAFE_DELETE(it->second);
-		device_manager_map_.erase(it);
-	}
+	return device_param_;
 }
 
-void AgoraDeviceManager::GetDeviceManagerParam(DeviceManagerParam &param)
+void AgoraDeviceManager::SetChannelProfile(AgoraVChatChannelProfile type)
 {
-	auto it = device_manager_map_.find(param.platsource_);
-	if (it != device_manager_map_.end())
+	if (channel_type_ != type)
 	{
-		DeviceManagerParam* d_param = it->second;
-		if (d_param)
+		channel_type_ = type;
+		FreeDeviceManager();
+		AGEngineManager::CloseAGEngine();
+		p_agoraObject_ = NULL;
+		p_rtcEngine_ = NULL;
+
+		p_agoraObject_ = AGEngineManager::GetAGEngine(s_app_id_);
+		p_rtcEngine_ = p_agoraObject_->GetEngine();
+
+		if (p_agoraObject_)
 		{
-			param.m_agAudioin_ = d_param->m_agAudioin_;
-			param.m_agCamera_ = d_param->m_agCamera_;
-			param.m_agPlayout_ = d_param->m_agPlayout_;
+			p_agoraObject_->EnableVideo(TRUE);
+		}
+		if (p_rtcEngine_)
+		{
+			if (type == AgoraVChatChannel_COMMUNICATION)
+			{
+				p_rtcEngine_->setChannelProfile(CHANNEL_PROFILE_COMMUNICATION);
+			}else if (type == AgoraVChatChannel_LIVE)
+			{
+				p_rtcEngine_->setChannelProfile(CHANNEL_PROFILE_LIVE_BROADCASTING);
+			}
 		}
 	}
 }
 
+AgoraVChatChannelProfile AgoraDeviceManager::GetChannelProfile()
+{
+	return channel_type_;
+}
 
+int AgoraDeviceManager::setClientRole(CLIENT_ROLE_TYPE role, const char* permissionKey)
+{
+	if (p_rtcEngine_)
+	{
+		return p_rtcEngine_->setClientRole(role, permissionKey);
+	}
+
+	return -1;
+}
+
+void AgoraDeviceManager::CloseAGEngine()
+{
+	AGEngineManager::CloseAGEngine();
+}

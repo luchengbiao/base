@@ -131,6 +131,21 @@ public:
 
 	size_t GetObserverCount() const { return observers_.size(); };
 
+	template<typename ObserverMemFuncPtr, typename... Args>
+	void NotifyObservers(ObserverMemFuncPtr mem_func_ptr, Args&& ... args)
+	{
+		size_t index = 0;
+		ObserverType* observer;
+		AutoLazyEraser lazy_eraser(this);
+		while (index < GetObserverCount())
+		{
+			observer = GetObserver(index++);
+			if (observer == nullptr) { continue; }
+
+			(observer->*mem_func_ptr)(std::forward<Args>(args)...);
+		}
+	}
+
 private:
 	std::vector<ObserverType *> observers_;
 };

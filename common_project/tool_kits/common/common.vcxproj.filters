@@ -69,6 +69,18 @@
     <ClCompile Include="tool\common_tool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qobject_support_weak_callback.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qobject_support_weak_callback.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="weak_callback\qobject_support_weak_callback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="setting\cef_data_setting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system_tool.h">
@@ -107,9 +119,27 @@
     <ClInclude Include="uiutils\ui_utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="macros\json_def.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="macros\class_member_def.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="macros\assert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="setting\cef_data_setting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Shortcut\shortcut_manager.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="weak_callback\singleton_support_weak_callback.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="weak_callback\qobject_support_weak_callback.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

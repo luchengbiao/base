@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -22,7 +22,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v120_xp</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -103,6 +103,9 @@ xcopy "$(OutDir)$(TargetName)$(TargetExt)" "$(SolutionDir)..\..\libs\" /S /E /Y<
     <ClInclude Include="file_fetch.h" />
     <ClInclude Include="HttpsClient.h" />
     <ClInclude Include="url_util.h" />
+    <ClInclude Include="websocket\easywsclient.hpp" />
+    <ClInclude Include="websocket\easywsclients.hpp" />
+    <ClInclude Include="ws_service.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="api_caller.cpp">
@@ -113,6 +116,9 @@ xcopy "$(OutDir)$(TargetName)$(TargetExt)" "$(SolutionDir)..\..\libs\" /S /E /Y<
     <ClCompile Include="file_fetch.cpp" />
     <ClCompile Include="HttpsClient.cpp" />
     <ClCompile Include="url_util.cpp" />
+    <ClCompile Include="websocket\easywsclient.cpp" />
+    <ClCompile Include="websocket\easywsclients.cpp" />
+    <ClCompile Include="ws_service.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -37,6 +37,8 @@ public:
 	virtual bool InitTeaVedioDevice(HWND vedio_hwnd) = 0;
 	virtual void InitStuVedioDevice(HWND vedio_hwnd, uint32_t m_stu_uid) = 0;
 
+	virtual int setClientRole(CLIENT_ROLE_TYPE role, const char* permissionKey) = 0;
+
 	virtual std::string GetRecordingKey() = 0;
 
 	virtual NetworkServiceType GetChannelType() = 0;

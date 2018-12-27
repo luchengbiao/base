@@ -9,6 +9,7 @@ enum ThreadId
 	kThreadHttpTask, // http 回调请求线程
 	kThreadUIHelper, // 通知主线程的辅助线程
 	kThreadMoreTaskHelper, // 更多定时任务通知主线程的辅助线程
+	kThreadWebSocket, // 建立websocket 连接时候的线程
 };
 
 namespace qtbase

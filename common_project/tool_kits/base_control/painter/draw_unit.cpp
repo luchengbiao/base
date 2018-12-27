@@ -1,13 +1,18 @@
 #include "draw_unit.h"
-#include "QPainter"
-#include "QPen"
-#include "qmath.h"
-#include "QDebug"
+#include <QDebug>
+#include <QImage>
+#include <QPainter>
+#include <QPen>
+#include <QtMath>
 
 #define Max(a,b)    (((a) > (b)) ? (a) : (b))
 #define Min(a,b)    (((a) < (b)) ? (a) : (b))
 
-DrawUnit::DrawUnit(QPoint point, QRect rc) : pen_width_(knLineWidth), pen_color_(Qt::black)
+#define	knLineWidth			1.5			// Ïß´Ö
+#define	knEeaseRadius	    5			// ÏðÆ¤²ÁµÄ°ë¾¶
+#define	knEraseRadiusRatio	0.05		// ÏðÆ¤²ÁµÄ°ë¾¶±ÈÀý
+
+DrawUnit::DrawUnit(const QPoint& point, const QRect& rc) : pen_width_(knLineWidth), pen_color_(Qt::black)
 {
 	start_point_ = point;
 	end_point_ = point;
@@ -41,7 +46,7 @@ void DrawUnit::SetPenWidth(int pen_width)
 	pen_width_ = pen_width;
 }
 
-void DrawUnit::SetPenColor(QColor color)
+void DrawUnit::SetPenColor(const QColor& color)
 {
 	pen_color_ = color;
 }
@@ -61,7 +66,7 @@ void DrawUnit::SetRectValid(const QRect& rc_valid)
 	rc_valid_ = rc_valid;
 }
 
-bool DrawUnit::SetEndPoint(QPoint point)
+bool DrawUnit::SetEndPoint(const QPoint& point)
 {
 	end_point_ = point;
 	return true;
@@ -95,17 +100,17 @@ void DrawUnit::MeasurePoint(double &x, double &y)
 	y = (y > rc_valid_.bottom() ? rc_valid_.bottom() : y);
 }
 
-QPointF DrawUnit::TransformPoint(QPointF point)
+QPointF DrawUnit::TransformPoint(const QPointF& point)
 {
 	return QPointF(point.x() * rc_valid_.width(), point.y() * rc_valid_.height());
 }
 
-QPointF DrawUnit::TransformRatio(QPoint point)
+QPointF DrawUnit::TransformRatio(const QPoint& point)
 {
 	return QPointF(point.x() * 1.0 / rc_valid_.width(), point.y() * 1.0 / rc_valid_.height());
 }
 
-void DrawUnit::CalcDrawRect(std::vector<QPointF> vec_point, int radius)
+void DrawUnit::CalcDrawRect(const std::vector<QPointF>& vec_point, int radius)
 {
 	int top = 9999999, left = 9999999, bottom = 0, right = 0;
 	if (draw_rect_.width() > 0 || draw_rect_.height() > 0)
@@ -128,7 +133,7 @@ void DrawUnit::CalcDrawRect(std::vector<QPointF> vec_point, int radius)
 	draw_rect_ = QRect(left, top, right - left, bottom - top);
 }
 
-void DrawUnit::CalcDrawRect(QPointF point, int radius)
+void DrawUnit::CalcDrawRect(const QPointF& point, int radius)
 {
 	int top = 9999999, left = 9999999, bottom = 0, right = 0;
 	if (draw_rect_.width() > 0 || draw_rect_.height() > 0)
@@ -151,7 +156,7 @@ void DrawUnit::CalcDrawRect(QPointF point, int radius)
 
 //////////////////////////////////»­±Ê////////////////////////////////////////
 
-DrawUnitPen::DrawUnitPen(QPoint point, QRect rc) : DrawUnit(point, rc), draw_pos_(0)
+DrawUnitPen::DrawUnitPen(const QPoint& point, const QRect& rc) : DrawUnit(point, rc), draw_pos_(0)
 {
 	QPointF ratio = TransformRatio(point);
 	if (rc_valid_.contains(point))
@@ -160,7 +165,7 @@ DrawUnitPen::DrawUnitPen(QPoint point, QRect rc) : DrawUnit(point, rc), draw_pos
 	}
 }
 
-bool DrawUnitPen::SetEndPoint(QPoint point)
+bool DrawUnitPen::SetEndPoint(const QPoint& point)
 {
 	if (rc_valid_.contains(point))
 	{
@@ -262,7 +267,7 @@ DrawUnitErase::DrawUnitErase(QPoint point, QRect rc) : DrawUnit(point, rc), draw
 	}
 }
 
-bool DrawUnitErase::SetEndPoint(QPoint point)
+bool DrawUnitErase::SetEndPoint(const QPoint& point)
 {
 	if (rc_valid_.contains(point))
 	{
@@ -304,6 +309,7 @@ void DrawUnitErase::RenderSelf(QImage &image, bool is_continue)
 	draw_pos = draw_pos > 0 ? draw_pos : 1;
 
 	std::vector<QPointF> draw_points;
+
 	for (size_t i = draw_pos; i < m_vtPoints.size(); i++)
 	{
 		QPointF pt1 = TransformPoint(m_vtPoints[i - 1]);
@@ -318,6 +324,7 @@ void DrawUnitErase::RenderSelf(QImage &image, bool is_continue)
 		QPointF pt = TransformPoint(m_vtPoints[index]);
 		draw_points.push_back(pt);
 	}
+
 	draw_pos_ = m_vtPoints.size();
 	CalcDrawRect(draw_points, m_radius_ + 5);
 }

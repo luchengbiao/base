@@ -11,6 +11,7 @@
 #include <QVBoxLayout>
 #include <QTimer>
 #include <QPainter>
+#include <QPointer>
 #include <QEvent>
 #include <QDesktopWidget>
 #include <QApplication>
@@ -27,34 +28,47 @@ class SToast : public QWidget
     Q_OBJECT
 public:
     explicit SToast(QWidget *parent = 0);
-    ~SToast();
 
-    int duration()const;
-    void SetDuration(int msec);  //持续显示时间，ms
+    int					duration()const;
+    void				SetDuration(int msec);  //持续显示时间，ms
+
+	int					durationOfFade() const;
+	void				setDurationOfFade(int msec);
+
+	unsigned int		wordCountUpperToWrap() const;
+	void				setWordCountUpperToWrap(unsigned int word_count);
 
 signals:
 
 public slots:
-    void setMessageVDuration(QString msg, int msecDisplayTime=2500);  //消息显示多少毫秒消失
+	void				setMessageVDuration(QString msg, 
+											int msecDisplayTime = 2500, 
+											const QWidget* widgetToBeAlignedOnCenter = nullptr);  //消息显示多少毫秒消失
+
+	void				stop();
 
 protected:
-    void paintEvent(QPaintEvent *event);
-
-private:
-    QHBoxLayout *hLayout;
-    QVBoxLayout *vLayout;
-    QLabel *label;   //提示文字
-    QLabel *labIcon; //图标
-    int msDuration;  //单位ms
-    QTimer durationTimer;
-    QPropertyAnimation *animation;
-
-    void fadeInAnimation();   //淡出动画
-    void fadeOutAnimation();  //淡入动画
+	virtual void		paintEvent(QPaintEvent *event) override;
+	virtual	bool		eventFilter(QObject *, QEvent *) override;
+	
+	void				fadeInAnimation();   //淡出动画
+	void				fadeOutAnimation();  //淡入动画
 
 private slots:
-    void timeOver();  //定时器超时响应函数
-    void fadeInAnimationFinished();  //淡出动画结束响应槽
+    void				timeOver();  //定时器超时响应函数
+    void				fadeInAnimationFinished();  //淡出动画结束响应槽
+
+private:
+	QHBoxLayout*		hLayout{ nullptr };
+	QVBoxLayout*		vLayout{ nullptr };
+	QLabel*				label{ nullptr };   //提示文字
+	QLabel*				labIcon{ nullptr }; //图标
+	int					msDuration{ 0 };  //单位ms
+	int					msDurationOfFade{ 1500 };  //单位ms
+	unsigned int		nWordCountUpperToWrap{ 10 };
+	QTimer				durationTimer;
+	QPropertyAnimation*	animation{ nullptr };
+	QPointer<QWidget>	widgetToBeAligned{ nullptr };
 };
 
 class SingleTonSToast
@@ -82,7 +96,6 @@ private:
     SingleTonSToast(const SingleTonSToast &);//禁止拷贝构造函数。
     SingleTonSToast & operator=(const SingleTonSToast &);//禁止赋值拷贝函数。
 
-    QReadWriteLock internalMutex;   //函数使用的读写锁。
     static QMutex mutex;            //实例互斥锁。
     static QAtomicPointer</*SingleTonSToast*/SToast> instance;  /*!<使用原子指针,默认初始化为0。*/
 };

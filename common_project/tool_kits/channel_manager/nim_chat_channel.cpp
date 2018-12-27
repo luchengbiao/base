@@ -221,3 +221,8 @@ std::string NimChatChannel::GetRecordingKey()
 {
 	return "";
 }
+
+int NimChatChannel::setClientRole(CLIENT_ROLE_TYPE role, const char* permissionKey)
+{
+	return 0;
+}

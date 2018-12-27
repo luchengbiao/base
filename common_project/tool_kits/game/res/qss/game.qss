@@ -1,0 +1,262 @@
+QLabel#game_lb_16_ffffff{
+	font-size:16px;
+	color:#ffffff;
+}
+
+QLabel#game_lb_14_ffffff{
+	font-size:14px;
+	color:#ffffff;
+}
+
+QLabel#game_lb_11_ffffff{
+	font-size:11px;
+	color:#ffffff;
+}
+
+QLabel#game_lb_11_333333{
+	font-size:11px;
+	color:#333333;
+}
+
+QLabel#game_lb_14_f7d8c8{
+	font-size:14px;
+	color:#f7d8c8;
+}
+
+QLabel#game_lb_13_000000{
+	font-size:13px;
+	color:#000000;
+}
+
+QLabel#game_lb_14_222222
+{
+	font-size:14px;
+	color:#222222;
+}
+
+QWidget#game_wgt_000a45p_r5{
+	background-color:rgba(0, 0, 0, 45%);
+	border:none;
+	border-radius:5px;
+}
+
+QWidget#game_wgt_000a45p_r15{
+	background-color:rgba(0, 0, 0, 45%);
+	border:none;
+	border-radius:15px;
+}
+
+QCheckBox#game_chk_auto_taking_pieces{
+	color:#f7d8c8;
+	font-size:14px;
+	border:none;
+}
+
+QCheckBox#game_chk_auto_taking_pieces::indicator{
+	width:27px;
+    height:29px;
+}
+
+QCheckBox#game_chk_auto_taking_pieces::indicator:unchecked{
+	image:url(:go/res/images/go/auto_taking_uncheck.png);
+}
+
+QCheckBox#game_chk_auto_taking_pieces::indicator:checked{
+	image:url(:go/res/images/go/auto_taking_check.png);
+}
+
+QWidget#game_wdt_online_msg_box{
+	background-image:url(:common/res/images/common/online_msg_box.png);
+}
+
+QPushButton#game_btn_close_online_msg_box{
+	background-image:url(:common/res/images/common/online_msg_close.png);
+	border:none;
+}
+QPushButton#game_btn_ok_online_msg_box
+{
+	background-image:url(:common/res/images/common/online_msg_ok_normal.png);
+	border:none;
+}
+QPushButton#game_btn_ok_online_msg_box:hover
+{
+	background-image:url(:common/res/images/common/online_msg_ok_pressed.png);
+}
+QPushButton#game_btn_ok_online_msg_box:pressed
+{
+	background-image:url(:common/res/images/common/online_msg_ok_hover.png);
+}
+QPushButton#game_btn_ok_online_msg_box:disabled
+{
+	background-image:url(:common/res/images/common/online_msg_ok_disabled.png);
+}
+
+QListView#game_lv_common
+{
+	outline:0px;
+}
+QListView#game_lv_common::item
+{
+	color:rgba(0,0,0,0);
+	padding-left:5px;
+}
+QListView#game_lv_common::item:selected
+{
+	background:rgba(102,102,102, 10%);
+}
+QListView#game_lv_common::item:hover
+{
+	background:rgba(102,102,102, 10%);
+}
+QListView#game_lv_common::item:disabled
+{
+	background:rgba(102,102,102, 10%);
+	color:#CCCCCC;
+}
+
+QComboBox#game_cmb_common
+{ 
+	background-color:#F7F7F7; 
+	border:none; 
+	font-size:12px; 
+	color:#666666; 
+	padding-left:10px;
+}
+QComboBox#game_cmb_common::down-arrow
+{
+	image: url(:common/res/images/common/combo_arrow_down.png);
+	width: 11px;
+	height: 10px; 
+}
+QComboBox#game_cmb_common::down-arrow:on
+{
+	image: url(:common/res/images/common/combo_arrow_up.png);
+}
+QComboBox#game_cmb_common::down-arrow:disabled
+{
+	image: url(:common/res/images/common/combo_arrow_disabled.png);
+}
+QComboBox#game_cmb_common::drop-down
+{
+	border:none;
+}	
+QComboBox#game_cmb_common:disabled
+{
+	color:#cccccc;
+	font-size:14px;
+}
+QComboBox QAbstractItemView#game_cmb_common
+{
+	color: rgb(102,102,102);
+	background-color: #FFFFFF;
+	selection-color: rgb(102,102,102);
+	selection-background-color: #ECECEC;
+	padding:0px,0px,0px,0px;
+}
+QComboBox QAbstractItemView#game_cmb_common::item
+{
+	min-height:30px;
+}
+QComboBox QAbstractItemView#game_cmb_common::item:selected
+{
+	min-height:30px;
+}
+
+QFrame#game_fr_f7f7f7_r4_bottom{
+	background-color:#f7f7f7;
+	border:none;
+	border-top-left-radius:4px;
+	border-top-right-radius:4px;
+}
+
+QFrame#game_fr_ffffff{
+	background-color:#ffffff;
+	border:none;
+}
+
+QFrame#game_fr_ffffff_r4_bottom{
+	background-color:#ffffff;
+	border:none;
+	border-bottom-left-radius:4px;
+	border-bottom-right-radius:4px;
+}
+
+QPushButton#game_btn_with_black_image
+{
+	border-image:url(:common/res/images/common/btn_close_black.png);
+}
+
+QPushButton#game_btn_orange_white_r18
+{
+	color:#ff8000;
+	background-color:transparent;
+	border:1px  solid #ff8000;
+	font-size:16px;
+	border-radius:18px;
+}
+QPushButton#game_btn_orange_white_r18:hover
+{
+	color:#ffffff;
+	background-color:#ff8000;
+	border:1px  solid #ff8000;
+	font-size:16px;
+	border-radius:18px;
+}
+QPushButton#game_btn_orange_white_r18:pressed
+{
+	color:#FF8000;
+	background-color:#FFF8F0;
+	border:1px solid #FFF8F0;
+	border-radius:18px;
+	font-size:16px;
+}
+QPushButton#game_btn_orange_white_r18:disabled
+{
+	color:#cccccc;
+	background-color:transparent;
+	border:1px solid #CCCCCC;
+	border-radius:18px;
+	font-size:16px;
+}
+
+QPushButton#game_btn_white_orange_r18
+{
+	color:#ffffff;
+	background-color:#ff8000;
+	border:1px solid #ff8000;
+	border-radius:18px;
+	font-size:16px;
+}
+QPushButton#game_btn_white_orange_r18:hover
+{
+	color:#ffffff;
+	background-color:#F26D00;
+	border:1px solid #f26d00;
+	border-radius:18px;
+	font-size:16px;
+}
+QPushButton#game_btn_white_orange_r18:pressed
+{
+	color:#FF8000;
+	background-color:#FFF8F0;
+	border:1px solid #FFF8F0;
+	border-radius:18px;
+	font-size:16px;
+}
+QPushButton#game_btn_white_orange_r18:disabled
+{
+	color:#ffffff;
+	background-color:#CCCCCC;
+	border:1px solid #CCCCCC;
+	border-radius:18px;
+	font-size:16px;
+}
+
+QLineEdit#game_le_14_666666
+{
+	background-color:#F7F7F7;
+	color:#666666;
+	font-size:14px;
+	border:none;
+	padding-left:7px;
+}

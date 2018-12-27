@@ -4,6 +4,7 @@
 #include "qlogging.h"
 #include "QDebug"
 #include <iostream>
+
 #define BLACK_PEN_ICON "res\\images\\image_pen\\pen_black.png"
 #define RED_PEN_ICON "res\\images\\image_pen\\pen_red.png"
 #define BLUE_PEN_ICON "res\\images\\image_pen\\pen_blue.png"
@@ -41,6 +42,8 @@ PaintWidget::PaintWidget(PaintBaseInfo info, QWidget *parent) :QWidget(parent)
 	stuPenColor_ = QColor(0x06, 0xe6, 0x13); 
 	pen_point_ = QPoint(-1, -1);
 	pen_icon_.load(QString::fromStdString(map_pen_icon_["black"]));
+
+	b_visible_ex_ = false;
 }
 
 PaintWidget::~PaintWidget()
@@ -58,11 +61,20 @@ void PaintWidget::paintEvent(QPaintEvent *event)
 	QPainter painter(this);
 	painter.scale(1, 1);
 	painter.setRenderHint(QPainter::Antialiasing, true);
-	painter.drawImage(0, 0, image_);
 
-	if (pen_point_.x() >= 0 || pen_point_.y() >= 0)
+	if (b_visible_ex_)
 	{
-		painter.drawImage(pen_point_.x(), pen_point_.y(), pen_icon_);
+		painter.drawImage(0, 0, image_);
+
+		if (pen_point_.x() >= 0 || pen_point_.y() >= 0)
+		{
+			painter.drawImage(pen_point_.x(), pen_point_.y(), pen_icon_);
+		}
+	}
+	else
+	{
+		static QImage empty_image;
+		painter.drawImage(0, 0, empty_image);
 	}
 }
 
@@ -344,6 +356,7 @@ void PaintWidget::PaintContent(QImage &Cimage, bool redraw)
 	{
 		Cimage = QImage(image_size_, QImage::Format_ARGB32);
 		Cimage.fill(qRgba(255, 255, 255, 0));
+
 		for (auto item : list_draw_units_)
 		{
 			if (item.m_draw_unit_
@@ -424,17 +437,12 @@ QImage PaintWidget::GetImage()
 
 QImage PaintWidget::GetImageByForce()
 {
-	if (!image_.isNull())
+	if (image_.isNull())
 	{
-		return image_;
+		PaintContent(image_, true);
 	}
 
-	auto target_image = QImage(image_size_, QImage::Format_ARGB32);
-	target_image.fill(qRgba(255, 255, 255, 0));
-
-	PaintContent(target_image, true);
-
-	return target_image;
+	return image_;
 }
 
 void PaintWidget::SetPenStyle(Qt::PenStyle style)
@@ -504,7 +512,11 @@ void PaintWidget::ResizeDrawBoard(int width, int height)
 
 void PaintWidget::SetVisibleEx(bool bvisible)
 {
-	if (bvisible)
+	if (b_visible_ex_ == bvisible) { return; }
+
+	b_visible_ex_ = bvisible;
+
+	if (b_visible_ex_ && (image_.isNull() || image_.size() != image_size_))
 	{
 		image_ = QImage(image_size_, QImage::Format_ARGB32);
 		image_.fill(qRgba(255, 255, 255, 0));
@@ -512,9 +524,9 @@ void PaintWidget::SetVisibleEx(bool bvisible)
 
 		PaintContent(image_, true);
 	}
-	else if (!bvisible)
+	else
 	{
-		image_ = QImage();
+		this->update();
 	}
 }
 
@@ -918,6 +930,10 @@ void PaintWidget::SetAcceptEvent(bool bAccept)
 	update();
 }
 
+bool  PaintWidget::IsEventAccepted() const
+{
+	return b_accept_event_;
+}
 
 QRect PaintWidget::GetDrawRect()
 {

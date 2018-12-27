@@ -1,0 +1,7 @@
+#include "cmd_teacher_update_mark_on_board.h"
+
+PROTO_NAMESPACE_BEGIN
+
+IMPLEMENT_COMMAND_RUNTIME_INFO(CommandType::TeacherUpdateMarkOnBoard, CmdTeacherUpdateMarkOnBoard, CommandCell)
+
+PROTO_NAMESPACE_END

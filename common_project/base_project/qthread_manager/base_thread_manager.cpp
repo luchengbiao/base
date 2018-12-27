@@ -31,6 +31,9 @@ void BaseThreadManager::PreMessageLoop()
 
 	more_task_helper_thread_.reset(new BaseTaskThread(kThreadMoreTaskHelper, "More Task Helper Thread"));
 	more_task_helper_thread_->Start();
+
+	ws_task_thread_.reset(new BaseTaskThread(kThreadWebSocket, "WebSocket Task Thread"));
+	ws_task_thread_->Start();
 }
 
 void BaseThreadManager::PostMessageLoop()
@@ -49,4 +52,7 @@ void BaseThreadManager::PostMessageLoop()
 
 	more_task_helper_thread_->Stop();
 	more_task_helper_thread_.reset(NULL);
+
+	ws_task_thread_->Stop();
+	ws_task_thread_.reset(NULL);
 }

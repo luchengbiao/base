@@ -1,7 +1,7 @@
 #pragma once
 #include <wtypes.h>
-#include "QtGui\QColor"
 #include <functional>
+#include <QColor>
 
 using DownloadBoardImageCb = std::function<void(bool b_success)>;
 
@@ -67,5 +67,29 @@ struct PaintBaseInfo
 		page_(0), b_stu_(false)
 	{
 
+	}
+};
+
+enum MarkIcon
+{
+	ICON_SOLID_RECTANGLE = 1,	//实心方形
+	ICON_CIRCLE = 2,			//空心圆
+	ICON_SOLID_STAR = 5,		//实心星星
+	ICON_SOLID_TRIANGLE = 3,	//实心三角形
+	ICON_SOLID_CIRCLE = 4,		//实心圆	
+	ICON_CROSS = 0,				//标记X
+	ICON_DELETE = -1,			//标记删除
+};
+
+struct MarkOpInfo
+{
+	MarkIcon draw_op_type_;
+	double x_;
+	double y_;
+	MarkOpInfo()
+	{
+		draw_op_type_ = ICON_CROSS;
+		x_ = 0;
+		y_ = 0;
 	}
 };

@@ -1,4 +1,5 @@
 #include "url_util.h"
+#include <memory>
 
 using namespace std;
 static unsigned char char_to_hex(unsigned char x)
@@ -51,13 +52,12 @@ std::string urlencode(const string& input)
 	}
 	string ret;
 	int dest_len = input.length() * 10;
-	unsigned char* dest = new unsigned char[dest_len];
+	std::unique_ptr<unsigned char[]> dest(new unsigned char[dest_len]);
 	if (dest)
 	{
-		memset(dest, 0, dest_len);
-		urlencode((unsigned char*)input.c_str(), input.length(), dest, dest_len);
-		ret = string((char*)dest);
-		delete dest;
+		memset(dest.get(), 0, dest_len);
+		urlencode((unsigned char*)input.c_str(), input.length(), dest.get(), dest_len);
+		ret = string((char*)dest.get());
 	}
 	return ret;
 }

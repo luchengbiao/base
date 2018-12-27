@@ -26,7 +26,7 @@ void ClassroomChannelManager::JoinDataChannel(ClassroomChatJoinChannelSuccessCb 
 		data_channel->SetConnectStateCb(join_param.connect_state_cb_);
 		data_channel->SetChannelMessageCb(join_param.rev_msg_cb_);
 	}
-	data_channel->JoinChannel(join_param_.channel_id_, data_cb_);
+	data_channel->JoinChannel(join_param_.channel_id_, data_cb_, join_param_.own_url_);
 }
 
 void ClassroomChannelManager::JoinChatChannel()

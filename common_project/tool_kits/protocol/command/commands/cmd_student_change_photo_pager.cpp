@@ -1,0 +1,7 @@
+#include "cmd_student_change_photo_pager.h"
+
+PROTO_NAMESPACE_BEGIN
+
+IMPLEMENT_COMMAND_RUNTIME_INFO(CommandType::StudentChangePhotoPager, CmdStudentChangePhotoPager, CommandCell)
+
+PROTO_NAMESPACE_END

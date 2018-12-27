@@ -1,0 +1,7 @@
+#include "cmd_teacher_allow_forbid_stu_speak.h"
+
+PROTO_NAMESPACE_BEGIN
+
+IMPLEMENT_COMMAND_RUNTIME_INFO(CommandType::TeacherAllowForbidStuSpeak, CmdTeacherAllowForbidStuSpeak, CommandCell)
+
+PROTO_NAMESPACE_END

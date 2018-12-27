@@ -1,0 +1,7 @@
+#include "cmd_teacher_start_pause_stu_chess.h"
+
+PROTO_NAMESPACE_BEGIN
+
+IMPLEMENT_COMMAND_RUNTIME_INFO(CommandType::TeacherStartPauseStuChess, CmdTeacherStartPauseStuChess, CommandCell)
+
+PROTO_NAMESPACE_END

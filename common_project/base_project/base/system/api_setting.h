@@ -15,12 +15,16 @@ public:
 	static std::string api_cookie_;
 	static std::string api_token_;
 	static std::string api_auth_;
+	static std::string api_socket_;
+	static std::string register_dir_;
+	static std::string url_head_;
 
 	static std::string GetOtherApiHost(std::string key);
 	static void SetOtherApiHost(std::string key, std::string val);
 
 	static std::string GetAppKey(std::string key);
 	static void SetAppKey(std::string key, std::string val);
+
 
 	static void Load();
 

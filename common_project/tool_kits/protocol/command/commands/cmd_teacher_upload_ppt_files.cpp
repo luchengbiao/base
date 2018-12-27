@@ -1,0 +1,7 @@
+#include "cmd_teacher_upload_ppt_files.h"
+
+PROTO_NAMESPACE_BEGIN
+
+IMPLEMENT_COMMAND_RUNTIME_INFO(CommandType::TeacherUploadPptFiles, CmdTeacherUploadPptFiles, CommandCell)
+
+PROTO_NAMESPACE_END

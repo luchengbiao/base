@@ -8,7 +8,7 @@
 #include "base\win32\platform_string_util.h"
 #include <iostream>
 #include <fstream>
-
+#include <windows.h>
 
 const int CHN_NUM_CHAR_COUNT = 10;
 const char *chnNumChar[CHN_NUM_CHAR_COUNT] = { "零", "一", "二", "三", "四", "五", "六", "七", "八", "九" };
@@ -47,21 +47,21 @@ namespace systembase
 		switch (ver)
 		{
 		case 500:
-			return "Windows 2000";
+			return "Windows_2000";
 		case 501:
-			return "Windows XP";
+			return "Windows_XP";
 		case 502:
-			return "Windows Server 2003";
+			return "Windows_Server_2003";
 		case 600:
-			return "Windows Vista";
+			return "Windows_Vista";
 		case 601:
-			return "Windows 7";
+			return "Windows_7";
 		case 602:
-			return "Windows 8";
+			return "Windows_8";
 		case 603:
-			return "Windows 8.1";
+			return "Windows_8.1";
 		case 1000:
-			return "Windows 10";
+			return "Windows_10";
 		default:
 			return nbase::StringPrintf("[%d]", ver);
 		}
@@ -264,6 +264,56 @@ namespace systembase
 
 		if (!tmp_str.empty())
 			array.push_back(tmp_str);
+	}
+
+
+	std::wstring GetRegValue(const std::wstring& strUrl, const std::wstring& strKey)
+	{
+		std::wstring strValue = L"";
+		HKEY hKey = HKEY_LOCAL_MACHINE;
+		HKEY hKeyResult = NULL;
+		DWORD dwSize = 0;
+		DWORD dwDataType = 0;
+
+		//打开注册表
+		if (ERROR_SUCCESS == ::RegOpenKeyEx(hKey, strUrl.c_str(), 0, KEY_QUERY_VALUE, &hKeyResult))
+		{
+			// 获取缓存的长度dwSize及类型dwDataType
+			::RegQueryValueEx(hKeyResult, strKey.c_str(), 0, &dwDataType, NULL, &dwSize);
+			switch (dwDataType)
+			{
+			case REG_MULTI_SZ:
+			{
+				//分配内存大小
+				BYTE* lpValue = new BYTE[dwSize];
+				//获取注册表中指定的键所对应的值
+				LONG lRet = ::RegQueryValueEx(hKeyResult, strKey.c_str(), 0, &dwDataType, lpValue, &dwSize);
+				delete[] lpValue;
+				break;
+			}
+			case REG_SZ:
+			{
+				//分配内存大小
+				wchar_t* lpValue = new wchar_t[dwSize];
+				memset(lpValue, 0, dwSize * sizeof(wchar_t));
+				//获取注册表中指定的键所对应的值
+				if (ERROR_SUCCESS == ::RegQueryValueEx(hKeyResult, strKey.c_str(), 0, &dwDataType, (LPBYTE)lpValue, &dwSize))
+				{
+					strValue = std::wstring(lpValue);
+				}
+				delete[] lpValue;
+				break;
+			}
+			default:
+				break;
+			}
+		}
+
+		//关闭注册表
+		::RegCloseKey(hKeyResult);
+
+
+		return strValue;
 	}
 
 	unsigned int BKDRHash(std::string str)

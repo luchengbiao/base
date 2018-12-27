@@ -1,5 +1,6 @@
 #ifndef __RUNTIME_CLASS_INFO_H__
 #define __RUNTIME_CLASS_INFO_H__
+#include <string>
 
 template<typename Class, typename Creator>
 struct ClassRuntimeInfo

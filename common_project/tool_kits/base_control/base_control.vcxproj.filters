@@ -118,6 +118,18 @@
     <ClInclude Include="image_view\image_view_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="painter\base_mark_widget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="painter\chess_mark_widget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="painter\go_mark_widget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="painter\mark_label.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\windows_manager\windows_manage.cpp">
@@ -229,6 +241,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="image_view\imageviewtoolform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="painter\base_mark_widget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="painter\chess_mark_widget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="painter\go_mark_widget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="painter\mark_label.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

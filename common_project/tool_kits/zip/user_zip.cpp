@@ -6,7 +6,7 @@
 #include "common\tool\common_tool.h"
 #include "base\file\file_util.h"
 
-std::wstring zip::UnCompressZIP(std::string path,std::string file_dir,std::wstring match_str)
+std::wstring zip::UnCompressZIP(const std::string& path, const std::string& file_dir, const std::wstring& match_str)
 {
 	std::wstring install_path = L"";
 	std::wstring file_path = nbase::UTF8ToUTF16(file_dir);
@@ -37,7 +37,7 @@ std::wstring zip::UnCompressZIP(std::string path,std::string file_dir,std::wstri
 	return install_path;
 }
 
-std::string zip::UnCompressGz(std::wstring wpath)
+std::string zip::UnCompressGz(const std::wstring& wpath)
 {
 	std::string path = "";
 	commontool::UnicodeToMBCS(wpath, path);
@@ -47,18 +47,17 @@ std::string zip::UnCompressGz(std::wstring wpath)
 		return "";
 	}
 	std::string out = "";
-	char buf[1];
+	char buf[1024];
 	int have;
-	while ((have = gzread(gzfp, buf, 1)) > 0)
+	while ((have = gzread(gzfp, buf, sizeof(buf))) > 0)
 	{
-		std::string tmp_str(buf, have);
-		out.append(tmp_str);
+		out.append(buf, have);
 	}
 	gzclose(gzfp);
 	return out;
 }
 
-bool zip::CompressGz(std::wstring wpath, std::string data_str)
+bool zip::CompressGz(const std::wstring& wpath, const std::string& data_str)
 {
 	std::string path = "";
 	commontool::UnicodeToMBCS(wpath, path);
