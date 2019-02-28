@@ -2,7 +2,6 @@
 #define __COMMON_WEAK_CALLBACK_WEAK_CALLBACK_WITH_QOBJECT_H__
 #include <QObject>
 #include <QPointer>
-#include "base/callback/callback.h" // for StdClosure
 #include "weak_callback.h"
 
 /*
@@ -49,6 +48,8 @@
 
 namespace wcb
 {
+	typedef std::function<void()> StdClosure;
+
 	class QObjectHelper;
 
 	class WeakCallbackWithQObject
