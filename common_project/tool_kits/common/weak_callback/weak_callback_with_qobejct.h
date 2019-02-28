@@ -88,6 +88,9 @@ namespace wcb
 		inline void			EmitClosureToContext(const StdClosure& closure) { emit this->Closure(closure); }
 
 	private:
+		// it is safe that the parameter type of Closure signal is a reference -- const StdClosure&,
+		// because the parameter will be copied(QMetaType::create->QMetaType::construct->QMetaTypeFunctionHelper::Construct) if in a async/queued call(queued_activate),
+		// in a word: by reference, it is efficient in a sync call and Qt makes it safe in a async/queued call. 
 		Q_SIGNAL void		Closure(const StdClosure&);
 	};
 }
