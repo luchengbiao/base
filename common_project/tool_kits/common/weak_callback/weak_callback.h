@@ -3,7 +3,6 @@
 #include <atomic>
 #include <memory>
 #include <functional>
-#include <mutex>
 
 namespace wcb
 {
