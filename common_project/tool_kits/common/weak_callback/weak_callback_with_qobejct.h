@@ -2,6 +2,7 @@
 #define __COMMON_WEAK_CALLBACK_WEAK_CALLBACK_WITH_QOBJECT_H__
 #include <QObject>
 #include <QPointer>
+#include <QThread>
 #include "weak_callback.h"
 
 /*
@@ -28,7 +29,7 @@
 * step 3 -- use:
 * auto weak = weak_callback_.WeakPtr();
 * someObject->RegisterCallback(weak_callback_.ToWeakCallback([=](...){
-* weak.lock()->EmitClosureToContext([=]{
+* weak.lock()->PerformClosureInHostThread([=]{
 *	// do something in the thread of MyClass's host.
 *	});
 * }));
@@ -39,7 +40,7 @@
 * // maybe called in a thread not same as MyClass's host.
 * // weak.lock() definitely is a valid shared_ptr since the callback has been called and performed here.
 * // emit a closure which will be called in the thread of MyClass's host.
-* weak.lock()->EmitClosureToContext([=]{
+* weak.lock()->PerformClosureInHostThread([=]{
 *	// do something in the thread of MyClass's host.
 *	});
 * }));
@@ -78,26 +79,41 @@ namespace wcb
 		Q_OBJECT
 
 	public:
-		QObjectSupportWeakCallback(QObject* context)
-		{
-			qRegisterMetaType<StdClosure>("StdClosure");
+		QObjectSupportWeakCallback(QObject* host);
+		QObjectSupportWeakCallback();
 
-			//connect to a functor, with a "context" object defining in which event loop is going to be executed
-			connect(this, &QObjectSupportWeakCallback::Closure, context, [](const StdClosure& closure){ if (closure) { closure(); } });
-		}
-
-		QObjectSupportWeakCallback() 
-			: QObjectSupportWeakCallback(this) 
-		{}
-
-		inline void			EmitClosureToContext(const StdClosure& closure) { emit this->Closure(closure); }
+		inline void			PerformClosureInHostThread(const StdClosure& closure);
 
 	private:
 		// it is safe that the parameter type of Closure signal is a reference -- const StdClosure&,
 		// because the parameter will be copied(QMetaType::create->QMetaType::construct->QMetaTypeFunctionHelper::Construct) if in a async/queued call(queued_activate),
 		// in a word: by reference, it is efficient in a sync call and Qt makes it safe in a async/queued call. 
 		Q_SIGNAL void		Closure(const StdClosure&);
+
+	private:
+		const QThread*		host_thread_{ nullptr }; // FIXME: to handle host's QEvent::Type::ThreadChange event.
 	};
+
+	QObjectSupportWeakCallback::QObjectSupportWeakCallback(QObject* host)
+		: host_thread_(host->thread())
+	{
+		qRegisterMetaType<StdClosure>("StdClosure");
+
+		//connect to a functor, with a "context" object defining in which event loop is going to be executed
+		QObject::connect(this, &QObjectSupportWeakCallback::Closure, host, [](const StdClosure& closure){ if (closure) { closure(); } });
+	}
+
+	QObjectSupportWeakCallback::QObjectSupportWeakCallback()
+	: QObjectSupportWeakCallback(this)
+	{}
+
+	inline void QObjectSupportWeakCallback::PerformClosureInHostThread(const StdClosure& closure) 
+	{ 
+		if (closure)
+		{
+			(QThread::currentThread() == host_thread_) ? closure() : Closure(closure);
+		}
+	}
 }
 
 #endif
