@@ -79,10 +79,26 @@ namespace wcb
 		Q_OBJECT
 
 	public:
-		QObjectSupportWeakCallback(QObject* host);
-		QObjectSupportWeakCallback();
+		QObjectSupportWeakCallback(QObject* host)
+		: host_thread_(host->thread())
+		{
+			qRegisterMetaType<StdClosure>("StdClosure");
 
-		inline void			PerformClosureInHostThread(const StdClosure& closure);
+			//connect to a functor, with a "context" object defining in which event loop is going to be executed
+			QObject::connect(this, &QObjectSupportWeakCallback::Closure, host, [](const StdClosure& closure){ if (closure) { closure(); } });
+		}
+
+		QObjectSupportWeakCallback()
+		: QObjectSupportWeakCallback(this)
+		{}
+
+		inline void	PerformClosureInHostThread(const StdClosure& closure)
+		{
+			if (closure)
+			{
+				(QThread::currentThread() == host_thread_) ? closure() : Closure(closure);
+			}
+		}
 
 	private:
 		// it is safe that the parameter type of Closure signal is a reference -- const StdClosure&,
@@ -94,26 +110,6 @@ namespace wcb
 		const QThread*		host_thread_{ nullptr }; // FIXME: to handle host's QEvent::Type::ThreadChange event.
 	};
 
-	QObjectSupportWeakCallback::QObjectSupportWeakCallback(QObject* host)
-		: host_thread_(host->thread())
-	{
-		qRegisterMetaType<StdClosure>("StdClosure");
-
-		//connect to a functor, with a "context" object defining in which event loop is going to be executed
-		QObject::connect(this, &QObjectSupportWeakCallback::Closure, host, [](const StdClosure& closure){ if (closure) { closure(); } });
-	}
-
-	QObjectSupportWeakCallback::QObjectSupportWeakCallback()
-	: QObjectSupportWeakCallback(this)
-	{}
-
-	inline void QObjectSupportWeakCallback::PerformClosureInHostThread(const StdClosure& closure) 
-	{ 
-		if (closure)
-		{
-			(QThread::currentThread() == host_thread_) ? closure() : Closure(closure);
-		}
-	}
 }
 
 #endif
