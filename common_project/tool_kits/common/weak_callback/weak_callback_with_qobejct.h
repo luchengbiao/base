@@ -2,7 +2,6 @@
 #define __COMMON_WEAK_CALLBACK_WEAK_CALLBACK_WITH_QOBJECT_H__
 #include <QObject>
 #include <QPointer>
-#include <QThread>
 #include "weak_callback.h"
 
 /*
@@ -29,18 +28,18 @@
 * step 3 -- use:
 * auto weak = weak_callback_.WeakPtr();
 * someObject->RegisterCallback(weak_callback_.ToWeakCallback([=](...){
-* weak.lock()->PerformClosureInHostThread([=]{
+* weak.lock()->EmitClosureToHostThread([=]{
 *	// do something in the thread of MyClass's host.
 *	});
 * }));
-* 
+*
 * explanation:
 * auto weak = weak_callback_.WeakPtr();
 * someObject->RegisterCallback(weak_callback_.ToWeakCallback([=](...){ // here must capture the weak variable by value[=]or[weak] NOT by reference[&]or[&weak]
 * // maybe called in a thread not same as MyClass's host.
 * // weak.lock() definitely is a valid shared_ptr since the callback has been called and performed here.
 * // emit a closure which will be called in the thread of MyClass's host.
-* weak.lock()->PerformClosureInHostThread([=]{
+* weak.lock()->EmitClosureToHostThread([=]{
 *	// do something in the thread of MyClass's host.
 *	});
 * }));
@@ -80,7 +79,6 @@ namespace wcb
 
 	public:
 		QObjectSupportWeakCallback(QObject* host)
-		: host_thread_(host->thread())
 		{
 			qRegisterMetaType<StdClosure>("StdClosure");
 
@@ -89,27 +87,17 @@ namespace wcb
 		}
 
 		QObjectSupportWeakCallback()
-		: QObjectSupportWeakCallback(this)
+			: QObjectSupportWeakCallback(this)
 		{}
 
-		inline void	PerformClosureInHostThread(const StdClosure& closure)
-		{
-			if (closure)
-			{
-				(QThread::currentThread() == host_thread_) ? closure() : Closure(closure);
-			}
-		}
+		inline void	EmitClosureToHostThread(const StdClosure& closure) { emit this->Closure(closure); }
 
 	private:
 		// it is safe that the parameter type of Closure signal is a reference -- const StdClosure&,
 		// because the parameter will be copied(QMetaType::create->QMetaType::construct->QMetaTypeFunctionHelper::Construct) if in a async/queued call(queued_activate),
 		// in a word: by reference, it is efficient in a sync call and Qt makes it safe in a async/queued call. 
 		Q_SIGNAL void		Closure(const StdClosure&);
-
-	private:
-		const QThread*		host_thread_{ nullptr }; // FIXME: to handle host's QEvent::Type::ThreadChange event.
 	};
-
 }
 
 #endif
