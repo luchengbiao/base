@@ -50,40 +50,40 @@ namespace wcb
 {
 	typedef std::function<void()> StdClosure;
 
-	class QObjectHelper;
+	class QObjectSupportWeakCallback;
 
 	class WeakCallbackWithQObject
 	{
-		typedef std::shared_ptr<QObjectHelper> HelperStrongPtr;
-		typedef std::weak_ptr<QObjectHelper> HelperWeakPtr;
+		typedef std::shared_ptr<QObjectSupportWeakCallback> QObjectSupportWeakCallbackSharedPtr;
+		typedef std::weak_ptr<QObjectSupportWeakCallback> QObjectSupportWeakCallbackWeakPtr;
 
 	public:
-		WeakCallbackWithQObject(QObject* context) : helper_(std::make_shared<QObjectHelper>(context)) {}
+		WeakCallbackWithQObject(QObject* context) : helper_(std::make_shared<QObjectSupportWeakCallback>(context)) {}
 
-		inline HelperStrongPtr StrongPtr() const { return helper_; }
-		inline HelperWeakPtr WeakPtr() const { return helper_; }
+		inline QObjectSupportWeakCallbackSharedPtr SharedPtr() const { return helper_; }
+		inline QObjectSupportWeakCallbackWeakPtr WeakPtr() const { return helper_; }
 
 		template<typename Callee>
-		WeakCallback<Callee, QObjectHelper> ToWeakCallback(const Callee& callee)
+		WeakCallback<Callee, QObjectSupportWeakCallback> ToWeakCallback(const Callee& callee)
 		{
-			return WeakCallback<Callee, QObjectHelper>(WeakPtr(), callee);
+			return WeakCallback<Callee, QObjectSupportWeakCallback>(WeakPtr(), callee);
 		}
 
 	protected:
-		HelperStrongPtr helper_;
+		QObjectSupportWeakCallbackSharedPtr helper_;
 	};
 
-	class QObjectHelper : public QObject, public SupportWeakCallback<QObjectHelper>
+	class QObjectSupportWeakCallback : public QObject, public SupportWeakCallback<QObjectSupportWeakCallback>
 	{
 		Q_OBJECT
 
 	public:
-		QObjectHelper(QObject* context)
+		QObjectSupportWeakCallback(QObject* context)
 		{
 			qRegisterMetaType<StdClosure>("StdClosure");
 
 			//connect to a functor, with a "context" object defining in which event loop is going to be executed
-			connect(this, &QObjectHelper::Closure, context, [](const StdClosure& closure){ if (closure) { closure(); } });
+			connect(this, &QObjectSupportWeakCallback::Closure, context, [](const StdClosure& closure){ if (closure) { closure(); } });
 		}
 
 		inline void			EmitClosureToContext(const StdClosure& closure) { emit this->Closure(closure); }
