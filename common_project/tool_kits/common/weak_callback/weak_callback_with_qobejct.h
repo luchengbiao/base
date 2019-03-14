@@ -86,6 +86,10 @@ namespace wcb
 			connect(this, &QObjectSupportWeakCallback::Closure, context, [](const StdClosure& closure){ if (closure) { closure(); } });
 		}
 
+		QObjectSupportWeakCallback() 
+			: QObjectSupportWeakCallback(this) 
+		{}
+
 		inline void			EmitClosureToContext(const StdClosure& closure) { emit this->Closure(closure); }
 
 	private:
