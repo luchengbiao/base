@@ -50,29 +50,6 @@ namespace wcb
 {
 	typedef std::function<void()> StdClosure;
 
-	class QObjectSupportWeakCallback;
-
-	class WeakCallbackWithQObject
-	{
-		typedef std::shared_ptr<QObjectSupportWeakCallback> QObjectSupportWeakCallbackSharedPtr;
-		typedef std::weak_ptr<QObjectSupportWeakCallback> QObjectSupportWeakCallbackWeakPtr;
-
-	public:
-		WeakCallbackWithQObject(QObject* context) : helper_(std::make_shared<QObjectSupportWeakCallback>(context)) {}
-
-		inline QObjectSupportWeakCallbackSharedPtr SharedPtr() const { return helper_; }
-		inline QObjectSupportWeakCallbackWeakPtr WeakPtr() const { return helper_; }
-
-		template<typename Callee>
-		WeakCallback<Callee, QObjectSupportWeakCallback> ToWeakCallback(const Callee& callee)
-		{
-			return WeakCallback<Callee, QObjectSupportWeakCallback>(WeakPtr(), callee);
-		}
-
-	protected:
-		QObjectSupportWeakCallbackSharedPtr helper_;
-	};
-
 	class QObjectSupportWeakCallback : public QObject, public SupportWeakCallback<QObjectSupportWeakCallback>
 	{
 		Q_OBJECT
@@ -97,6 +74,29 @@ namespace wcb
 		// because the parameter will be copied(QMetaType::create->QMetaType::construct->QMetaTypeFunctionHelper::Construct) if in a async/queued call(queued_activate),
 		// in a word: by reference, it is efficient in a sync call and Qt makes it safe in a async/queued call. 
 		Q_SIGNAL void		Closure(const StdClosure&);
+	};
+
+	class WeakCallbackWithQObject
+	{
+		typedef std::shared_ptr<QObjectSupportWeakCallback> QObjectSupportWeakCallbackSharedPtr;
+		typedef std::weak_ptr<QObjectSupportWeakCallback> QObjectSupportWeakCallbackWeakPtr;
+
+	public:
+		WeakCallbackWithQObject(QObject* context) : helper_(std::make_shared<QObjectSupportWeakCallback>(context)) {}
+
+		inline QObjectSupportWeakCallbackSharedPtr SharedPtr() const { return helper_; }
+		inline QObjectSupportWeakCallbackWeakPtr WeakPtr() const { return helper_; }
+
+		template<typename Callee>
+		WeakCallback<Callee, QObjectSupportWeakCallback> ToWeakCallback(const Callee& callee)
+		{
+			return WeakCallback<Callee, QObjectSupportWeakCallback>(WeakPtr(), callee);
+		}
+
+		inline void	EmitClosureToHostThread(const StdClosure& closure) { helper_->EmitClosureToHostThread(closure); }
+
+	protected:
+		QObjectSupportWeakCallbackSharedPtr helper_;
 	};
 }
 
