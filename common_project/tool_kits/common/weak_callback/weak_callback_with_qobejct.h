@@ -84,8 +84,8 @@ namespace wcb
 	public:
 		WeakCallbackWithQObject(QObject* context) : helper_(std::make_shared<QObjectSupportWeakCallback>(context)) {}
 
-		inline QObjectSupportWeakCallbackSharedPtr SharedPtr() const { return helper_; }
-		inline QObjectSupportWeakCallbackWeakPtr WeakPtr() const { return helper_; }
+		inline QObjectSupportWeakCallbackSharedPtr SharedPtr() const { return std::atomic_load_explicit(&helper_, std::memory_order_acquire); }
+		inline QObjectSupportWeakCallbackWeakPtr WeakPtr() const { return std::atomic_load_explicit(&helper_, std::memory_order_acquire); }
 
 		template<typename Callee>
 		WeakCallback<Callee, QObjectSupportWeakCallback> ToWeakCallback(const Callee& callee)
@@ -93,7 +93,24 @@ namespace wcb
 			return WeakCallback<Callee, QObjectSupportWeakCallback>(WeakPtr(), callee);
 		}
 
-		inline void	EmitClosureToHostThread(const StdClosure& closure) { helper_->EmitClosureToHostThread(closure); }
+		inline void Reset(QObject* context)
+		{
+			std::atomic_store_explicit(&helper_, std::make_shared<QObjectSupportWeakCallback>(context), std::memory_order_release);
+		}
+
+		inline void Cancel()
+		{
+			std::atomic_store_explicit(&helper_, QObjectSupportWeakCallbackSharedPtr(), std::memory_order_release);
+		}
+
+		inline void	EmitClosureToHostThread(const StdClosure& closure) 
+		{ 
+			auto helper = SharedPtr();
+			if (helper)
+			{
+				helper->EmitClosureToHostThread(closure);
+			}
+		}
 
 	protected:
 		QObjectSupportWeakCallbackSharedPtr helper_;
