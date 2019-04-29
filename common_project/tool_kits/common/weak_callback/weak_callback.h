@@ -32,18 +32,12 @@ namespace wcb
 		template<class... Args>
 		auto operator ()(Args && ... args) const->decltype(callee_(std::forward<Args>(args)...))
 		{
-			WeakClassSharedPtr shared_ptr(weak_ptr_.lock());
-			if (shared_ptr)
+			if (weak_ptr_.lock())
 			{
 				return callee_(std::forward<Args>(args)...);
 			}
 
 			return decltype(callee_(std::forward<Args>(args)...))();
-		}
-
-		bool Expired() const
-		{
-			return weak_ptr_.expired();
 		}
 
 	private:
@@ -109,14 +103,9 @@ namespace wcb
 		template<class... Args>
 		auto operator ()(Args && ... args) const->decltype(callee_(std::forward<Args>(args)...))
 		{
-			CancelFlagSharedPtr flag_shared_ptr(flag_weak_ptr_.lock());
-			if (flag_shared_ptr)
+			if (flag_weak_ptr_.lock() && weak_ptr_.lock())
 			{
-				WeakClassSharedPtr shared_ptr(weak_ptr_.lock());
-				if (shared_ptr)
-				{
-					return callee_(std::forward<Args>(args)...);
-				}
+				return callee_(std::forward<Args>(args)...);
 			}
 
 			return decltype(callee_(std::forward<Args>(args)...))();
@@ -170,13 +159,6 @@ namespace wcb
 			std::atomic_store(&cancel_flag_ptr_, CancelFlagSharedPtr());
 		}
 
-		bool IsInUse()
-		{
-			auto cancel_flag_ptr = std::atomic_load(&cancel_flag_ptr_);
-
-			return cancel_flag_ptr.use_count() > 0;
-		}
-
 	private:
 		std::weak_ptr<Owner>	weak_ptr_;
 		CancelFlagSharedPtr		cancel_flag_ptr_;
@@ -185,8 +167,7 @@ namespace wcb
 
 	// global function 
 	template<class F, class... Args, class = std::enable_if_t<!std::is_member_function_pointer<F>::value>>
-	auto Bind(F && f, Args && ... args)
-		->decltype(std::bind(f, args...))
+	auto Bind(F && f, Args && ... args) ->decltype(std::bind(f, args...))
 	{
 		return std::bind(f, args...);
 	}
@@ -195,10 +176,12 @@ namespace wcb
 	template<class R, class C, class... DArgs, class P, class... Args>
 	auto Bind(R(C::*f)(DArgs...) const, P && p, Args && ... args)->WeakCallback<decltype(std::bind(f, p, args...)), C>
 	{
-		auto weak_ptr = ((util::SupportWeakCallback*)p)->GetWeakPtr();
-		auto bindObj = std::bind(f, p, args...);
 		static_assert(std::is_base_of<wcb::SupportWeakCallback, C>::value, "wcb::SupportWeakCallback should be base of C");
-		WeakCallback<decltype(bindObj)> weak_cb(weak_ptr, std::move(bindObj));
+
+		auto weak_ptr = ((wcb::SupportWeakCallback*)p)->GetWeakPtr();
+		auto bindObj = std::bind(f, p, args...);
+		WeakCallback<decltype(bindObj), C> weak_cb(weak_ptr, std::move(bindObj));
+
 		return weak_cb;
 	}
 
@@ -206,10 +189,12 @@ namespace wcb
 	template<class R, class C, class... DArgs, class P, class... Args>
 	auto Bind(R(C::*f)(DArgs...), P && p, Args && ... args) ->WeakCallback<decltype(std::bind(f, p, args...)), C>
 	{
-		auto weak_ptr = ((util::SupportWeakCallback*)p)->GetWeakFlag();
-		auto bindObj = std::bind(f, p, args...);
 		static_assert(std::is_base_of<wcb::SupportWeakCallback, C>::value, "wcb::SupportWeakCallback should be base of C");
-		WeakCallback<decltype(bindObj)> weak_cb(weak_ptr, std::move(bindObj));
+
+		auto weak_ptr = ((wcb::SupportWeakCallback*)p)->GetWeakFlag();
+		auto bindObj = std::bind(f, p, args...);
+		WeakCallback<decltype(bindObj), C> weak_cb(weak_ptr, std::move(bindObj));
+
 		return weak_cb;
 	}
 }

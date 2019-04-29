@@ -1,5 +1,5 @@
-#ifndef __COMMON_WEAK_CALLBACK_SINGLETON_SUPPORT_WEAK_CALLBACK_H__
-#define __COMMON_WEAK_CALLBACK_SINGLETON_SUPPORT_WEAK_CALLBACK_H__
+#ifndef __SINGLETON_SUPPORT_WEAK_CALLBACK_H__
+#define __SINGLETON_SUPPORT_WEAK_CALLBACK_H__
 #include "weak_callback.h"
 
 namespace wcb
@@ -19,11 +19,6 @@ namespace wcb
 			}
 
 			return instance_;
-		}
-
-		static bool IsInstantiated()
-		{
-			return instance_? true : false;
 		}
 
 		SingletonSupportWeakCallback(const SingletonSupportWeakCallback&) = delete;
