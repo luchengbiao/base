@@ -169,7 +169,7 @@ namespace wcb
 	template<class F, class... Args, class = std::enable_if_t<!std::is_member_function_pointer<F>::value>>
 	auto Bind(F && f, Args && ... args) ->decltype(std::bind(f, args...))
 	{
-		return std::bind(f, args...);
+		return std::bind(f, std::forward<Args>(args)...);
 	}
 
 	// const class member function 
@@ -179,7 +179,7 @@ namespace wcb
 		static_assert(std::is_base_of<wcb::SupportWeakCallback, C>::value, "wcb::SupportWeakCallback should be base of C");
 
 		auto weak_ptr = ((wcb::SupportWeakCallback*)p)->GetWeakPtr();
-		auto bindObj = std::bind(f, p, args...);
+		auto bindObj = std::bind(f, p, std::forward<Args>(args)...);
 		WeakCallback<decltype(bindObj), C> weak_cb(weak_ptr, std::move(bindObj));
 
 		return weak_cb;
@@ -192,7 +192,7 @@ namespace wcb
 		static_assert(std::is_base_of<wcb::SupportWeakCallback, C>::value, "wcb::SupportWeakCallback should be base of C");
 
 		auto weak_ptr = ((wcb::SupportWeakCallback*)p)->GetWeakFlag();
-		auto bindObj = std::bind(f, p, args...);
+		auto bindObj = std::bind(f, p, std::forward<Args>(args)...);
 		WeakCallback<decltype(bindObj), C> weak_cb(weak_ptr, std::move(bindObj));
 
 		return weak_cb;
